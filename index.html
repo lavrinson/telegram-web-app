@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shop</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap">
@@ -21,8 +21,7 @@
             align-items: center;
             text-align: center;
             color: #f9f9f9;
-            padding-top: 20px;
-            overflow: hidden; /* Отключение прокрутки */
+            overflow: hidden;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -30,38 +29,41 @@
             user-select: none;
         }
 
-        /* Стили для аватара с круглой градиентной обводкой и тенью */
-        #user-avatar {
-            border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(135deg, #00c6ff, #ffffff);
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
+        /* Стили для блока пользователя */
         #user-info {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 90%;
-            max-width: 400px;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
+            width: 100%;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.8); /* Темный фон */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
             z-index: 1000;
+            border-radius: 0 0 15px 15px; /* Закругляем только нижние углы */
+            box-sizing: border-box;
+        }
+
+        #user-avatar {
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #00c6ff, #ffffff);
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-right: 10px;
+        }
+
+        #leaderboard,
+        .user-name {
+            font-size: 1em;
+            margin-right: 10px;
         }
 
         .user-name {
-            font-size: 1.2em;
-            margin-left: 10px;
-            flex: 1;
             text-align: left;
         }
 
@@ -69,10 +71,11 @@
             display: flex;
             align-items: center;
             font-size: 1em;
+            margin-left: auto;
+            padding-right: 10px;
         }
 
-        .coins img,
-        .energy img {
+        .coins img {
             width: 24px;
             height: 24px;
             margin-right: 5px;
@@ -84,7 +87,7 @@
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            margin-top: 100px;
+            margin-top: 80px;
             text-align: center;
         }
 
@@ -95,6 +98,11 @@
             outline: none;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            transition: transform 0.1s ease-in-out; /* Эффект увеличения */
+        }
+
+        button#pizza-clicker:active {
+            transform: scale(1.1); /* Увеличение при клике */
         }
 
         button#pizza-clicker img {
@@ -116,23 +124,17 @@
             margin-right: 10px;
         }
 
-        #energy-timer {
-            font-size: 1em;
-            color: #f9f9f9;
-            margin-top: 10px;
-        }
-
         #footer-buttons {
             display: flex;
             justify-content: space-around;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.8); /* Темный фон */
+            padding: 8px 0; /* Уменьшено вертикальное пространство */
             border-top: 1px solid #333;
             width: 100%;
             position: fixed;
             bottom: 0;
             left: 0;
-            border-radius: 15px 15px 0 0;
+            border-radius: 15px 15px 0 0; /* Закругляем верхние углы */
             box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.3);
             z-index: 1000;
         }
@@ -142,9 +144,25 @@
             flex-direction: column;
             align-items: center;
             color: #ccc;
-            font-size: 0.9em;
+            font-size: 1em;
             text-decoration: none;
             flex: 1;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        #footer-buttons a::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 0;
+            width: 1px;
+            height: 80%;
+            background-color: #444;
+        }
+
+        #footer-buttons a:last-child::after {
+            display: none;
         }
 
         #footer-buttons a:hover {
@@ -152,9 +170,15 @@
         }
 
         #footer-buttons img {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             margin-bottom: 5px;
+        }
+
+        .active {
+            background-color: rgba(255, 255, 255, 0.1); /* Меньший эффект выделения */
+            border-radius: 10px;
+            box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -163,12 +187,12 @@
             }
 
             #footer-buttons {
-                padding: 8px 0;
+                padding: 6px 0;
             }
 
             #footer-buttons img {
-                width: 20px;
-                height: 20px;
+                width: 24px;
+                height: 24px;
             }
 
             button#pizza-clicker img {
@@ -182,12 +206,12 @@
             }
 
             #footer-buttons img {
-                width: 18px;
-                height: 18px;
+                width: 20px;
+                height: 20px;
             }
 
             #footer-buttons a {
-                font-size: 0.7em;
+                font-size: 0.8em;
             }
 
             button#pizza-clicker img {
@@ -201,9 +225,12 @@
     <!-- Блок информации о пользователе -->
     <div id="user-info">
         <img id="user-avatar" src="" alt="User Avatar">
-        <span id="user-name" class="user-name">Имя пользователя</span>
+        <div>
+            <div id="leaderboard">Лидерборд</div>
+            <span id="user-name" class="user-name">Имя пользователя</span>
+        </div>
         <div class="coins">
-            <img src="https://cdn-icons-png.flaticon.com/512/1784/1784272.png" alt="Coins Icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/1404/1404945.png" alt="Pizza Icon"> <!-- Иконка кусочка пиццы -->
             <span id="coin-count">1500</span>
         </div>
     </div>
@@ -217,12 +244,11 @@
             <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Energy Icon">
             <span id="energy-count">2000 / 2000</span>
         </div>
-        <div id="energy-timer"></div>
     </div>
 
     <!-- Блок с кнопками внизу страницы -->
     <div id="footer-buttons">
-        <a href="index.html" class="footer-button">
+        <a href="index.html" class="footer-button active">
             <img src="https://cdn-icons-png.flaticon.com/512/1946/1946433.png" alt="Home Icon">
             <span>Home</span>
         </a>
@@ -270,7 +296,7 @@
             pizzaClicker.addEventListener('click', (event) => {
                 event.preventDefault();
                 if (userData.energy > 0) {
-                    userData.coins += 10;
+                    userData.coins += 1; // Увеличиваем количество монет на 1
                     userData.energy -= 1;
                     document.getElementById('coin-count').textContent = userData.coins;
                     document.getElementById('energy-count').textContent = `${userData.energy} / ${userData.maxEnergy}`;
@@ -280,13 +306,10 @@
             });
 
             // Восстановление энергии с таймером
-            const energyRecoveryRate = 15 * 60 * 1000;
+            const energyRecoveryRate = 2 * 1000; // 1 энергия каждые 2 секунды
             setInterval(() => {
                 if (userData.energy < userData.maxEnergy) {
-                    userData.energy += 50;
-                    if (userData.energy > userData.maxEnergy) {
-                        userData.energy = userData.maxEnergy;
-                    }
+                    userData.energy += 1; // Восстанавливаем 1 единицу энергии
                     document.getElementById('energy-count').textContent = `${userData.energy} / ${userData.maxEnergy}`;
                 }
             }, energyRecoveryRate);
