@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(to bottom, #000428, #004e92);
+    background: linear-gradient(to bottom, #87CEEB, #4682B4);
     justify-content: flex-start;
     align-items: center;
     text-align: center;
@@ -108,17 +108,21 @@ button#pizza-clicker img {
     left: 0;
 }
 
-#footer-buttons div {
+#footer-buttons a {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #ccc;
     font-size: 0.9em;
-    cursor: pointer;
+    text-decoration: none;
     flex: 1;
 }
 
-#footer-buttons div img {
+#footer-buttons a:hover {
+    color: #fff;
+}
+
+#footer-buttons img {
     width: 24px;
     height: 24px;
     margin-bottom: 5px;
@@ -137,7 +141,7 @@ button#pizza-clicker img {
         padding: 8px 0;
     }
 
-    #footer-buttons div img {
+    #footer-buttons img {
         width: 20px;
         height: 20px;
     }
@@ -152,12 +156,12 @@ button#pizza-clicker img {
         font-size: 0.8em;
     }
 
-    #footer-buttons div img {
+    #footer-buttons img {
         width: 18px;
         height: 18px;
     }
 
-    #footer-buttons div {
+    #footer-buttons a {
         font-size: 0.7em;
     }
 
