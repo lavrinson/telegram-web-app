@@ -19,6 +19,7 @@ function loadGameState() {
     const savedRecoveriesLeft = localStorage.getItem('recoveriesLeft');
     const savedNextRecoveryTime = localStorage.getItem('nextRecoveryTime');
 
+    // Загрузка сохраненных данных, если они существуют
     if (savedCoinCount) coinCount = parseInt(savedCoinCount, 10);
     if (savedEnergyCount) energyCount = parseInt(savedEnergyCount, 10);
     if (savedRecoveriesLeft) recoveriesLeft = parseInt(savedRecoveriesLeft, 10);
@@ -32,6 +33,7 @@ function updateDisplay() {
     coinCountElement.textContent = coinCount;
     energyCountElement.textContent = `${energyCount} / ${maxEnergy}`;
 
+    // Обновляем таймер восстановления энергии, если нужно
     if (energyCount < maxEnergy && recoveriesLeft > 0) {
         if (nextRecoveryTime && new Date() >= nextRecoveryTime) {
             energyCount = Math.min(maxEnergy, energyCount + 50); // Увеличиваем энергию на 50
@@ -43,6 +45,7 @@ function updateDisplay() {
         energyTimerElement.textContent = '';
     }
 
+    // Сохраняем текущее состояние игры
     localStorage.setItem('coinCount', coinCount);
     localStorage.setItem('energyCount', energyCount);
     localStorage.setItem('recoveriesLeft', recoveriesLeft);
@@ -60,7 +63,7 @@ function updateEnergyTimer() {
             energyTimerElement.textContent = `Восстановление через ${minutes}m ${seconds}s`;
         } else {
             energyTimerElement.textContent = 'Энергия восстановлена!';
-            updateDisplay();
+            updateDisplay(); // Обновляем отображение после восстановления энергии
         }
     }
 }
@@ -98,12 +101,30 @@ function onTelegramAuth(user) {
         return response.json();
     })
     .then(data => {
+        console.log('Auth Data:', data);  // Выводим полученные данные для отладки
+        // Обновляем состояние игры на основе данных, полученных от сервера
         coinCount = data.coin_count;
         energyCount = data.energy_count;
         recoveriesLeft = data.recoveries_left;
-        nextRecoveryTime = data.next_recovery_time || null;
+        nextRecoveryTime = data.next_recovery_time ? new Date(data.next_recovery_time) : null;
 
         updateDisplay();
     })
     .catch(error => console.error('Ошибка:', error));
 }
+
+// Обработка авторизации через Telegram
+window.TelegramLoginWidget = {
+    onAuth: onTelegramAuth
+};
+
+// Обработка загрузки и события Telegram Login
+(function() {
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?7';
+    script.setAttribute('data-telegram-login', 'crypto_drell_bot'); // Замените на ваше имя пользователя бота
+    script.setAttribute('data-size', 'large');
+    script.setAttribute('data-auth-url', 'https://lavrinson.github.io/telegram-web-app/'); // Замените на ваш URL для обработки авторизации
+    script.setAttribute('data-request-access', 'write');
+    document.getElementById('telegram-login').appendChild(script);
+})();

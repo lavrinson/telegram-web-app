@@ -6,6 +6,7 @@ from aiogram.dispatcher.router import Router
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from threading import Thread
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -125,12 +126,16 @@ async def main():
     await dp.start_polling(bot)
 
 def run_flask():
-    app.run(debug=True, use_reloader=False)
+    serve(app, host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
-    # Запуск Flask в отдельном потоке
-    flask_thread = Thread(target=run_flask)
-    flask_thread.start()
+    try:
+        # Запуск Flask и aiogram бота
+        flask_thread = Thread(target=run_flask)
+        flask_thread.start()
 
-    # Запуск aiogram бота
-    asyncio.run(main())
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Shutting down...")
+    finally:
+        print("Cleanup and shutdown complete.")
