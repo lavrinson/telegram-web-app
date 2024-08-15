@@ -1,0 +1,167 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(to bottom, #000428, #004e92);
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: #f9f9f9;
+    padding-top: 20px;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 400px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+#user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#user-info .user-name {
+    font-size: 1.2em;
+    margin-left: 10px;
+    flex: 1;
+    text-align: left;
+}
+
+#user-info .coins {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+}
+
+#user-info .coins img,
+#user-info .energy img {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+#clicker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin-top: 20px;
+    text-align: center;
+}
+
+button#pizza-clicker {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+button#pizza-clicker img {
+    width: 200px;
+    height: auto;
+}
+
+#energy-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+#energy-display img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+#energy-timer {
+    font-size: 1em;
+    color: #f9f9f9;
+    margin-top: 10px;
+}
+
+#footer-buttons {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#footer-buttons div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ccc;
+    font-size: 0.9em;
+    cursor: pointer;
+    flex: 1;
+}
+
+#footer-buttons div img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+#footer-buttons .active {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    p {
+        font-size: 0.9em;
+    }
+
+    #footer-buttons {
+        padding: 8px 0;
+    }
+
+    #footer-buttons div img {
+        width: 20px;
+        height: 20px;
+    }
+
+    button#pizza-clicker img {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    p {
+        font-size: 0.8em;
+    }
+
+    #footer-buttons div img {
+        width: 18px;
+        height: 18px;
+    }
+
+    #footer-buttons div {
+        font-size: 0.7em;
+    }
+
+    button#pizza-clicker img {
+        width: 120px;
+    }
+}
