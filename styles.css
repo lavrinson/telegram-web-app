@@ -52,6 +52,7 @@ body {
 #leaderboard {
     font-size: 0.9em;
     color: #f9f9f9;
+    margin-bottom: 2px;
 }
 
 .user-name {
@@ -67,10 +68,24 @@ body {
     padding-right: 10px;
 }
 
-.coins img {
+#coin-box {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#coin-box img {
     width: 24px;
     height: 24px;
     margin-right: 5px;
+}
+
+#coin-count {
+    color: #f9f9f9;
+    font-weight: bold;
 }
 
 /* Стили для кликера */
@@ -84,30 +99,33 @@ body {
     text-align: center;
 }
 
-button#pizza-clicker {
+button#panda-clicker {
     background: none;
     border: none;
     cursor: pointer;
     outline: none;
     padding: 0;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.1s ease-in-out; /* Переход для зума */
 }
 
-button#pizza-clicker:active {
-    transform: scale(1.1);
+button#panda-clicker.pressed {
+    transform: scale(1.1); /* Увеличение размера изображения на 10% */
 }
 
-button#pizza-clicker img {
-    width: 200px;
+button#panda-clicker img {
+    width: 150px; /* Увеличенный размер изображения панды */
     height: auto;
+    display: block;
 }
 
+/* Перенос энергии еще выше и убираем обводку */
 #energy-display {
+    position: fixed;
+    bottom: 120px; /* Поднято выше */
+    left: 15px;
     display: flex;
-    justify-content: center;
     align-items: center;
     font-size: 1.5em;
-    margin-top: 10px;
 }
 
 #energy-display img {
@@ -121,7 +139,7 @@ button#pizza-clicker img {
     display: flex;
     justify-content: space-around;
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 15px 0; /* Увеличиваем вертикальное пространство */
+    padding: 15px 0; /* Увеличенное вертикальное пространство */
     border-top: 1px solid #333;
     width: 100%;
     position: fixed;
@@ -136,9 +154,20 @@ button#pizza-clicker img {
     flex-direction: column;
     align-items: center;
     color: #ccc;
-    font-size: 1em; /* Увеличиваем размер текста */
+    font-size: 1em;
     text-decoration: none;
     flex: 1;
+    position: relative;
+}
+
+#footer-buttons a:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 0;
+    width: 1px;
+    height: 80%;
+    background-color: #444;
 }
 
 #footer-buttons a:hover {
@@ -146,13 +175,18 @@ button#pizza-clicker img {
 }
 
 #footer-buttons img {
-    width: 30px; /* Увеличиваем размер иконок */
+    width: 30px;
     height: 30px;
-    margin-bottom: 8px; /* Увеличиваем отступ между иконкой и текстом */
+    margin-bottom: 8px;
 }
 
 #footer-buttons .active {
     color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+#footer-buttons .active img {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
 }
 
 @media (max-width: 768px) {
@@ -161,26 +195,26 @@ button#pizza-clicker img {
     }
 
     #footer-buttons img {
-        width: 28px; /* Увеличиваем размер иконок для мобильных устройств */
+        width: 28px;
         height: 28px;
     }
 
-    button#pizza-clicker img {
-        width: 150px;
+    button#panda-clicker img {
+        width: 130px; /* Уменьшенный размер изображения панды на средних экранах */
     }
 }
 
 @media (max-width: 480px) {
     #footer-buttons img {
-        width: 26px; /* Увеличиваем размер иконок для маленьких экранов */
+        width: 26px;
         height: 26px;
     }
 
     #footer-buttons a {
-        font-size: 0.9em; /* Увеличиваем размер текста на маленьких экранах */
+        font-size: 0.9em;
     }
 
-    button#pizza-clicker img {
-        width: 120px;
+    button#panda-clicker img {
+        width: 110px; /* Уменьшенный размер изображения панды на маленьких экранах */
     }
 }

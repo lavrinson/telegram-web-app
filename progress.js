@@ -13,7 +13,7 @@ const loadProgress = (key, defaultValue) => {
 
 const updateDisplay = () => {
     document.getElementById('coin-count').textContent = coins;
-    document.getElementById('energy-count').textContent = `${energy} / ${maxEnergy}`;
+    document.getElementById('energy-count').textContent = ${energy} / ${maxEnergy};
 };
 
 document.addEventListener('DOMContentLoaded', () => {
