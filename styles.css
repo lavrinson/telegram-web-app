@@ -1,7 +1,6 @@
 body {
     font-family: 'Kanit', sans-serif;
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -11,89 +10,77 @@ body {
     align-items: center;
     text-align: center;
     color: #f9f9f9;
-    padding-top: 20px;
+    padding: 20px 0 0;
 }
 
-/* Стиль для кнопки "Назад" */
-.back-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    z-index: 100;
-    font-family: 'Kanit', sans-serif;
-}
-
-.back-button img {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
-}
-
-.back-button:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.back-button:active {
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
+/* Стили для блока пользователя */
 #user-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 90%;
-    max-width: 400px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-radius: 0 0 15px 15px;
+    box-sizing: border-box;
 }
 
-#user-info img {
-    width: 50px;
-    height: 50px;
+#user-avatar {
     border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #00c6ff, #ffffff);
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-right: 10px;
 }
 
-#user-info .user-name {
-    font-size: 1.2em;
-    margin-left: 10px;
-    flex: 1;
+.user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: left;
+    flex-grow: 1;
 }
 
-#user-info .coins {
+#leaderboard {
+    font-size: 0.9em;
+    color: #f9f9f9;
+}
+
+.user-name {
+    font-size: 1em;
+    color: #f9f9f9;
+}
+
+.coins {
     display: flex;
     align-items: center;
     font-size: 1em;
+    margin-left: auto;
+    padding-right: 10px;
 }
 
-#user-info .coins img,
-#user-info .energy img {
+.coins img {
     width: 24px;
     height: 24px;
     margin-right: 5px;
 }
 
+/* Стили для кликера */
 #clicker {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    margin-top: 20px;
+    margin-top: 80px;
     text-align: center;
 }
 
@@ -103,6 +90,11 @@ button#pizza-clicker {
     cursor: pointer;
     outline: none;
     padding: 0;
+    transition: transform 0.1s ease-in-out;
+}
+
+button#pizza-clicker:active {
+    transform: scale(1.1);
 }
 
 button#pizza-clicker img {
@@ -124,12 +116,7 @@ button#pizza-clicker img {
     margin-right: 10px;
 }
 
-#energy-timer {
-    font-size: 1em;
-    color: #f9f9f9;
-    margin-top: 10px;
-}
-
+/* Стили для нижнего блока */
 #footer-buttons {
     display: flex;
     justify-content: space-around;
@@ -140,8 +127,8 @@ button#pizza-clicker img {
     position: fixed;
     bottom: 0;
     left: 0;
-    border-radius: 15px 15px 0 0; /* Закругленные верхние углы */
-    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.3); /* Добавление тени */
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
 }
 
 #footer-buttons a {
@@ -169,10 +156,6 @@ button#pizza-clicker img {
 }
 
 @media (max-width: 768px) {
-    p {
-        font-size: 0.9em;
-    }
-
     #footer-buttons {
         padding: 8px 0;
     }
@@ -188,10 +171,6 @@ button#pizza-clicker img {
 }
 
 @media (max-width: 480px) {
-    p {
-        font-size: 0.8em;
-    }
-
     #footer-buttons img {
         width: 18px;
         height: 18px;

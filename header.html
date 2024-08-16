@@ -1,0 +1,120 @@
+<div id="user-info">
+    <img id="user-avatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Avatar">
+    <div class="user-details">
+        <div id="leaderboard">Leaderboard</div>
+        <span class="user-name">Username</span>
+    </div>
+    <div class="coins">
+        <div id="coin-box">
+            <img src="https://cdn-icons-png.flaticon.com/512/1404/1404945.png" alt="Pizza Icon">
+            <span id="coin-count">1500</span>
+        </div>
+    </div>
+</div>
+
+<hr class="divider">
+
+<style>
+    #user-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 15px;
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        border-radius: 0 0 15px 15px;
+        box-sizing: border-box;
+    }
+
+    #user-avatar {
+        border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(135deg, #00c6ff, #ffffff);
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        margin-right: 10px;
+    }
+
+    .user-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    #leaderboard {
+        font-size: 0.9em;
+        color: #f9f9f9;
+        margin-bottom: 2px;
+    }
+
+    .user-name {
+        font-size: 1em;
+        color: #f9f9f9;
+    }
+
+    .coins {
+        display: flex;
+        align-items: center;
+        font-size: 1em;
+        margin-left: auto;
+        padding-right: 10px;
+    }
+
+    #coin-box {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.1); /* Прямоугольный фон */
+        padding: 5px 10px;
+        border-radius: 5px; /* Закругляем углы прямоугольника */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #coin-box img {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+
+    #coin-count {
+        color: #f9f9f9;
+        font-weight: bold;
+    }
+
+    .divider {
+        width: 100%;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0;
+        position: relative;
+        top: -10px;
+    }
+</style>
+
+<script>
+    function formatNumber(value) {
+        if (value >= 1000000) {
+            return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'm';
+        } else if (value >= 1000) {
+            return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        } else {
+            return value;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const coinCountElement = document.getElementById('coin-count');
+        let coins = parseInt(coinCountElement.textContent, 10);
+
+        // Форматируем и отображаем количество монет
+        coinCountElement.textContent = formatNumber(coins);
+    });
+</script>

@@ -5,23 +5,13 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quiz</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script src="load-sections.js" defer></script>
 </head>
 <body>
 
-    <!-- Блок информации о пользователе -->
-    <div id="user-info">
-        <img id="user-avatar" src="" alt="User Avatar">
-        <div>
-            <div id="leaderboard">Leaderboard</div>
-            <span id="user-name" class="user-name">Username</span>
-        </div>
-        <div class="coins">
-            <img src="https://cdn-icons-png.flaticon.com/512/1404/1404945.png" alt="Pizza Icon">
-            <span id="coin-count">1500</span>
-        </div>
-    </div>
+    <!-- Вставляем блок пользователя -->
+    <div id="header-section"></div>
 
     <!-- Центральный контент страницы -->
     <div id="content">
@@ -29,30 +19,8 @@
         <!-- Добавьте специфичный контент для Quiz здесь -->
     </div>
 
-    <!-- Блок с кнопками внизу страницы -->
-    <div id="footer-buttons">
-        <a href="index.html" class="footer-button">
-            <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Clicker Icon">
-            <span>Clicker</span>
-        </a>
-        <a href="mining.html" class="footer-button">
-            <img src="https://cdn-icons-png.flaticon.com/512/1821/1821551.png" alt="Mining Icon">
-            <span>Mining</span>
-        </a>
-        <a href="quiz.html" class="footer-button active">
-            <img src="https://cdn-icons-png.flaticon.com/512/254/254442.png" alt="Quiz Icon">
-            <span>Quiz</span>
-        </a>
-        <a href="tasks.html" class="footer-button">
-            <img src="https://cdn-icons-png.flaticon.com/512/1150/1150620.png" alt="Tasks Icon">
-            <span>Tasks</span>
-        </a>
-        <a href="airdrop.html" class="footer-button">
-            <img src="https://cdn-icons-png.flaticon.com/512/2331/2331949.png" alt="Airdrop Icon">
-            <span>Airdrop</span>
-        </a>
-    </div>
+    <!-- Вставляем нижний блок с кнопками -->
+    <div id="footer-section"></div>
 
-    <script src="script.js"></script>
 </body>
 </html>
