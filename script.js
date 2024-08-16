@@ -30,7 +30,7 @@ function loadGameState() {
 
 // Обновление отображения на экране
 function updateDisplay() {
-    coinCountElement.textContent = coinCount;
+    coinCountElement.textContent = formatNumber(coinCount);
     energyCountElement.textContent = `${energyCount} / ${maxEnergy}`;
 
     // Обновляем таймер восстановления энергии, если нужно
@@ -65,6 +65,17 @@ function updateEnergyTimer() {
             energyTimerElement.textContent = 'Энергия восстановлена!';
             updateDisplay(); // Обновляем отображение после восстановления энергии
         }
+    }
+}
+
+// Форматирование числа в сокращенный вид (1k, 1m)
+function formatNumber(value) {
+    if (value >= 1000000) {
+        return (value / 1000000).toFixed(1) + 'm';
+    } else if (value >= 1000) {
+        return (value / 1000).toFixed(1) + 'k';
+    } else {
+        return value.toString();
     }
 }
 
