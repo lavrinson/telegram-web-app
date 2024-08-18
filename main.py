@@ -2,7 +2,6 @@ import sqlite3
 import asyncio
 from flask import Flask, request, jsonify
 from aiogram import Bot, Dispatcher, types
-from aiogram.dispatcher.router import Router
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from threading import Thread
@@ -17,7 +16,6 @@ WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'
 # Инициализация бота
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-router = Router()
 
 # Подключение к базе данных SQLite
 def get_db_connection():
@@ -87,23 +85,49 @@ def telegram_auth_callback():
     user_data = request.json
     user_id = user_data['id']
 
+    # Получение имени пользователя и аватара
+    username = user_data.get('username', 'No Name')
+    avatar_url = user_data.get('photo_url', None)
+
     # Загрузка данных пользователя из базы данных
     user_info = load_user_data(user_id)
     if not user_info:
+        # Если пользователь новый, создаем новую запись
         user_info = {
             'coin_count': 1500,
             'energy_count': 2000,
             'max_energy': 2000,
             'recoveries_left': 20,
-            'username': user_data.get('username', 'No Name'),
-            'avatar_url': None
+            'username': username,
+            'avatar_url': avatar_url
         }
-        save_user_data(user_id, **user_info)
+        save_user_data(
+            user_id,
+            user_info['coin_count'],
+            user_info['energy_count'],
+            user_info['max_energy'],
+            user_info['recoveries_left'],
+            user_info['username'],
+            user_info['avatar_url']
+        )
+    else:
+        # Обновляем имя и аватар пользователя при каждом входе
+        user_info['username'] = username
+        user_info['avatar_url'] = avatar_url
+        save_user_data(
+            user_id,
+            user_info['coin_count'],
+            user_info['energy_count'],
+            user_info['max_energy'],
+            user_info['recoveries_left'],
+            user_info['username'],
+            user_info['avatar_url']
+        )
 
     return jsonify(user_info)
 
 # Обработчик команды /start
-@router.message(Command('start'))
+@dp.message(Command('start'))
 async def start_command(message: types.Message):
     user = message.from_user
     user_id = user.id
@@ -121,7 +145,15 @@ async def start_command(message: types.Message):
             'username': username,
             'avatar_url': avatar_url
         }
-        save_user_data(user_id, **user_info)
+        save_user_data(
+            user_id,
+            user_info['coin_count'],
+            user_info['energy_count'],
+            user_info['max_energy'],
+            user_info['recoveries_left'],
+            user_info['username'],
+            user_info['avatar_url']
+        )
 
     # Создание кнопки для открытия Web App
     web_app = types.WebAppInfo(url=WEB_APP_URL)
@@ -131,45 +163,9 @@ async def start_command(message: types.Message):
 
     await message.answer(f"Hello, {username}! Click the button below to open the Web App", reply_markup=keyboard_markup)
 
-# Обработчик команды /status
-@router.message(Command('status'))
-async def status_command(message: types.Message):
-    user_id = message.from_user.id
-
-    user_info = load_user_data(user_id)
-    if user_info:
-        text = (f"Your status:\n"
-                f"Coins: {user_info['coin_count']}\n"
-                f"Energy: {user_info['energy_count']} / {user_info['max_energy']}\n"
-                f"Recoveries left: {user_info['recoveries_left']}\n"
-                f"Username: {user_info['username']}")
-        await message.answer(text)
-        if user_info['avatar_url']:
-            await message.answer_photo(user_info['avatar_url'])
-    else:
-        await message.answer("No data found for your user.")
-
-# Обработчик команды /reset
-@router.message(Command('reset'))
-async def reset_command(message: types.Message):
-    user_id = message.from_user.id
-
-    # Сброс данных пользователя
-    user_info = {
-        'coin_count': 1500,
-        'energy_count': 2000,
-        'max_energy': 2000,
-        'recoveries_left': 20,
-        'username': message.from_user.username or message.from_user.first_name or "No Name",
-        'avatar_url': await get_user_avatar(message.from_user)
-    }
-    save_user_data(user_id, **user_info)
-
-    await message.answer("Your game progress has been reset.")
-
 # Главная асинхронная функция запуска бота
 async def main():
-    dp.include_router(router)
+    await bot.delete_webhook(drop_pending_updates=True)  # Удаляем активный webhook
     await dp.start_polling(bot)
 
 # Запуск сервера Flask

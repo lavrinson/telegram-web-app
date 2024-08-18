@@ -1,58 +1,46 @@
-// Переменные для хранения количества кликов, монет и энергии
 let coinCount = 1500;
 let energyCount = 2000;
 const maxEnergy = 2000;
-const energyRecoveryRate = 15 * 60 * 1000; // Восстановление полной энергии за 15 минут
-let recoveriesLeft = 20; // Максимум восстановлений энергии в сутки
-let nextRecoveryTime = null; // Начинаем с null, так как восстановление начинается после исчерпания энергии
+const energyRecoveryRate = 15 * 60 * 1000;
+let recoveriesLeft = 20;
+let nextRecoveryTime = null;
+let boostActive = false;
+const boostMultiplier = 2;
+const boostDuration = 10000;
 
-// Элементы страницы
 const pizzaClicker = document.getElementById('pizza-clicker');
 const coinCountElement = document.getElementById('coin-count');
 const energyCountElement = document.getElementById('energy-count');
 const energyTimerElement = document.getElementById('energy-timer');
+const pandaClicker = document.getElementById('panda-clicker');
+const boostButton = document.getElementById('boost-button');
+const boostModal = document.getElementById('boost-modal');
+const closeButton = document.querySelector('.close-button');
+const confirmBoostButton = document.getElementById('confirm-boost');
 
-// Загрузка сохраненного состояния игры из localStorage
 function loadGameState() {
-    const savedCoinCount = localStorage.getItem('coinCount');
-    const savedEnergyCount = localStorage.getItem('energyCount');
-    const savedRecoveriesLeft = localStorage.getItem('recoveriesLeft');
-    const savedNextRecoveryTime = localStorage.getItem('nextRecoveryTime');
-
-    // Загрузка сохраненных данных, если они существуют
-    if (savedCoinCount) coinCount = parseInt(savedCoinCount, 10);
-    if (savedEnergyCount) energyCount = parseInt(savedEnergyCount, 10);
-    if (savedRecoveriesLeft) recoveriesLeft = parseInt(savedRecoveriesLeft, 10);
-    if (savedNextRecoveryTime) nextRecoveryTime = new Date(parseInt(savedNextRecoveryTime, 10));
-
+    coinCount = parseInt(localStorage.getItem('coinCount'), 10) || 1500;
+    energyCount = parseInt(localStorage.getItem('energyCount'), 10) || 2000;
+    recoveriesLeft = parseInt(localStorage.getItem('recoveriesLeft'), 10) || 20;
+    nextRecoveryTime = localStorage.getItem('nextRecoveryTime') ? new Date(parseInt(localStorage.getItem('nextRecoveryTime'), 10)) : null;
     updateDisplay();
 }
 
-// Обновление отображения на экране
 function updateDisplay() {
     coinCountElement.textContent = formatNumber(coinCount);
     energyCountElement.textContent = `${energyCount} / ${maxEnergy}`;
-
-    // Обновляем таймер восстановления энергии, если нужно
-    if (energyCount < maxEnergy && recoveriesLeft > 0) {
-        if (nextRecoveryTime && new Date() >= nextRecoveryTime) {
-            energyCount = Math.min(maxEnergy, energyCount + 50); // Увеличиваем энергию на 50
-            nextRecoveryTime = new Date(new Date().getTime() + energyRecoveryRate);
-            recoveriesLeft -= 1;
-        }
+    if (energyCount < maxEnergy && recoveriesLeft > 0 && nextRecoveryTime && new Date() >= nextRecoveryTime) {
+        energyCount = Math.min(maxEnergy, energyCount + 50);
+        nextRecoveryTime = new Date(Date.now() + energyRecoveryRate);
+        recoveriesLeft -= 1;
         updateEnergyTimer();
-    } else {
-        energyTimerElement.textContent = '';
     }
-
-    // Сохраняем текущее состояние игры
     localStorage.setItem('coinCount', coinCount);
     localStorage.setItem('energyCount', energyCount);
     localStorage.setItem('recoveriesLeft', recoveriesLeft);
     localStorage.setItem('nextRecoveryTime', nextRecoveryTime ? nextRecoveryTime.getTime() : null);
 }
 
-// Обновление таймера восстановления энергии
 function updateEnergyTimer() {
     if (nextRecoveryTime) {
         const now = new Date();
@@ -63,37 +51,59 @@ function updateEnergyTimer() {
             energyTimerElement.textContent = `Восстановление через ${minutes}m ${seconds}s`;
         } else {
             energyTimerElement.textContent = 'Энергия восстановлена!';
-            updateDisplay(); // Обновляем отображение после восстановления энергии
+            updateDisplay();
         }
     }
 }
 
-// Форматирование числа в сокращенный вид (1k, 1m)
 function formatNumber(value) {
-    if (value >= 1000000) {
-        return (value / 1000000).toFixed(1) + 'm';
-    } else if (value >= 1000) {
-        return (value / 1000).toFixed(1) + 'k';
-    } else {
-        return value.toString();
-    }
+    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'm';
+    if (value >= 1000) return (value / 1000).toFixed(1) + 'k';
+    return value.toString();
 }
 
-// Обработка кликов на пиццу
 pizzaClicker.addEventListener('click', () => {
     if (energyCount > 0) {
-        coinCount += 10; // Увеличиваем количество монет
-        energyCount -= 1; // Уменьшаем количество энергии
+        coinCount += 10;
+        energyCount -= 1;
         updateDisplay();
     } else {
         alert('Ваша энергия истощена. Попробуйте восстановить энергию.');
     }
 });
 
-// Загрузка состояния игры при загрузке страницы
-window.onload = loadGameState;
+pandaClicker.addEventListener('click', () => {
+    if (energyCount > 0) {
+        const reward = boostActive ? 10 * boostMultiplier : 10;
+        coinCount += reward;
+        energyCount -= 1;
+        updateDisplay();
+    } else {
+        alert('Ваша энергия истощена. Попробуйте восстановить энергию.');
+    }
+});
 
-// Обновление таймера каждую секунду
+boostButton.addEventListener('click', () => {
+    boostModal.style.display = 'block';
+});
+
+closeButton.addEventListener('click', () => {
+    boostModal.style.display = 'none';
+});
+
+confirmBoostButton.addEventListener('click', () => {
+    if (!boostActive) {
+        boostActive = true;
+        boostModal.style.display = 'none';
+        boostButton.disabled = true;
+        setTimeout(() => {
+            boostActive = false;
+            boostButton.disabled = false;
+        }, boostDuration);
+    }
+});
+
+window.onload = loadGameState;
 setInterval(updateEnergyTimer, 1000);
 
 // Функция для авторизации через Telegram
@@ -112,30 +122,26 @@ function onTelegramAuth(user) {
         return response.json();
     })
     .then(data => {
-        console.log('Auth Data:', data);  // Выводим полученные данные для отладки
-        // Обновляем состояние игры на основе данных, полученных от сервера
+        console.log('Auth Data:', data);
         coinCount = data.coin_count;
         energyCount = data.energy_count;
         recoveriesLeft = data.recoveries_left;
         nextRecoveryTime = data.next_recovery_time ? new Date(data.next_recovery_time) : null;
-
         updateDisplay();
     })
     .catch(error => console.error('Ошибка:', error));
 }
 
-// Обработка авторизации через Telegram
 window.TelegramLoginWidget = {
     onAuth: onTelegramAuth
 };
 
-// Обработка загрузки и события Telegram Login
 (function() {
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?7';
-    script.setAttribute('data-telegram-login', 'crypto_drell_bot'); // Замените на ваше имя пользователя бота
+    script.setAttribute('data-telegram-login', 'crypto_drell_bot');
     script.setAttribute('data-size', 'large');
-    script.setAttribute('data-auth-url', 'https://lavrinson.github.io/telegram-web-app/'); // Замените на ваш URL для обработки авторизации
+    script.setAttribute('data-auth-url', 'https://lavrinson.github.io/telegram-web-app/');
     script.setAttribute('data-request-access', 'write');
     document.getElementById('telegram-login').appendChild(script);
 })();

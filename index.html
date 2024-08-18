@@ -2,31 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Clicker</title>
     <link rel="stylesheet" href="styles.css">
     <script src="load-sections.js" defer></script>
     <script src="clicker.js" defer></script>
+    <script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
-    <!-- Вставляем блок пользователя -->
+    <!-- Блок пользователя -->
     <div id="header-section"></div>
 
-    <!-- Центрированный кликер с пиццей -->
-    <div id="clicker">
-        <button id="panda-clicker">
-            <img id="panda-img" src="assets/icons/panda-shocked.png" alt="Panda">
-        </button>
-        <div id="energy-display">
-            <img src="assets/icons/wireless.png" alt="Energy Icon">
-            <span id="energy-count">2000 / 2000</span>
+    <!-- Основной контент с кликером по центру -->
+    <div id="content">
+        <div id="clicker">
+            <button id="panda-clicker">
+                <img id="panda-img" src="assets/icons/panda-shocked.png" alt="Panda">
+            </button>
+        </div>
+        <div id="status-container">
+            <div id="energy-display">
+                <img src="assets/icons/wireless.png" alt="Energy Icon">
+                <span id="energy-count">2000 / 2000</span>
+            </div>
         </div>
     </div>
 
-    <!-- Вставляем нижний блок с кнопками -->
+    <!-- Нижний бар -->
     <div id="footer-section"></div>
 
+    <script>
+        // Автоматическая авторизация через Telegram
+        Telegram.WebApp.ready();
+
+        Telegram.WebApp.onEvent('auth', function(user) {
+            fetch('/auth/telegram/callback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: user.id,
+                    username: user.username,
+                    photo_url: user.photo_url
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Обновление интерфейса с данными пользователя
+                document.getElementById('user-avatar').src = data.avatar_url;
+                document.querySelector('.user-name').textContent = data.username;
+                document.getElementById('coin-count').textContent = data.coin_count;
+                document.getElementById('energy-count').textContent = `${data.energy_count} / ${data.max_energy}`;
+            })
+            .catch(error => console.error('Ошибка:', error));
+        });
+
+        // Пример использования данных Telegram Web App API
+        Telegram.WebApp.onEvent('init', function() {
+            console.log('Web App готов к работе!');
+        });
+    </script>
 </body>
 </html>

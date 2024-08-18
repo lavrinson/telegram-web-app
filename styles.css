@@ -1,44 +1,64 @@
+:root {
+    --primary-bg-color: #87CEEB;
+    --secondary-bg-color: #4682B4;
+    --button-bg-color: #00c6ff;
+    --button-hover-bg-color: #0094cc;
+    --text-color: #f9f9f9;
+    --border-color: #ddd;
+    --modal-bg-color: rgba(0, 0, 0, 0.4);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
 body {
     font-family: 'Kanit', sans-serif;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    background: linear-gradient(to bottom, #87CEEB, #4682B4);
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    color: #f9f9f9;
-    padding: 20px 0 0;
+    overflow: hidden;
 }
 
-/* Стили для блока пользователя */
-#user-info {
+/* Верхний блок пользователя */
+#header-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     padding: 10px 15px;
     background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
-    border-radius: 0 0 15px 15px;
+    box-sizing: border-box;
+    border-radius: 15px; /* Закругляем все углы */
+    max-width: 100vw;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: transparent; /* Убираем лишний фон */
     box-sizing: border-box;
 }
 
 #user-avatar {
     border-radius: 50%;
     padding: 3px;
-    background: linear-gradient(135deg, #00c6ff, #ffffff);
+    background: linear-gradient(135deg, var(--button-bg-color), #ffffff);
     width: 45px;
     height: 45px;
     object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     margin-right: 10px;
+    border: none;
+    box-shadow: none;
 }
 
 .user-details {
@@ -49,23 +69,9 @@ body {
     flex-grow: 1;
 }
 
-#leaderboard {
-    font-size: 0.9em;
-    color: #f9f9f9;
-    margin-bottom: 2px;
-}
-
-.user-name {
-    font-size: 1em;
-    color: #f9f9f9;
-}
-
 .coins {
     display: flex;
     align-items: center;
-    font-size: 1em;
-    margin-left: auto;
-    padding-right: 10px;
 }
 
 #coin-box {
@@ -73,8 +79,8 @@ body {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 5px 10px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: none; /* Убираем лишние тени */
 }
 
 #coin-box img {
@@ -84,48 +90,54 @@ body {
 }
 
 #coin-count {
-    color: #f9f9f9;
+    color: var(--text-color);
     font-weight: bold;
 }
 
-/* Стили для кликера */
-#clicker {
+/* Центрирование контента */
+#content {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-grow: 1;
-    margin-top: 80px;
+    margin-top: 80px; /* Отступ сверху под фиксированный блок пользователя */
+    margin-bottom: 100px; /* Увеличиваем отступ снизу для поднятого нижнего бара */
+    height: calc(100vh - 180px); /* Учёт высоты верхнего и нижнего блоков */
     text-align: center;
 }
 
-button#panda-clicker {
+#clicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#clicker button {
     background: none;
     border: none;
     cursor: pointer;
-    outline: none;
     padding: 0;
-    transition: transform 0.1s ease-in-out; /* Переход для зума */
+    transition: transform 0.1s ease-in-out;
 }
 
-button#panda-clicker.pressed {
-    transform: scale(1.1); /* Увеличение размера изображения на 10% */
-}
-
-button#panda-clicker img {
-    width: 150px; /* Увеличенный размер изображения панды */
+#clicker button img {
+    width: 150px;
     height: auto;
-    display: block;
 }
 
-/* Перенос энергии еще выше и убираем обводку */
-#energy-display {
-    position: fixed;
-    bottom: 120px; /* Поднято выше */
-    left: 15px;
+#clicker button:active {
+    transform: scale(1.1);
+}
+
+/* Статусный контейнер */
+#status-container {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
-    font-size: 1.5em;
+    justify-content: center;
 }
 
 #energy-display img {
@@ -134,87 +146,50 @@ button#panda-clicker img {
     margin-right: 10px;
 }
 
-/* Стили для нижнего блока */
-#footer-buttons {
+/* Нижний бар с кнопками */
+#footer-section {
     display: flex;
     justify-content: space-around;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 15px 0; /* Увеличенное вертикальное пространство */
-    border-top: 1px solid #333;
-    width: 100%;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Однородный полупрозрачный фон */
     position: fixed;
-    bottom: 0;
+    bottom: 20px; /* Поднимаем немного выше */
     left: 0;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+    width: 90%; /* Немного уменьшаем ширину для визуального эффекта */
+    margin-left: 5%; /* Центрируем */
+    box-sizing: border-box;
+    z-index: 1000;
+    border-radius: 15px; /* Закругляем все углы */
+    box-shadow: none; /* Убираем тень */
+    border: none; /* Убираем любые возможные границы */
+    outline: none; /* Убираем обводки */
 }
 
-#footer-buttons a {
+.footer-button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #ccc;
-    font-size: 1em;
+    color: #f9f9f9;
     text-decoration: none;
-    flex: 1;
-    position: relative;
+    border: none; /* Убираем любые границы у кнопок */
 }
 
-#footer-buttons a:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 10%;
-    right: 0;
-    width: 1px;
-    height: 80%;
-    background-color: #444;
+.footer-button img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
 }
 
-#footer-buttons a:hover {
-    color: #fff;
+.footer-button span {
+    font-size: 0.8em;
 }
 
-#footer-buttons img {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 8px;
+.footer-button:hover {
+    color: #ffcc00;
 }
 
-#footer-buttons .active {
-    color: white;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-}
-
-#footer-buttons .active img {
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-}
-
-@media (max-width: 768px) {
-    #footer-buttons {
-        padding: 12px 0;
-    }
-
-    #footer-buttons img {
-        width: 28px;
-        height: 28px;
-    }
-
-    button#panda-clicker img {
-        width: 130px; /* Уменьшенный размер изображения панды на средних экранах */
-    }
-}
-
-@media (max-width: 480px) {
-    #footer-buttons img {
-        width: 26px;
-        height: 26px;
-    }
-
-    #footer-buttons a {
-        font-size: 0.9em;
-    }
-
-    button#panda-clicker img {
-        width: 110px; /* Уменьшенный размер изображения панды на маленьких экранах */
-    }
+/* Удаляем разделительную полосу */
+.divider {
+    display: none;
 }
