@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram import Router
 from threading import Thread
 from waitress import serve
 
@@ -15,7 +16,8 @@ WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'
 
 # Инициализация бота
 bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()
+dp = Dispatcher()  # Инициализируем Dispatcher без аргументов в новой версии Aiogram
+router = Router()  # Создаем Router
 
 # Подключение к базе данных SQLite
 def get_db_connection():
@@ -126,8 +128,7 @@ def telegram_auth_callback():
 
     return jsonify(user_info)
 
-# Обработчик команды /start
-@dp.message(Command('start'))
+@router.message(Command('start'))
 async def start_command(message: types.Message):
     user = message.from_user
     user_id = user.id
@@ -165,8 +166,9 @@ async def start_command(message: types.Message):
 
 # Главная асинхронная функция запуска бота
 async def main():
+    dp.include_router(router)
     await bot.delete_webhook(drop_pending_updates=True)  # Удаляем активный webhook
-    await dp.start_polling(bot)
+    await dp.start_polling(bot)  # Используем start_polling с передачей бота
 
 # Запуск сервера Flask
 def run_flask():
