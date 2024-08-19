@@ -2,22 +2,22 @@ import sqlite3
 import asyncio
 from flask import Flask, request, jsonify
 from aiogram import Bot, Dispatcher, types
+from aiogram.enums import ParseMode
+from aiogram.types import WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.filters import Command
-from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram import Router
 from threading import Thread
 from waitress import serve
-
-app = Flask(__name__)
 
 # Конфигурация бота
 BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'
 WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'
 
-# Инициализация бота
+# Инициализация Flask
+app = Flask(__name__)
+
+# Инициализация бота и диспетчера
 bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()  # Инициализируем Dispatcher без аргументов в новой версии Aiogram
-router = Router()  # Создаем Router
+dp = Dispatcher()
 
 # Подключение к базе данных SQLite
 def get_db_connection():
@@ -72,15 +72,6 @@ def save_user_data(user_id, coin_count, energy_count, max_energy, recoveries_lef
     conn.commit()
     conn.close()
 
-# Функция для получения URL аватарки пользователя
-async def get_user_avatar(user: types.User):
-    photos = await bot.get_user_profile_photos(user.id, limit=1)
-    if photos.photos:
-        file_id = photos.photos[0][-1].file_id
-        file = await bot.get_file(file_id)
-        return bot.get_file_url(file.file_path)
-    return None
-
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
 def telegram_auth_callback():
@@ -128,12 +119,14 @@ def telegram_auth_callback():
 
     return jsonify(user_info)
 
-@router.message(Command('start'))
+# Обработчик команды /start
+@dp.message(Command('start'))
 async def start_command(message: types.Message):
     user = message.from_user
     user_id = user.id
     username = user.username or user.first_name or "No Name"
-    avatar_url = await get_user_avatar(user)
+    photos = await bot.get_user_profile_photos(user_id)
+    avatar_url = photos.photos[0][0].file_id if photos.total_count > 0 else None
 
     # Загружаем данные пользователя или создаем новые, если их нет
     user_info = load_user_data(user_id)
@@ -157,18 +150,17 @@ async def start_command(message: types.Message):
         )
 
     # Создание кнопки для открытия Web App
-    web_app = types.WebAppInfo(url=WEB_APP_URL)
-    keyboard = InlineKeyboardBuilder()
-    keyboard.button(text="Open Web App", web_app=web_app)
-    keyboard_markup = keyboard.as_markup()
+    web_app = WebAppInfo(url=WEB_APP_URL)
+    keyboard_markup = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Open Web App", web_app=web_app)]
+    ])
 
     await message.answer(f"Hello, {username}! Click the button below to open the Web App", reply_markup=keyboard_markup)
 
 # Главная асинхронная функция запуска бота
 async def main():
-    dp.include_router(router)
     await bot.delete_webhook(drop_pending_updates=True)  # Удаляем активный webhook
-    await dp.start_polling(bot)  # Используем start_polling с передачей бота
+    await dp.start_polling(bot)
 
 # Запуск сервера Flask
 def run_flask():

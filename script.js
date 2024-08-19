@@ -8,15 +8,9 @@ let boostActive = false;
 const boostMultiplier = 2;
 const boostDuration = 10000;
 
-const pizzaClicker = document.getElementById('pizza-clicker');
+const pandaClicker = document.getElementById('panda-clicker');
 const coinCountElement = document.getElementById('coin-count');
 const energyCountElement = document.getElementById('energy-count');
-const energyTimerElement = document.getElementById('energy-timer');
-const pandaClicker = document.getElementById('panda-clicker');
-const boostButton = document.getElementById('boost-button');
-const boostModal = document.getElementById('boost-modal');
-const closeButton = document.querySelector('.close-button');
-const confirmBoostButton = document.getElementById('confirm-boost');
 
 function loadGameState() {
     coinCount = parseInt(localStorage.getItem('coinCount'), 10) || 1500;
@@ -41,36 +35,11 @@ function updateDisplay() {
     localStorage.setItem('nextRecoveryTime', nextRecoveryTime ? nextRecoveryTime.getTime() : null);
 }
 
-function updateEnergyTimer() {
-    if (nextRecoveryTime) {
-        const now = new Date();
-        const timeRemaining = nextRecoveryTime - now;
-        if (timeRemaining > 0) {
-            const minutes = Math.floor((timeRemaining % (1000 * 3600)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-            energyTimerElement.textContent = `Восстановление через ${minutes}m ${seconds}s`;
-        } else {
-            energyTimerElement.textContent = 'Энергия восстановлена!';
-            updateDisplay();
-        }
-    }
-}
-
 function formatNumber(value) {
     if (value >= 1000000) return (value / 1000000).toFixed(1) + 'm';
     if (value >= 1000) return (value / 1000).toFixed(1) + 'k';
     return value.toString();
 }
-
-pizzaClicker.addEventListener('click', () => {
-    if (energyCount > 0) {
-        coinCount += 10;
-        energyCount -= 1;
-        updateDisplay();
-    } else {
-        alert('Ваша энергия истощена. Попробуйте восстановить энергию.');
-    }
-});
 
 pandaClicker.addEventListener('click', () => {
     if (energyCount > 0) {
@@ -83,30 +52,11 @@ pandaClicker.addEventListener('click', () => {
     }
 });
 
-boostButton.addEventListener('click', () => {
-    boostModal.style.display = 'block';
-});
+// Авторизация через Telegram
+window.TelegramLoginWidget = {
+    onAuth: onTelegramAuth
+};
 
-closeButton.addEventListener('click', () => {
-    boostModal.style.display = 'none';
-});
-
-confirmBoostButton.addEventListener('click', () => {
-    if (!boostActive) {
-        boostActive = true;
-        boostModal.style.display = 'none';
-        boostButton.disabled = true;
-        setTimeout(() => {
-            boostActive = false;
-            boostButton.disabled = false;
-        }, boostDuration);
-    }
-});
-
-window.onload = loadGameState;
-setInterval(updateEnergyTimer, 1000);
-
-// Функция для авторизации через Telegram
 function onTelegramAuth(user) {
     fetch('/auth/telegram/callback', {
         method: 'POST',
@@ -132,16 +82,5 @@ function onTelegramAuth(user) {
     .catch(error => console.error('Ошибка:', error));
 }
 
-window.TelegramLoginWidget = {
-    onAuth: onTelegramAuth
-};
-
-(function() {
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-widget.js?7';
-    script.setAttribute('data-telegram-login', 'crypto_drell_bot');
-    script.setAttribute('data-size', 'large');
-    script.setAttribute('data-auth-url', 'https://lavrinson.github.io/telegram-web-app/');
-    script.setAttribute('data-request-access', 'write');
-    document.getElementById('telegram-login').appendChild(script);
-})();
+window.onload = loadGameState;
+setInterval(updateDisplay, 1000);
