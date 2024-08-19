@@ -16,8 +16,8 @@ WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'
 app = Flask(__name__)
 
 # Инициализация бота и диспетчера
-bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()
+bot = Bot(token=BOT_TOKEN, parse_mode=ParseMode.HTML)
+dp = Dispatcher(bot=bot)
 
 # Подключение к базе данных SQLite
 def get_db_connection():
@@ -160,7 +160,7 @@ async def start_command(message: types.Message):
 # Главная асинхронная функция запуска бота
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)  # Удаляем активный webhook
-    await dp.start_polling(bot)
+    await dp.start_polling()
 
 # Запуск сервера Flask
 def run_flask():

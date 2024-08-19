@@ -77,13 +77,12 @@ function onTelegramAuth(user) {
         energyCount = data.energy_count;
         recoveriesLeft = data.recoveries_left;
         nextRecoveryTime = data.next_recovery_time ? new Date(data.next_recovery_time) : null;
+        updateUserInfo(data);  // Обновляем информацию о пользователе в интерфейсе
         updateDisplay();
     })
     .catch(error => console.error('Ошибка:', error));
 }
 
-window.onload = loadGameState;
-setInterval(updateDisplay, 1000);
 function updateUserInfo(userData) {
     const avatarElement = document.getElementById('user-avatar');
     const usernameElement = document.querySelector('.user-name');
@@ -95,29 +94,5 @@ function updateUserInfo(userData) {
     usernameElement.textContent = userData.username || 'No Name';
 }
 
-// Пример использования функции updateUserInfo после получения данных о пользователе:
-function onTelegramAuth(user) {
-    fetch('/auth/telegram/callback', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Сетевая ошибка');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Auth Data:', data);
-        coinCount = data.coin_count;
-        energyCount = data.energy_count;
-        recoveriesLeft = data.recoveries_left;
-        nextRecoveryTime = data.next_recovery_time ? new Date(data.next_recovery_time) : null;
-        updateUserInfo(data);  // Обновляем информацию о пользователе в интерфейсе
-        updateDisplay();
-    })
-    .catch(error => console.error('Ошибка:', error));
-}
+window.onload = loadGameState;
+setInterval(updateDisplay, 1000);
