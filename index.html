@@ -26,41 +26,36 @@
             object-fit: cover;
             margin-top: 10px;
         }
-    </style>
-    <script>
-        window.onload = function() {
-            const tg = window.Telegram.WebApp;
-
-            // Проверка и использование данных пользователя
-            if (tg.initDataUnsafe) {
-                const user = tg.initDataUnsafe.user;
-                if (user) {
-                    console.log('User:', user);
-
-                    // Отображение имени пользователя
-                    document.getElementById('user-name').innerText = `Welcome, ${user.username || user.first_name || 'User'}`;
-
-                    // Отображение аватарки пользователя
-                    if (user.photo_url) {
-                        document.getElementById('user-avatar').src = user.photo_url;
-                    }
-                }
-            }
-
-            // Обработка нажатия кнопки
-            tg.MainButton.text = "Click Me";
-            tg.MainButton.show();
-            tg.MainButton.onClick(function() {
-                alert('Main button clicked');
-            });
+        #panda-clicker {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            border-radius: 12px;
         }
-    </script>
+        #coin-count, #energy-count {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+    </style>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <h1>Welcome to My Web App</h1>
     <div class="user-info">
-        <p id="user-name">Loading user info...</p>
+        <p class="user-name">Loading user info...</p>
         <img id="user-avatar" src="" alt="User Avatar" style="display: none;">
+    </div>
+    <button id="panda-clicker">Click Me</button>
+    <div>
+        <p id="coin-count">Coins: Loading...</p>
+        <p id="energy-count">Energy: Loading...</p>
     </div>
 </body>
 </html>

@@ -21,8 +21,8 @@ function loadGameState() {
 }
 
 function updateDisplay() {
-    coinCountElement.textContent = formatNumber(coinCount);
-    energyCountElement.textContent = `${energyCount} / ${maxEnergy}`;
+    coinCountElement.textContent = `Coins: ${formatNumber(coinCount)}`;
+    energyCountElement.textContent = `Energy: ${energyCount} / ${maxEnergy}`;
     if (energyCount < maxEnergy && recoveriesLeft > 0 && nextRecoveryTime && new Date() >= nextRecoveryTime) {
         energyCount = Math.min(maxEnergy, energyCount + 50);
         nextRecoveryTime = new Date(Date.now() + energyRecoveryRate);
@@ -87,8 +87,9 @@ function updateUserInfo(userData) {
     const avatarElement = document.getElementById('user-avatar');
     const usernameElement = document.querySelector('.user-name');
 
-    if (userData.photo_url) {
-        avatarElement.src = userData.photo_url;
+    if (userData.avatar_url) {
+        avatarElement.src = userData.avatar_url;
+        avatarElement.style.display = 'block';
     }
 
     usernameElement.textContent = userData.username || 'No Name';
