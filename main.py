@@ -24,6 +24,7 @@ dp = Dispatcher()
 # Подключение к базе данных SQLite
 def get_db_connection():
     conn = sqlite3.connect('game_data.db')
+    conn.row_factory = sqlite3.Row  # Для получения данных в виде словаря
     return conn
 
 # Загрузка данных пользователя из базы данных
@@ -35,14 +36,7 @@ def load_user_data(user_id):
     conn.close()
 
     if user_data:
-        return {
-            'coin_count': user_data[1],
-            'energy_count': user_data[2],
-            'max_energy': user_data[3],
-            'recoveries_left': user_data[4],
-            'username': user_data[5],
-            'avatar_url': user_data[6],
-        }
+        return dict(user_data)
     else:
         return None
 
