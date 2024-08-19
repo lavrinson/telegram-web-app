@@ -15,9 +15,11 @@ WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'  # URL вашег�
 # Инициализация Flask
 app = Flask(__name__)
 
-# Инициализация бота и диспетчера
+# Инициализация бота
 bot = Bot(token=BOT_TOKEN, session=AiohttpSession())
-dp = Dispatcher(bot)
+
+# Инициализация диспетчера
+dp = Dispatcher()
 
 # Подключение к базе данных SQLite
 def get_db_connection():
@@ -106,7 +108,7 @@ def telegram_auth_callback():
     return jsonify(user_info)
 
 # Обработчик команды /start
-@dp.message_handler(Command(commands=['start']))
+@dp.message(Command(commands=['start']))
 async def start_command(message: types.Message):
     user = message.from_user
     user_id = user.id
@@ -147,7 +149,7 @@ async def start_command(message: types.Message):
 # Главная асинхронная функция запуска бота
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
-    await dp.start_polling()
+    await dp.start_polling(bot)
 
 # Запуск сервера Flask
 def run_flask():
