@@ -9,15 +9,15 @@ from threading import Thread
 from waitress import serve
 
 # Конфигурация бота
-BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Убедитесь, что вы заменили этот токен на правильный
-WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'
+BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Ваш токен
+WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'  # URL вашего веб-приложения
 
 # Инициализация Flask
 app = Flask(__name__)
 
 # Инициализация бота и диспетчера
 bot = Bot(token=BOT_TOKEN, session=AiohttpSession())
-dp = Dispatcher()
+dp = Dispatcher(bot)
 
 # Подключение к базе данных SQLite
 def get_db_connection():
@@ -106,7 +106,7 @@ def telegram_auth_callback():
     return jsonify(user_info)
 
 # Обработчик команды /start
-@dp.message(Command(commands=['start']))
+@dp.message_handler(Command(commands=['start']))
 async def start_command(message: types.Message):
     user = message.from_user
     user_id = user.id
@@ -147,7 +147,7 @@ async def start_command(message: types.Message):
 # Главная асинхронная функция запуска бота
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
-    await dp.start_polling(bot)  # Передача бота в start_polling
+    await dp.start_polling()
 
 # Запуск сервера Flask
 def run_flask():

@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clicker</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="load-sections.js" defer></script>
-    <script src="clicker.js" defer></script>
+    <title>My Web App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const tg = window.Telegram.WebApp;
+
+            // Проверка и использование данных
+            if (tg.initDataUnsafe) {
+                const user = tg.initDataUnsafe.user;
+                if (user) {
+                    console.log('User:', user);
+                    document.getElementById('user-info').innerText = `Welcome, ${user.username || user.first_name || 'User'}`;
+                }
+            }
+
+            // Обработка нажатия кнопки
+            tg.MainButton.text = "Click Me";
+            tg.MainButton.show();
+            tg.MainButton.onClick(function() {
+                alert('Main button clicked');
+            });
+        }
+    </script>
 </head>
 <body>
-
-    <!-- Блок пользователя -->
-    <div id="header-section"></div>
-
-    <!-- Основной контент с кликером по центру -->
-    <div id="content">
-        <div id="clicker">
-            <button id="panda-clicker">
-                <img id="panda-img" src="assets/icons/panda-shocked.png" alt="Panda">
-            </button>
-        </div>
-        <div id="status-container">
-            <div id="energy-display">
-                <img src="assets/icons/wireless.png" alt="Energy Icon">
-                <span id="energy-count">2000 / 2000</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Нижний бар -->
-    <div id="footer-section"></div>
-
+    <h1>Welcome to My Web App</h1>
+    <p id="user-info">Loading user info...</p>
 </body>
 </html>
+
