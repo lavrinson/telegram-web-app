@@ -1,22 +1,22 @@
 import sqlite3
 
-# Подключение к базе данных (если базы данных не существует, она будет создана)
-conn = sqlite3.connect('game_data.db')
-cursor = conn.cursor()
+def create_db():
+    conn = sqlite3.connect('game_data.db')
+    return conn
 
-# Создание таблицы users
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS users (
-        user_id INTEGER PRIMARY KEY,
-        coin_count INTEGER NOT NULL,
-        energy_count INTEGER NOT NULL,
-        max_energy INTEGER NOT NULL,
-        recoveries_left INTEGER NOT NULL
-    );
-''')
+def create_table(conn):
+    conn.execute('''CREATE TABLE IF NOT EXISTS users (
+                        user_id INTEGER PRIMARY KEY,
+                        coin_count INTEGER NOT NULL,
+                        energy_count INTEGER NOT NULL,
+                        max_energy INTEGER NOT NULL,
+                        recoveries_left INTEGER NOT NULL,
+                        username TEXT,
+                        avatar_url TEXT
+                    );''')
+    conn.commit()
 
-# Сохранение изменений и закрытие соединения
-conn.commit()
-conn.close()
-
-print("База данных и таблица users успешно созданы.")
+if __name__ == "__main__":
+    conn = create_db()
+    create_table(conn)
+    conn.close()
