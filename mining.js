@@ -2,13 +2,23 @@ let stakedNFTs = {};
 
 function stakeNFT(nftId) {
     const nftCard = document.querySelector(`.nft-card:nth-child(${nftId})`);
+    if (!nftCard) {
+        console.error('NFT card not found');
+        return;
+    }
+
     const stakedCard = nftCard.cloneNode(true);
     stakedCard.classList.add('staked-nft-card');
 
     const stakeButton = stakedCard.querySelector('.stake-button');
-    stakeButton.remove();
+    if (stakeButton) stakeButton.remove();
 
-    document.getElementById('staked-cards').appendChild(stakedCard);
+    const stakedCardsContainer = document.getElementById('staked-cards');
+    if (!stakedCardsContainer) {
+        console.error('Staked cards container not found');
+        return;
+    }
+    stakedCardsContainer.appendChild(stakedCard);
     nftCard.remove();
 
     stakedNFTs[nftId] = Date.now();
@@ -23,6 +33,10 @@ function calculateStakingRewards(stakedTime) {
 
 function updateStakingRewards() {
     const stakedCardsContainer = document.getElementById('staked-cards');
+    if (!stakedCardsContainer) {
+        console.error('Staked cards container not found');
+        return;
+    }
 
     for (let nftId in stakedNFTs) {
         const stakingStartTime = stakedNFTs[nftId];
@@ -30,6 +44,8 @@ function updateStakingRewards() {
         const rewards = calculateStakingRewards(stakedTime);
 
         const stakedCard = stakedCardsContainer.querySelector(`.staked-nft-card:nth-child(${nftId})`);
+        if (!stakedCard) continue;
+
         let rewardsElement = stakedCard.querySelector('.staking-rewards');
 
         if (!rewardsElement) {

@@ -3,12 +3,21 @@ let energy = 0;
 const maxEnergy = 2000;
 
 function saveProgress(key, value) {
-    localStorage.setItem(key, value);
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {
+        console.error('Ошибка сохранения в localStorage', e);
+    }
 }
 
 function loadProgress(key, defaultValue) {
-    const savedValue = localStorage.getItem(key);
-    return savedValue !== null ? parseInt(savedValue, 10) : defaultValue;
+    try {
+        const savedValue = localStorage.getItem(key);
+        return savedValue !== null ? parseInt(savedValue, 10) : defaultValue;
+    } catch (e) {
+        console.error('Ошибка загрузки из localStorage', e);
+        return defaultValue;
+    }
 }
 
 function updateDisplay() {

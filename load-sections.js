@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('footer.html')
         .then(response => response.text())
         .then(data => {
-            document.getElementById('footer-section').innerHTML = data;
+            document.getElementById('footer-section').innerHTML = data;  // Исправлено
         })
         .catch(error => console.error('Ошибка загрузки footer:', error));
 });

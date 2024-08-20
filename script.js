@@ -52,48 +52,11 @@ pandaClicker.addEventListener('click', () => {
     }
 });
 
-// Авторизация через Telegram
-window.TelegramLoginWidget = {
-    onAuth: onTelegramAuth
+// Отключение авторизации через Telegram и использование данных по умолчанию
+window.onload = function() {
+    document.querySelector('.user-name').textContent = 'Guest';
+    document.getElementById('user-avatar').style.display = 'none';
+    loadGameState();
 };
 
-function onTelegramAuth(user) {
-    fetch('/auth/telegram/callback', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Сетевая ошибка');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Auth Data:', data);
-        coinCount = data.coin_count;
-        energyCount = data.energy_count;
-        recoveriesLeft = data.recoveries_left;
-        nextRecoveryTime = data.next_recovery_time ? new Date(data.next_recovery_time) : null;
-        updateUserInfo(data);  // Обновляем информацию о пользователе в интерфейсе
-        updateDisplay();
-    })
-    .catch(error => console.error('Ошибка:', error));
-}
-
-function updateUserInfo(userData) {
-    const avatarElement = document.getElementById('user-avatar');
-    const usernameElement = document.querySelector('.user-name');
-
-    if (userData.avatar_url) {
-        avatarElement.src = userData.avatar_url;
-        avatarElement.style.display = 'block';
-    }
-
-    usernameElement.textContent = userData.username || 'No Name';
-}
-
-window.onload = loadGameState;
 setInterval(updateDisplay, 1000);
