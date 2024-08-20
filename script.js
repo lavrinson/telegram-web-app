@@ -1,7 +1,7 @@
 async function loadGameState() {
     try {
         // Пытаемся загрузить данные пользователя через Telegram API
-        const user = await window.Telegram.WebApp.getUser();
+        const user = window.Telegram.WebApp.initDataUnsafe.user || {};  // Используем initDataUnsafe вместо getUser
         console.log('User data:', user);  // Логируем данные пользователя для отладки
         document.querySelector('.user-name').textContent = user.username || 'Guest';
         document.getElementById('user-avatar').src = user.photo_url || 'default-avatar.png';
@@ -12,6 +12,7 @@ async function loadGameState() {
         document.getElementById('user-avatar').style.display = 'none';
     }
 
+    // Остальная логика загрузки состояния игры
     coinCount = parseInt(localStorage.getItem('coinCount'), 10) || 1500;
     energyCount = parseInt(localStorage.getItem('energyCount'), 10) || 2000;
     recoveriesLeft = parseInt(localStorage.getItem('recoveriesLeft'), 10) || 20;
