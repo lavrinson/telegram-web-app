@@ -18,10 +18,45 @@ async function loadGameState() {
         document.getElementById('user-avatar').style.display = 'none';
     }
 
-    // Остальная логика загрузки состояния игры
-    coinCount = parseInt(localStorage.getItem('coinCount'), 10) || 1500;
-    energyCount = parseInt(localStorage.getItem('energyCount'), 10) || 2000;
-    recoveriesLeft = parseInt(localStorage.getItem('recoveriesLeft'), 10) || 20;
-    nextRecoveryTime = localStorage.getItem('nextRecoveryTime') ? new Date(parseInt(localStorage.getItem('nextRecoveryTime'), 10)) : null;
-    updateDisplay();
+    try {
+        // Логируем данные из localStorage
+        console.log('Loading game state...');
+        coinCount = parseInt(localStorage.getItem('coinCount'), 10) || 1500;
+        energyCount = parseInt(localStorage.getItem('energyCount'), 10) || 2000;
+        recoveriesLeft = parseInt(localStorage.getItem('recoveriesLeft'), 10) || 20;
+        nextRecoveryTime = localStorage.getItem('nextRecoveryTime') ? new Date(parseInt(localStorage.getItem('nextRecoveryTime'), 10)) : null;
+        console.log(`coinCount: ${coinCount}, energyCount: ${energyCount}, recoveriesLeft: ${recoveriesLeft}`);
+        updateDisplay();
+    } catch (error) {
+        console.error('Ошибка при загрузке данных из localStorage:', error);
+        // Устанавливаем значения по умолчанию в случае ошибки
+        coinCount = 1500;
+        energyCount = 2000;
+        recoveriesLeft = 20;
+        nextRecoveryTime = null;
+        updateDisplay();
+    }
 }
+
+function updateDisplay() {
+    document.getElementById('coin-count').textContent = `Coins: ${formatNumber(coinCount)}`;
+    document.getElementById('energy-count').textContent = `Energy: ${energyCount} / ${maxEnergy}`;
+    if (energyCount < maxEnergy && recoveriesLeft > 0 && nextRecoveryTime && new Date() >= nextRecoveryTime) {
+        energyCount = Math.min(maxEnergy, energyCount + 50);
+        nextRecoveryTime = new Date(Date.now() + energyRecoveryRate);
+        recoveriesLeft -= 1;
+        updateEnergyTimer();
+    }
+    localStorage.setItem('coinCount', coinCount);
+    localStorage.setItem('energyCount', energyCount);
+    localStorage.setItem('recoveriesLeft', recoveriesLeft);
+    localStorage.setItem('nextRecoveryTime', nextRecoveryTime ? nextRecoveryTime.getTime() : null);
+}
+
+function formatNumber(value) {
+    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'm';
+    if (value >= 1000) return (value / 1000).toFixed(1) + 'k';
+    return value.toString();
+}
+
+document.addEventListener('DOMContentLoaded', loadGameState);
