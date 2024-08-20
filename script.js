@@ -1,62 +1,31 @@
-async function loadGameState() {
-    try {
-        // Используем initDataUnsafe для получения данных пользователя
-        const user = window.Telegram.WebApp.initDataUnsafe.user;
-        if (user) {
-            console.log('User data:', user);  // Логируем данные пользователя для отладки
-            document.querySelector('.user-name').textContent = user.username || 'Guest';
-            document.getElementById('user-avatar').src = user.photo_url || 'default-avatar.png';
-            document.getElementById('user-avatar').style.display = 'block';
-        } else {
-            console.log('User data not available');
-            document.querySelector('.user-name').textContent = 'Guest';
-            document.getElementById('user-avatar').style.display = 'none';
-        }
-    } catch (error) {
-        console.error('Ошибка при загрузке данных пользователя:', error);
-        document.querySelector('.user-name').textContent = 'Guest';
-        document.getElementById('user-avatar').style.display = 'none';
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    // Загрузка данных пользователя
+    const userNameElement = document.querySelector('.user-name');
+    const coinCountElement = document.getElementById('coin-count');
+    const miningTimerElement = document.getElementById('mining-timer');
 
-    try {
-        // Логируем данные из localStorage
-        console.log('Loading game state...');
-        coinCount = parseInt(localStorage.getItem('coinCount'), 10) || 1500;
-        energyCount = parseInt(localStorage.getItem('energyCount'), 10) || 2000;
-        recoveriesLeft = parseInt(localStorage.getItem('recoveriesLeft'), 10) || 20;
-        nextRecoveryTime = localStorage.getItem('nextRecoveryTime') ? new Date(parseInt(localStorage.getItem('nextRecoveryTime'), 10)) : null;
-        console.log(`coinCount: ${coinCount}, energyCount: ${energyCount}, recoveriesLeft: ${recoveriesLeft}`);
-        updateDisplay();
-    } catch (error) {
-        console.error('Ошибка при загрузке данных из localStorage:', error);
-        // Устанавливаем значения по умолчанию в случае ошибки
-        coinCount = 1500;
-        energyCount = 2000;
-        recoveriesLeft = 20;
-        nextRecoveryTime = null;
-        updateDisplay();
-    }
-}
+    // Пример данных пользователя (вы можете заменить их реальными данными)
+    const userData = {
+        userName: 'John Doe',
+        coins: 150,
+        nextClaimTime: '00:15:30'
+    };
 
-function updateDisplay() {
-    document.getElementById('coin-count').textContent = `Coins: ${formatNumber(coinCount)}`;
-    document.getElementById('energy-count').textContent = `Energy: ${energyCount} / ${maxEnergy}`;
-    if (energyCount < maxEnergy && recoveriesLeft > 0 && nextRecoveryTime && new Date() >= nextRecoveryTime) {
-        energyCount = Math.min(maxEnergy, energyCount + 50);
-        nextRecoveryTime = new Date(Date.now() + energyRecoveryRate);
-        recoveriesLeft -= 1;
-        updateEnergyTimer();
-    }
-    localStorage.setItem('coinCount', coinCount);
-    localStorage.setItem('energyCount', energyCount);
-    localStorage.setItem('recoveriesLeft', recoveriesLeft);
-    localStorage.setItem('nextRecoveryTime', nextRecoveryTime ? nextRecoveryTime.getTime() : null);
-}
+    // Обновление UI данными пользователя
+    userNameElement.textContent = userData.userName;
+    coinCountElement.textContent = `Coins: ${userData.coins}`;
+    miningTimerElement.textContent = `Next claim in: ${userData.nextClaimTime}`;
 
-function formatNumber(value) {
-    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'm';
-    if (value >= 1000) return (value / 1000).toFixed(1) + 'k';
-    return value.toString();
-}
-
-document.addEventListener('DOMContentLoaded', loadGameState);
+    // Логика для кнопки "Start Mining"
+    const miningButton = document.getElementById('mining-button');
+    miningButton.disabled = false; // Делаем кнопку активной
+    miningButton.addEventListener('click', function() {
+        miningButton.textContent = 'Mining...'; // Изменение текста на кнопке
+        miningButton.disabled = true; // Отключаем кнопку на время майнинга
+        setTimeout(function() {
+            alert('Mining completed!');
+            miningButton.textContent = 'Start Mining';
+            miningButton.disabled = false; // Включаем кнопку снова
+        }, 5000); // Имитация времени майнинга в 5 секунд
+    });
+});

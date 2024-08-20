@@ -1,195 +1,97 @@
-:root {
-    --primary-bg-color: #87CEEB;
-    --secondary-bg-color: #4682B4;
-    --button-bg-color: #00c6ff;
-    --button-hover-bg-color: #0094cc;
-    --text-color: #f9f9f9;
-    --border-color: #ddd;
-    --modal-bg-color: rgba(0, 0, 0, 0.4);
-    --shadow-color: rgba(0, 0, 0, 0.2);
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    background-color: var(--primary-bg-color);
-    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    background-color: #000000; /* Черный фон */
+    color: #ffffff; /* Белый текст для всего сайта */
 }
 
-/* Верхний блок пользователя */
-#header-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 15px;
-    background-color: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-sizing: border-box;
-    border-radius: 15px; /* Закругляем все углы */
-    max-width: 100vw;
+.user-info-container {
+    padding: 20px;
+    background-color: #000000; /* Черный фон для контейнера с информацией */
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
+    color: #ffffff; /* Белый текст */
 }
 
-#user-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 15px;
-    background-color: transparent; /* Убираем лишний фон */
-    box-sizing: border-box;
+.user-info {
+    text-align: center;
 }
 
-#user-avatar {
-    border-radius: 50%;
-    padding: 3px;
-    background: linear-gradient(135deg, var(--button-bg-color), #ffffff);
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
-    margin-right: 10px;
-    border: none;
-    box-shadow: none;
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.user-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-    flex-grow: 1;
-}
-
-.coins {
-    display: flex;
-    align-items: center;
-}
-
-#coin-box {
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 5px 10px;
-    border-radius: 10px; /* Закругленные углы */
-    box-shadow: none; /* Убираем лишние тени */
-}
-
-#coin-box img {
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
+.divider {
+    height: 1px;
+    background-color: #ffffff; /* Белая разделительная линия */
+    margin: 10px 0;
 }
 
 #coin-count {
-    color: var(--text-color);
-    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff; /* Белый текст для количества монет */
 }
 
-/* Центрирование контента */
-#content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 80px; /* Отступ сверху под фиксированный блок пользователя */
-    margin-bottom: 100px; /* Увеличиваем отступ снизу для поднятого нижнего бара */
-    height: calc(100vh - 180px); /* Учёт высоты верхнего и нижнего блоков */
+.mining-container {
     text-align: center;
+    padding: 20px;
+    background-color: #000000; /* Черный фон для контейнера майнинга */
+    color: #ffffff; /* Белый текст */
 }
 
-#clicker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#clicker button {
-    background: none;
-    border: none;
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #000000; /* Черный фон для кнопки */
+    color: #ffffff; /* Белый текст на кнопке */
+    border: 2px solid #ffffff; /* Белая граница кнопки */
+    border-radius: 5px;
     cursor: pointer;
-    padding: 0;
-    transition: transform 0.1s ease-in-out;
 }
 
-#clicker button img {
-    width: 150px;
-    height: auto;
+.button:hover {
+    background-color: #333333; /* Темно-серый фон при наведении */
 }
 
-#clicker button:active {
-    transform: scale(1.1);
-}
-
-/* Статусный контейнер */
-#status-container {
+#mining-timer {
     margin-top: 20px;
-    text-align: center;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 14px;
+    color: #ffffff; /* Белый текст для таймера майнинга */
 }
 
-#energy-display img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-}
-
-/* Нижний бар с кнопками */
 #footer-section {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.7); /* Однородный полупрозрачный фон */
-    position: fixed;
-    bottom: 20px; /* Поднимаем немного выше */
-    left: 0;
-    width: 90%; /* Немного уменьшаем ширину для визуального эффекта */
-    margin-left: 5%; /* Центрируем */
-    box-sizing: border-box;
-    z-index: 1000;
-    border-radius: 15px; /* Закругляем все углы */
-    box-shadow: none; /* Убираем тень */
-    border: none; /* Убираем любые возможные границы */
-    outline: none; /* Убираем обводки */
+    padding: 10px 0;
+    background-color: #000000; /* Черный фон для футера */
+    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
 }
 
 .footer-button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #f9f9f9;
+    text-align: center;
     text-decoration: none;
-    border: none; /* Убираем любые границы у кнопок */
+    color: #ffffff; /* Белый цвет текста в футере */
 }
 
 .footer-button img {
+    filter: invert(1); /* Инвертируем цвет иконок, чтобы сделать их белыми */
     width: 24px;
     height: 24px;
     margin-bottom: 5px;
 }
 
 .footer-button span {
-    font-size: 0.8em;
-}
-
-.footer-button:hover {
-    color: #ffcc00;
-}
-
-/* Удаляем разделительную полосу */
-.divider {
-    display: none;
+    font-size: 12px;
 }
