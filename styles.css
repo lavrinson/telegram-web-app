@@ -9,30 +9,37 @@ body {
     justify-content: space-between;
     height: 100vh;
     background-color: #000000; /* Черный фон */
-    color: #ffffff; /* Белый текст для всего сайта */
+    color: #ffffff; /* Белый текст */
 }
 
 .user-info-container {
     padding: 20px;
-    background-color: #000000; /* Черный фон для контейнера с информацией */
-    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
+    background-color: #000000; /* Черный фон для контейнера */
+    /* Убрали свечение */
     color: #ffffff; /* Белый текст */
 }
 
 .user-info {
-    text-align: center;
+    display: flex;
+    justify-content: space-between; /* Имя слева, монеты справа */
+    align-items: center;
 }
 
-.user-name {
+.user-info-left {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
-.divider {
-    height: 1px;
-    background-color: #ffffff; /* Белая разделительная линия */
-    margin: 10px 0;
+.coin-info {
+    display: flex;
+    align-items: center;
+}
+
+.coin-icon {
+    width: 24px; /* Ширина иконки */
+    height: 24px; /* Высота иконки */
+    filter: invert(1); /* Инвертируем цвета иконки */
+    margin-right: 8px; /* Отступ справа от иконки */
 }
 
 #coin-count {
@@ -40,31 +47,24 @@ body {
     color: #ffffff; /* Белый текст для количества монет */
 }
 
-.mining-container {
-    text-align: center;
-    padding: 20px;
-    background-color: #000000; /* Черный фон для контейнера майнинга */
-    color: #ffffff; /* Белый текст */
+/* Стили для изображения кликера */
+.clicker-container {
+    display: flex;
+    justify-content: center; /* Центрируем контейнер */
+    margin: 20px 0; /* Отступы сверху и снизу */
 }
 
-.button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #000000; /* Черный фон для кнопки */
-    color: #ffffff; /* Белый текст на кнопке */
-    border: 2px solid #ffffff; /* Белая граница кнопки */
-    border-radius: 5px;
-    cursor: pointer;
+.clicker-image {
+    max-width: 80%; /* Уменьшите ширину изображения до 80% от ширины контейнера */
+    height: auto; /* Высота автоматически изменяется в зависимости от ширины */
+    border-radius: 10px; /* Закругленные края изображения */
+    border: none; /* Убираем обводку вокруг изображения */
+    transition: transform 0.2s ease; /* Плавная анимация зума */
 }
 
-.button:hover {
-    background-color: #333333; /* Темно-серый фон при наведении */
-}
-
-#mining-timer {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #ffffff; /* Белый текст для таймера майнинга */
+/* Зум при нажатии */
+.clicker-image.clicked {
+    transform: scale(1.1); /* Зум при нажатии */
 }
 
 #footer-section {
@@ -74,6 +74,10 @@ body {
     padding: 10px 0;
     background-color: #000000; /* Черный фон для футера */
     box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
+    position: relative; /* Убедитесь, что футер относительно позиционируется */
+    bottom: 0;
+    width: 100%;
+    z-index: 10; /* Убедитесь, что футер находится поверх других элементов */
 }
 
 .footer-button {
@@ -94,4 +98,101 @@ body {
 
 .footer-button span {
     font-size: 12px;
+}
+
+.mining-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Начинаем с верхней части */
+    height: calc(100vh - 140px); /* Высота контейнера с учетом футера и отступов */
+    padding: 0 20px 20px 20px; /* Уменьшили верхний отступ */
+}
+
+.mining-image-container {
+    position: relative;
+    text-align: center;
+}
+
+.mining-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0; /* Закругляем только верхние углы */
+    position: relative;
+    z-index: 1; /* Убедились, что изображение находится над другими элементами */
+}
+
+.progress-bar-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: -40px; /* Подняли контейнер, чтобы полоска прогресса находилась на картинке */
+    position: relative;
+    z-index: 2; /* Убедились, что полоска прогресса находится над картинкой */
+}
+
+.progress-bar-container {
+    width: 100%; /* Растягиваем полоску прогресса по ширине изображения */
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.2); /* Светло-серый фон */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #004d00, #00cc00); /* Градиент от темного до светлого зеленого */
+    width: 0;
+    position: relative;
+}
+
+.mined-coins-display {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #ffffff;
+    z-index: 3; /* Чтобы текст был поверх прогресс-бара */
+}
+
+.mining-button {
+    margin-top: 10px;
+    width: 100%; /* Растягиваем кнопку по ширине изображения */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #000000; /* Черный фон для кнопки */
+    color: #ffffff; /* Белый текст на кнопке */
+    border: 2px solid #ffffff; /* Белая обводка */
+    border-radius: 0 0 10px 10px; /* Закругляем только нижние углы кнопки */
+    cursor: pointer;
+    z-index: 2; /* Убедились, что кнопка находится над изображением */
+}
+
+.mining-button:hover {
+    background-color: #333333; /* Темно-серый фон при наведении */
+}
+
+.mining-timer {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.energy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.energy-icon {
+    width: 16px; /* Уменьшили размер иконки энергии */
+    height: 16px; /* Уменьшили размер иконки энергии */
+    margin-right: 8px;
+}
+
+.energy-display {
+    font-size: 16px; /* Уменьшили размер шрифта */
+    color: #ffffff;
 }

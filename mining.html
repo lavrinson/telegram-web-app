@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Mining</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Блок пользователя будет загружаться через user-info.js -->
+    <!-- Блок пользователя будет вставлен сюда -->
 
-    <!-- Картинка как кнопка -->
-    <div class="clicker-container">
-        <img id="clicker-image" src="assets/images/clicker.png" alt="Clicker" class="clicker-image">
-    </div>
-
-    <!-- Отображение энергии -->
-    <div class="energy-container">
-        <img src="assets/icons/energy.png" alt="Energy Icon" class="energy-icon">
-        <span id="energy-count" class="energy-display">100/100</span> <!-- Отображение энергии в формате доступная/максимальная -->
+    <!-- Майнинг-система -->
+    <div class="mining-container">
+        <div class="mining-image-container">
+            <img src="assets/images/mining.png" alt="Mining" class="mining-image">
+            <div class="progress-bar-and-button">
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar">
+                        <span id="mined-coins-display" class="mined-coins-display">0/100</span>
+                    </div>
+                </div>
+                <button id="mining-button" class="mining-button">Start Mining</button>
+            </div>
+        </div>
     </div>
 
     <!-- Нижний бар -->
@@ -41,6 +45,6 @@
     </div>
 
     <script src="user-info.js"></script> <!-- Подключение скрипта блока пользователя -->
-    <script src="clicker.js"></script> <!-- Подключение скрипта кликера -->
+    <script src="mining.js"></script> <!-- Подключение скрипта майнинга -->
 </body>
 </html>
