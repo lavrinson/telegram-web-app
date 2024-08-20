@@ -1,11 +1,17 @@
 async function loadGameState() {
     try {
-        // Пытаемся загрузить данные пользователя через Telegram API
-        const user = window.Telegram.WebApp.initDataUnsafe.user || {};  // Используем initDataUnsafe вместо getUser
-        console.log('User data:', user);  // Логируем данные пользователя для отладки
-        document.querySelector('.user-name').textContent = user.username || 'Guest';
-        document.getElementById('user-avatar').src = user.photo_url || 'default-avatar.png';
-        document.getElementById('user-avatar').style.display = 'block';
+        // Используем initDataUnsafe для получения данных пользователя
+        const user = window.Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            console.log('User data:', user);  // Логируем данные пользователя для отладки
+            document.querySelector('.user-name').textContent = user.username || 'Guest';
+            document.getElementById('user-avatar').src = user.photo_url || 'default-avatar.png';
+            document.getElementById('user-avatar').style.display = 'block';
+        } else {
+            console.log('User data not available');
+            document.querySelector('.user-name').textContent = 'Guest';
+            document.getElementById('user-avatar').style.display = 'none';
+        }
     } catch (error) {
         console.error('Ошибка при загрузке данных пользователя:', error);
         document.querySelector('.user-name').textContent = 'Guest';
