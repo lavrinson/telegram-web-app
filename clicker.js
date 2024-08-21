@@ -2,11 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const clickerImage = document.getElementById('clicker-image');
     const energyCountElement = document.getElementById('energy-count');
 
-    if (!energyCountElement) {
-        console.error('Energy count element not found!');
-        return;
-    }
-
     let coinCount = parseInt(localStorage.getItem('coins')) || 0;
     let energyCount = parseInt(localStorage.getItem('energy')) || 100;
     const lastEnergyUpdate = localStorage.getItem('lastEnergyUpdate');
@@ -22,8 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    if (energyCountElement) {
+        energyCountElement.textContent = `${energyCount}/100`;
+    }
+
     updateEnergy();
-    energyCountElement.textContent = `${energyCount}/100`;
 
     function handleClick() {
         if (energyCount > 0) {
@@ -33,7 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('coins', coinCount);
             localStorage.setItem('energy', energyCount);
 
-            energyCountElement.textContent = `${energyCount}/100`;
+            if (energyCountElement) {
+                energyCountElement.textContent = `${energyCount}/100`;
+            }
 
             if (window.updateCoins) {
                 window.updateCoins();

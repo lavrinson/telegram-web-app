@@ -3,36 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Quiz</title>
     <link rel="stylesheet" href="styles.css"> <!-- Подключение внешнего CSS -->
+    <style>
+        /* Стили для центрирования и улучшенного внешнего вида */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .quiz-header {
+            margin-bottom: 20px;
+        }
+
+        .quiz-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .quiz-card {
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            width: 30%;
+        }
+
+        .quiz-card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-card-title {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .vote-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .coin-selection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .arrow-button, #coin-amount {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .arrow-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #coin-amount {
+            width: 60px;
+            text-align: center;
+        }
+
+        #footer-section {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .footer-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .footer-button img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Блок пользователя будет вставлен сюда -->
 
-    <h1>Game</h1>
-    <p>Here you can play the game!</p>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <p>Конец раунда через 9 часов</p>
+            <h2>Найди средний путь</h2>
+            <a href="#" class="quiz-question-link">Как организовать сопротивление?</a>
+        </div>
 
-    <!-- Нижний бар -->
-    <div id="footer-section">
-        <a href="index.html" class="footer-button">
-            <img src="assets/icons/home.png" alt="Home Icon">
-            <span>Home</span>
-        </a>
-        <a href="mining.html" class="footer-button">
-            <img src="assets/icons/mining.png" alt="Mining Icon">
-            <span>Mining</span>
-        </a>
-        <a href="game.html" class="footer-button">
-            <img src="assets/icons/game.png" alt="Game Icon">
-            <span>Game</span>
-        </a>
-        <a href="missions.html" class="footer-button">
-            <img src="assets/icons/missions.png" alt="Missions Icon">
-            <span>Missions</span>
-        </a>
+        <div class="quiz-cards">
+            <button class="quiz-card">
+                <img src="assets/images/card1.png" alt="Астральные встречи" class="quiz-card-image">
+                <span class="quiz-card-title">Beast Friends</span>
+            </button>
+            <button class="quiz-card">
+                <img src="assets/images/card2.png" alt="Тайные сборища" class="quiz-card-image">
+                <span class="quiz-card-title">Productivity</span>
+            </button>
+            <button class="quiz-card">
+                <img src="assets/images/card3.png" alt="За линией" class="quiz-card-image">
+                <span class="quiz-card-title">Joint Labor</span>
+            </button>
+        </div>
+
+        <button class="vote-button">
+            Проголосовать <span id="display-coin-amount">1</span> PANDAS
+        </button>
+
+        <div class="coin-selection">
+            <button class="arrow-button" id="decrease-button">←</button>
+            <input type="number" id="coin-amount" value="1" min="1">
+            <button class="arrow-button" id="increase-button">→</button>
+        </div>
+
+        <div id="footer-section">
+            <a href="index.html" class="footer-button">
+                <img src="assets/icons/home.png" alt="Home Icon">
+                <span>Home</span>
+            </a>
+            <a href="mining.html" class="footer-button">
+                <img src="assets/icons/mining.png" alt="Mining Icon">
+                <span>Mining</span>
+            </a>
+            <a href="game.html" class="footer-button">
+                <img src="assets/icons/game.png" alt="Game Icon">
+                <span>Game</span>
+            </a>
+            <a href="missions.html" class="footer-button">
+                <img src="assets/icons/missions.png" alt="Missions Icon">
+                <span>Missions</span>
+            </a>
+        </div>
     </div>
 
+<script src="quiz.js"></script> <!-- Подключение скрипта викторины -->
 <script src="user-info.js"></script> <!-- Подключение скрипта блока пользователя -->
+<script>
+    // Логика изменения количества монет
+    const coinAmountInput = document.getElementById('coin-amount');
+    const decreaseButton = document.getElementById('decrease-button');
+    const increaseButton = document.getElementById('increase-button');
+    const displayCoinAmount = document.getElementById('display-coin-amount');
 
+    let coinAmount = parseInt(coinAmountInput.value);
+
+    decreaseButton.addEventListener('click', () => {
+        if (coinAmount > 1) {
+            coinAmount--;
+            coinAmountInput.value = coinAmount;
+            displayCoinAmount.textContent = coinAmount;
+        }
+    });
+
+    increaseButton.addEventListener('click', () => {
+        coinAmount++;
+        coinAmountInput.value = coinAmount;
+        displayCoinAmount.textContent = coinAmount;
+    });
+
+    coinAmountInput.addEventListener('input', () => {
+        coinAmount = parseInt(coinAmountInput.value) || 1;
+        if (coinAmount < 1) coinAmount = 1; // Минимальное значение 1
+        displayCoinAmount.textContent = coinAmount;
+    });
+</script>
 </body>
 </html>

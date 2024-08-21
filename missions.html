@@ -7,10 +7,33 @@
     <link rel="stylesheet" href="styles.css"> <!-- Подключение внешнего CSS -->
 </head>
 <body>
-    <!-- Блок пользователя будет вставлен сюда -->
+    <!-- Блок пользователя -->
+    <div id="user-info-container" class="user-info-container">
+        <!-- Контент будет загружаться из user-info.js -->
+    </div>
 
-    <h1>Missions</h1>
-    <p>Here you can see your missions.</p>
+    <h1 class="missions-title">Missions</h1>
+    <p class="missions-description">Here you can see your missions.</p>
+
+    <!-- Список миссий -->
+    <div class="missions-container">
+        <div class="mission-card">
+            <h2>Mission 1</h2>
+            <p>Complete the first task to earn rewards.</p>
+            <button class="mission-button">Start Mission</button>
+        </div>
+        <div class="mission-card">
+            <h2>Mission 2</h2>
+            <p>Gather resources to progress further.</p>
+            <button class="mission-button">Start Mission</button>
+        </div>
+        <div class="mission-card">
+            <h2>Mission 3</h2>
+            <p>Defeat the boss to earn a special reward.</p>
+            <button class="mission-button">Start Mission</button>
+        </div>
+        <!-- Добавьте больше миссий по необходимости -->
+    </div>
 
     <!-- Нижний бар -->
     <div id="footer-section">
@@ -18,9 +41,9 @@
             <img src="assets/icons/home.png" alt="Home Icon">
             <span>Home</span>
         </a>
-        <a href="cards.html" class="footer-button">
-            <img src="assets/icons/cards.png" alt="Cards Icon">
-            <span>Cards</span>
+        <a href="mining.html" class="footer-button">
+            <img src="assets/icons/mining.png" alt="Mining Icon">
+            <span>Mining</span>
         </a>
         <a href="game.html" class="footer-button">
             <img src="assets/icons/game.png" alt="Game Icon">
@@ -32,7 +55,6 @@
         </a>
     </div>
 
-<script src="user-info.js"></script> <!-- Подключение скрипта блока пользователя -->
-
+    <script src="user-info.js"></script> <!-- Подключение скрипта блока пользователя -->
 </body>
 </html>

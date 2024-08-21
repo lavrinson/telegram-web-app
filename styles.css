@@ -12,6 +12,7 @@ body {
     color: #ffffff; /* Белый текст */
 }
 
+/* Блок пользователя */
 .user-info-container {
     padding: 20px;
     background-color: #000000; /* Черный фон для контейнера */
@@ -46,6 +47,7 @@ body {
     color: #ffffff; /* Белый текст для количества монет */
 }
 
+/* Блок кликера */
 .clicker-container {
     display: flex;
     justify-content: center; /* Центрируем контейнер */
@@ -64,17 +66,18 @@ body {
     transform: scale(1.1); /* Зум при нажатии */
 }
 
+/* Футер */
 #footer-section {
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 10px 0;
-    background-color: #000000; /* Черный фон для футера */
-    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
+    background-color: #1f1f1f;
     position: fixed; /* Фиксируем позицию блока */
     bottom: 0;
     width: 100%;
     z-index: 10; /* Убедитесь, что футер находится поверх других элементов */
+    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
 }
 
 .footer-button {
@@ -116,7 +119,7 @@ body {
     color: #ffffff;
 }
 
-/* Дополнительные стили для страницы майнинга */
+/* Страница майнинга */
 .mining-container {
     display: flex;
     justify-content: center;
@@ -196,7 +199,7 @@ body {
     color: #ffffff;
 }
 
-/* Стили для блока с NFT-картами */
+/* Блок с NFT-картами */
 .nft-cards-container {
     display: flex;
     flex-wrap: wrap; /* Разрешаем перенос строк для размещения двух карт в ряду */
@@ -240,6 +243,285 @@ body {
     text-align: center;
 }
 
-.extra-space {
-    height: 200px; /* Высота дополнительного пространства */
+/* Страница с миссиями */
+.missions-title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.missions-description {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.missions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.mission-card {
+    background-color: #222222;
+    color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.mission-button {
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mission-button:hover {
+    background-color: #555555;
+}
+
+/* Стили для викторины */
+.quiz-container {
+    padding: 20px;
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.quiz-header p {
+    color: #bbbbbb;
+    font-size: 14px;
+}
+
+.quiz-header h2 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.quiz-question-link {
+    color: #0095ff;
+    text-decoration: none;
+}
+
+.quiz-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.quiz-card {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.quiz-card:hover {
+    transform: scale(1.05);
+}
+
+.quiz-card-image {
+    width: 100px;
+    height: 150px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.quiz-card-title {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.vote-button {
+    background-color: #0095ff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.vote-button:hover {
+    background-color: #007acc;
+}
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: #000000; /* Черный фон */
+    color: #ffffff; /* Белый текст */
+}
+
+.quiz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+.quiz-header {
+    margin-bottom: 20px;
+}
+
+.quiz-header p {
+    color: #bbbbbb;
+    font-size: 14px;
+}
+
+.quiz-header h2 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.quiz-question-link {
+    color: #0095ff;
+    text-decoration: none;
+}
+
+.quiz-cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.quiz-card {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.quiz-card:hover {
+    transform: scale(1.05);
+}
+
+.quiz-card-image {
+    width: 100px;
+    height: 150px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.quiz-card-title {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.vote-button {
+    background-color: #0095ff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.vote-button:hover {
+    background-color: #007acc;
+}
+
+#footer-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #1f1f1f;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.footer-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.footer-button img {
+    filter: invert(1);
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+.footer-button span {
+    font-size: 12px;
+}
+.quiz-card {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.quiz-card:hover {
+    transform: scale(1.05);
+}
+
+.quiz-card.active {
+    transform: scale(1.15); /* Увеличиваем масштаб активной карточки */
+    box-shadow: 0px 0px 15px rgba(0, 149, 255, 0.5); /* Добавляем тень */
+    z-index: 1; /* Поднимаем карточку над другими элементами */
+}
+
+.quiz-card-image {
+    width: 100px;
+    height: 150px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.quiz-card-title {
+    font-size: 16px;
+    color: #ffffff;
 }
