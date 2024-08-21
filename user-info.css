@@ -1,0 +1,53 @@
+.user-info-container {
+    padding: 20px;
+    background-color: #000000; /* Черный фон для контейнера */
+    color: #ffffff; /* Белый текст */
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between; /* Имя слева, монеты справа */
+    align-items: center;
+}
+
+.user-info-left {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.coin-info {
+    display: flex;
+    align-items: center;
+}
+
+.coin-icon {
+    width: 24px; /* Ширина иконки */
+    height: 24px; /* Высота иконки */
+    filter: invert(1); /* Инвертируем цвета иконки */
+    margin-right: 8px; /* Отступ справа от иконки */
+}
+
+#coin-count {
+    font-size: 16px;
+    color: #ffffff; /* Белый текст для количества монет */
+}
+
+@media (max-width: 768px) {
+    .user-info-left {
+        font-size: 16px;
+    }
+
+    .coin-info {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-info-left {
+        font-size: 14px;
+    }
+
+    .coin-info {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,69 @@
+/* Центрирование миссий */
+.missions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Центрирование по вертикали */
+    margin-top: 20px; /* Отступ сверху после блока пользователя */
+    padding: 0 20px;
+    width: 100%;
+}
+
+.mission-card {
+    background-color: #222222;
+    color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.mission-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.mission-details {
+    flex-grow: 1;
+}
+
+.mission-details h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff; /* Белый текст */
+    font-weight: bold;
+}
+
+.mission-details p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #777;
+}
+
+.mission-button {
+    background-color: #0095ff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.mission-button:hover {
+    background-color: #007acc;
+}
+
+@media (max-width: 768px) {
+    .mission-card {
+        max-width: 90%;
+    }
+}

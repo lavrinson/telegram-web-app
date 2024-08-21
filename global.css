@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #000000; /* Черный фон */
+    color: #ffffff; /* Белый текст */
+}
+
+/* Футер */
+#footer-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #1f1f1f;
+    position: fixed; /* Фиксируем позицию блока */
+    bottom: 0;
+    width: 100%;
+    z-index: 10; /* Убедитесь, что футер находится поверх других элементов */
+    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
+}
+
+.footer-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff; /* Белый цвет текста в футере */
+}
+
+.footer-button img {
+    filter: invert(1); /* Инвертируем цвет иконок, чтобы сделать их белыми */
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+.footer-button span {
+    font-size: 12px;
+}
+
+/* Медиазапросы для адаптации под мобильные устройства */
+@media (max-width: 768px) {
+    .footer-button img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .footer-button span {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer-button img {
+        width: 30px;
+        height: 30px;
+    }
+}
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #000000; /* Черный фон */
+    color: #ffffff; /* Белый текст */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    touch-action: manipulation; /* Отключаем жесты масштабирования на сенсорных экранах */
+}

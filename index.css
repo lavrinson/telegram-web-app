@@ -1,0 +1,103 @@
+/* Стили для контейнера страницы */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Центрируем по вертикали */
+    min-height: calc(100vh - 60px); /* Оставляем место для футера */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Стили для блока кликера */
+.clicker-container {
+    display: flex;
+    justify-content: center; /* Центрируем контейнер по горизонтали */
+    align-items: center; /* Центрируем по вертикали внутри контейнера */
+    margin-bottom: 20px; /* Отступ снизу перед блоком энергии */
+}
+
+.clicker-image {
+    max-width: 80%; /* Ширина изображения 80% от ширины контейнера */
+    height: auto; /* Высота автоматически изменяется в зависимости от ширины */
+    border-radius: 10px; /* Закругленные края изображения */
+    border: none; /* Убираем обводку вокруг изображения */
+    transition: transform 0.2s ease; /* Плавная анимация зума */
+}
+
+.clicker-image.clicked {
+    transform: scale(1.1); /* Зум при нажатии */
+}
+
+/* Стили для отображения энергии */
+.energy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.energy-icon {
+    width: 20px; /* Размер иконки */
+    height: 20px; /* Размер иконки */
+    margin-right: 8px; /* Отступ справа от иконки */
+}
+
+.energy-display {
+    font-size: 16px; /* Размер шрифта для отображения энергии */
+    color: #ffffff; /* Цвет текста */
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .clicker-image {
+        max-width: 90%; /* Увеличиваем ширину изображения на мобильных устройствах */
+    }
+
+    .energy-icon {
+        width: 16px; /* Уменьшаем размер иконки на мобильных устройствах */
+        height: 16px; /* Уменьшаем размер иконки на мобильных устройствах */
+    }
+
+    .energy-display {
+        font-size: 14px; /* Уменьшаем размер шрифта на мобильных устройствах */
+    }
+}
+
+@media (max-width: 480px) {
+    .clicker-image {
+        max-width: 95%; /* Увеличиваем ширину изображения на очень маленьких экранах */
+    }
+
+    .energy-icon {
+        width: 14px; /* Уменьшаем размер иконки на очень маленьких экранах */
+        height: 14px; /* Уменьшаем размер иконки на очень маленьких экранах */
+    }
+
+    .energy-display {
+        font-size: 12px; /* Уменьшаем размер шрифта на очень маленьких экранах */
+    }
+}
+/* Запрещаем прокрутку страницы */
+html, body {
+    overflow: hidden; /* Отключаем прокрутку */
+    height: 100%; /* Устанавливаем высоту в 100% для обеспечения полной видимости */
+    margin: 0; /* Убираем стандартные отступы у body */
+}
+/* Стили для кнопки Boost */
+.boost-container {
+    display: flex;
+    justify-content: center; /* Центрируем кнопку по горизонтали */
+    margin-bottom: 20px; /* Отступ снизу перед блоком кликера */
+}
+
+.boost-button {
+    width: 50px; /* Ширина кнопки */
+    height: 50px; /* Высота кнопки */
+    cursor: pointer; /* Курсор указывает на кликабельность */
+    border-radius: 10px; /* Закругленные края кнопки */
+    transition: transform 0.2s ease; /* Плавная анимация зума */
+}
+
+.boost-button.clicked {
+    transform: scale(1.1); /* Зум при нажатии */
+}
