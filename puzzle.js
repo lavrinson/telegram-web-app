@@ -115,7 +115,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         if (isSelecting) {
             const touch = e.touches[0];
-            const cell = document.elementFromPoint(touch.clientX, touch.clientY);
+            const x = touch.clientX;
+            const y = touch.clientY;
+
+            const cell = document.elementFromPoint(x, y);
             if (cell && cell.classList.contains('puzzle-cell') && cell.dataset.combination) {
                 const index = parseInt(cell.dataset.index, 10);
                 if (!selectedCells.includes(index)) {
