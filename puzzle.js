@@ -7,15 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const boardSize = 6; // 6x6 board
     const combinationLength = 5;
     const cells = [];
-    let combinations = [];
-    let currentCombinationIndex = 0;
+    let combination = generateCombination();
     let selectedCells = [];
     let timer;
     let timeLeft = 60; // 60 seconds
     let isSelecting = false;
-    let correctCombinationsCount = 0;
-
-    const cooldownPeriod = 180000; // 3 minutes in milliseconds
+    let startIndex = null;
 
     function generateCombination() {
         const direction = Math.floor(Math.random() * 4); // 0 = horizontal, 1 = vertical, 2 = diagonal down-right, 3 = diagonal down-left
@@ -48,39 +45,18 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.dataset.index = i;
             cell.addEventListener('mousedown', (e) => handleCellStart(e, cell));
             cell.addEventListener('mouseenter', (e) => handleCellHover(e, cell));
+            cell.addEventListener('mouseup', (e) => handleCellEnd(e));
             cell.addEventListener('touchstart', (e) => handleCellStart(e, cell));
             cell.addEventListener('touchmove', (e) => handleCellHover(e, cell));
+            cell.addEventListener('touchend', (e) => handleCellEnd(e));
             puzzleBoard.appendChild(cell);
             cells.push(cell);
         }
 
-        if (canPlay()) {
-            startNewGame();
-        } else {
-            messageElement.textContent = 'Please wait before starting a new game.';
-            disableBoard();
-        }
-    }
-
-    function canPlay() {
-        const lastPlayed = localStorage.getItem('lastPlayed');
-        if (!lastPlayed) return true;
-        const now = Date.now();
-        return (now - lastPlayed) > cooldownPeriod;
-    }
-
-    function startNewGame() {
-        correctCombinationsCount = 0;
-        combinations = Array.from({ length: 3 }, () => generateCombination());
-        currentCombinationIndex = 0;
-        timeLeft = 60;
-        selectedCells = [];
-        startTimer();
         placeCombination();
     }
 
     function placeCombination() {
-        let combination = combinations[currentCombinationIndex];
         let digits = generateTargetDigits();
         targetNumberElement.textContent = `Find the combination: ${digits.join('')}`;
 
@@ -101,8 +77,9 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); // Prevent default behavior
         if (cell.dataset.combination) {
             isSelecting = true;
+            startIndex = parseInt(cell.dataset.index);
+            selectedCells = [startIndex];
             cell.classList.add('selected');
-            selectedCells = [parseInt(cell.dataset.index)];
         }
     }
 
@@ -111,41 +88,33 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isSelecting && cell.dataset.combination) {
             const index = parseInt(cell.dataset.index, 10);
             if (!selectedCells.includes(index)) {
-                cell.classList.add('selected');
                 selectedCells.push(index);
+                cell.classList.add('selected');
             }
         }
     }
 
-    function handleCellEnd() {
+    function handleCellEnd(e) {
+        e.preventDefault();
         if (isSelecting) {
             checkCombination();
-            isSelecting = false;
+            resetSelection();
         }
     }
 
     function checkCombination() {
         const selectedIndices = selectedCells.map(index => parseInt(index));
-        const correctIndices = combinations[currentCombinationIndex].map(index => parseInt(index));
+        const correctIndices = combination.map(index => parseInt(index));
 
         if (selectedIndices.length === combinationLength &&
             JSON.stringify(selectedIndices) === JSON.stringify(correctIndices)) {
-            correctCombinationsCount++;
-            if (correctCombinationsCount === 3) {
-                localStorage.setItem('lastPlayed', Date.now());
-                triggerConfetti();
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 3000); // Wait for confetti animation (3 seconds)
-            } else {
-                messageElement.textContent = `Correct! Solved ${correctCombinationsCount} of 3.`;
-                resetSelection();
-                currentCombinationIndex++;
-                setTimeout(placeCombination, 1000); // Delay before showing next combination
-            }
+            triggerConfetti();
+            setTimeout(() => {
+                localStorage.setItem('energy', 100);
+                window.location.href = 'index.html';
+            }, 3000); // Wait for confetti animation (3 seconds)
         } else {
-            messageElement.textContent = 'Incorrect! Try again.';
-            resetSelection();
+            messageElement.textContent = 'Incorrect combination. Try again!';
         }
     }
 
@@ -154,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cells[index].classList.remove('selected');
         });
         selectedCells = [];
+        isSelecting = false;
     }
 
     function startTimer() {
@@ -179,8 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
         cells.forEach(cell => {
             cell.removeEventListener('mousedown', (e) => handleCellStart(e, cell));
             cell.removeEventListener('mouseenter', (e) => handleCellHover(e, cell));
+            cell.removeEventListener('mouseup', (e) => handleCellEnd(e));
             cell.removeEventListener('touchstart', (e) => handleCellStart(e, cell));
             cell.removeEventListener('touchmove', (e) => handleCellHover(e, cell));
+            cell.removeEventListener('touchend', (e) => handleCellEnd(e));
         });
     }
 
@@ -208,7 +180,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     createBoard();
-
-    document.addEventListener('mouseup', handleCellEnd);
-    document.addEventListener('touchend', handleCellEnd);
+    startTimer();
 });
