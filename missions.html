@@ -12,25 +12,34 @@
         <!-- Контент будет загружаться из user-info.js -->
     </div>
 
+    <!-- Заголовок миссий -->
     <h1 class="missions-title">Missions</h1>
-    <p class="missions-description">Here you can see your missions.</p>
 
     <!-- Список миссий -->
     <div class="missions-container">
         <div class="mission-card">
-            <h2>Mission 1</h2>
-            <p>Complete the first task to earn rewards.</p>
-            <button class="mission-button">Start Mission</button>
+            <div class="mission-icon goat-icon"></div>
+            <div class="mission-details">
+                <h2>React and comment this post</h2>
+                <p>+500 $GOATS</p>
+            </div>
+            <button class="mission-button">Do</button>
         </div>
         <div class="mission-card">
-            <h2>Mission 2</h2>
-            <p>Gather resources to progress further.</p>
-            <button class="mission-button">Start Mission</button>
+            <div class="mission-icon goat-icon"></div>
+            <div class="mission-details">
+                <h2>React this post</h2>
+                <p>+500 $GOATS</p>
+            </div>
+            <button class="mission-button">Do</button>
         </div>
         <div class="mission-card">
-            <h2>Mission 3</h2>
-            <p>Defeat the boss to earn a special reward.</p>
-            <button class="mission-button">Start Mission</button>
+            <div class="mission-icon goat-icon"></div>
+            <div class="mission-details">
+                <h2>Subscribe Telegram channel</h2>
+                <p>+1,000 $GOATS</p>
+            </div>
+            <button class="mission-button" onclick="window.open('https://t.me/cryptodrell', '_blank')">Do</button>
         </div>
         <!-- Добавьте больше миссий по необходимости -->
     </div>
@@ -49,7 +58,7 @@
             <img src="assets/icons/game.png" alt="Game Icon">
             <span>Game</span>
         </a>
-        <a href="missions.html" class="footer-button">
+        <a href="missions.html" class="footer-button active">
             <img src="assets/icons/missions.png" alt="Missions Icon">
             <span>Missions</span>
         </a>

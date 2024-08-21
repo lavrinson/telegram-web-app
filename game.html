@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css"> <!-- Подключение внешнего CSS -->
 </head>
 <body>
+
     <div class="quiz-container">
         <div class="quiz-header">
             <p>Конец раунда через 9 часов</p>
@@ -61,5 +62,35 @@
     </div>
 
     <script src="quiz.js"></script> <!-- Подключение внешнего JS -->
+    <script>
+        // Логика изменения количества монет
+        const coinAmountInput = document.getElementById('coin-amount');
+        const decreaseButton = document.getElementById('decrease-button');
+        const increaseButton = document.getElementById('increase-button');
+        const displayCoinAmount = document.getElementById('display-coin-amount');
+
+        let coinAmount = parseInt(coinAmountInput.value);
+
+        decreaseButton.addEventListener('click', () => {
+            if (coinAmount > 1) {
+                coinAmount--;
+                coinAmountInput.value = coinAmount;
+                displayCoinAmount.textContent = coinAmount;
+            }
+        });
+
+        increaseButton.addEventListener('click', () => {
+            coinAmount++;
+            coinAmountInput.value = coinAmount;
+            displayCoinAmount.textContent = coinAmount;
+        });
+
+        coinAmountInput.addEventListener('input', () => {
+            coinAmount = parseInt(coinAmountInput.value) || 1;
+            if (coinAmount < 1) coinAmount = 1; // Минимальное значение 1
+            displayCoinAmount.textContent = coinAmount;
+        });
+    </script>
+    <script src="user-info.js"></script>
 </body>
 </html>

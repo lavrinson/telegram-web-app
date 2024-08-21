@@ -6,7 +6,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     height: 100vh;
     background-color: #000000; /* Черный фон */
     color: #ffffff; /* Белый текст */
@@ -47,23 +47,73 @@ body {
     color: #ffffff; /* Белый текст для количества монет */
 }
 
-/* Блок кликера */
-.clicker-container {
+/* Центрирование миссий */
+.missions-container {
     display: flex;
-    justify-content: center; /* Центрируем контейнер */
-    margin: 20px 0; /* Отступы сверху и снизу */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Центрирование по вертикали */
+    margin-top: 20px; /* Отступ сверху после блока пользователя */
+    padding: 0 20px;
+    width: 100%;
 }
 
-.clicker-image {
-    max-width: 80%; /* Уменьшите ширину изображения до 80% от ширины контейнера */
-    height: auto; /* Высота автоматически изменяется в зависимости от ширины */
-    border-radius: 10px; /* Закругленные края изображения */
-    border: none; /* Убираем обводку вокруг изображения */
-    transition: transform 0.2s ease; /* Плавная анимация зума */
+.mission-card {
+    background-color: #222222;
+    color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
 }
 
-.clicker-image.clicked {
-    transform: scale(1.1); /* Зум при нажатии */
+.mission-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.goat-icon {
+    background-image: url('assets/icons/goat.png'); /* Замените на правильный путь к иконке */
+    background-size: cover;
+}
+
+.mission-details {
+    flex-grow: 1;
+}
+
+.mission-details h2, .quiz-card-title, .nft-title {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff; /* Белый текст */
+    font-weight: bold;
+}
+
+.mission-details p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #777;
+}
+
+.mission-button, .vote-button, .mining-button {
+    background-color: #0095ff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.mission-button:hover, .vote-button:hover, .mining-button:hover {
+    background-color: #007acc;
 }
 
 /* Футер */
@@ -100,23 +150,23 @@ body {
     font-size: 12px;
 }
 
-/* Стили для энергии */
-.energy-container {
+/* Блок кликера */
+.clicker-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: center; /* Центрируем контейнер */
+    margin: 20px 0; /* Отступы сверху и снизу */
 }
 
-.energy-icon {
-    width: 16px; /* Уменьшили размер иконки энергии */
-    height: 16px; /* Уменьшили размер иконки энергии */
-    margin-right: 8px;
+.clicker-image {
+    max-width: 80%; /* Уменьшите ширину изображения до 80% от ширины контейнера */
+    height: auto; /* Высота автоматически изменяется в зависимости от ширины */
+    border-radius: 10px; /* Закругленные края изображения */
+    border: none; /* Убираем обводку вокруг изображения */
+    transition: transform 0.2s ease; /* Плавная анимация зума */
 }
 
-.energy-display {
-    font-size: 16px; /* Уменьшили размер шрифта */
-    color: #ffffff;
+.clicker-image.clicked {
+    transform: scale(1.1); /* Зум при нажатии */
 }
 
 /* Страница майнинга */
@@ -243,53 +293,6 @@ body {
     text-align: center;
 }
 
-/* Страница с миссиями */
-.missions-title {
-    text-align: center;
-    font-size: 24px;
-    margin-top: 20px;
-}
-
-.missions-description {
-    text-align: center;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.missions-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-}
-
-.mission-card {
-    background-color: #222222;
-    color: #ffffff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.mission-button {
-    background-color: #333333;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.mission-button:hover {
-    background-color: #555555;
-}
-
 /* Стили для викторины */
 .quiz-container {
     padding: 20px;
@@ -364,149 +367,6 @@ body {
 .vote-button:hover {
     background-color: #007acc;
 }
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    background-color: #000000; /* Черный фон */
-    color: #ffffff; /* Белый текст */
-}
-
-.quiz-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    margin: auto;
-    width: 100%;
-    max-width: 400px;
-}
-
-.quiz-header {
-    margin-bottom: 20px;
-}
-
-.quiz-header p {
-    color: #bbbbbb;
-    font-size: 14px;
-}
-
-.quiz-header h2 {
-    font-size: 24px;
-    margin: 10px 0;
-}
-
-.quiz-question-link {
-    color: #0095ff;
-    text-decoration: none;
-}
-
-.quiz-cards {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.quiz-card {
-    background-color: #1f1f1f;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    flex-grow: 1;
-    margin: 0 10px;
-}
-
-.quiz-card:hover {
-    transform: scale(1.05);
-}
-
-.quiz-card-image {
-    width: 100px;
-    height: 150px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-}
-
-.quiz-card-title {
-    font-size: 16px;
-    color: #ffffff;
-}
-
-.vote-button {
-    background-color: #0095ff;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.vote-button:hover {
-    background-color: #007acc;
-}
-
-#footer-section {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    background-color: #1f1f1f;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1);
-}
-
-.footer-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.footer-button img {
-    filter: invert(1);
-    width: 24px;
-    height: 24px;
-    margin-bottom: 5px;
-}
-
-.footer-button span {
-    font-size: 12px;
-}
-.quiz-card {
-    background-color: #1f1f1f;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    flex-grow: 1;
-    margin: 0 10px;
-}
-
-.quiz-card:hover {
-    transform: scale(1.05);
-}
 
 .quiz-card.active {
     transform: scale(1.15); /* Увеличиваем масштаб активной карточки */
@@ -514,150 +374,21 @@ body {
     z-index: 1; /* Поднимаем карточку над другими элементами */
 }
 
-.quiz-card-image {
-    width: 100px;
-    height: 150px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-}
-
-.quiz-card-title {
-    font-size: 16px;
-    color: #ffffff;
-}
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+/* Стили для энергии */
+.energy-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    background-color: #000000; /* Черный фон */
-    color: #ffffff; /* Белый текст */
-}
-
-.quiz-container {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 20px;
-    margin: auto;
-    width: 100%;
-    max-width: 400px;
+    margin-top: 20px;
 }
 
-.quiz-header {
-    margin-bottom: 20px;
+.energy-icon {
+    width: 12px; /* Уменьшили размер иконки энергии */
+    height: 12px; /* Уменьшили размер иконки энергии */
+    margin-right: 8px;
 }
 
-.quiz-header p {
-    color: #bbbbbb;
-    font-size: 14px;
-}
-
-.quiz-header h2 {
-    font-size: 24px;
-    margin: 10px 0;
-}
-
-.quiz-question-link {
-    color: #0095ff;
-    text-decoration: none;
-}
-
-.quiz-cards {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.quiz-card {
-    background-color: #1f1f1f;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    flex-grow: 1;
-    margin: 0 10px;
-}
-
-.quiz-card:hover {
-    transform: scale(1.05);
-}
-
-.quiz-card.active {
-    transform: scale(1.15); /* Увеличиваем масштаб активной карточки */
-    box-shadow: 0px 0px 15px rgba(0, 149, 255, 0.5); /* Добавляем тень */
-    z-index: 1; /* Поднимаем карточку над другими элементами */
-}
-
-.quiz-card-image {
-    width: 100px;
-    height: 150px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-}
-
-.quiz-card-title {
-    font-size: 16px;
+.energy-display {
+    font-size: 14px; /* Уменьшили размер шрифта */
     color: #ffffff;
-}
-
-.vote-button {
-    background-color: #0095ff;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.vote-button:hover {
-    background-color: #007acc;
-}
-
-#footer-section {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    background-color: #1f1f1f;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1);
-}
-
-.footer-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.footer-button img {
-    filter: invert(1);
-    width: 24px;
-    height: 24px;
-    margin-bottom: 5px;
-}
-
-.footer-button span {
-    font-size: 12px;
 }
