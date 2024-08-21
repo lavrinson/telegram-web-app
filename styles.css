@@ -15,7 +15,6 @@ body {
 .user-info-container {
     padding: 20px;
     background-color: #000000; /* Черный фон для контейнера */
-    /* Убрали свечение */
     color: #ffffff; /* Белый текст */
 }
 
@@ -47,7 +46,6 @@ body {
     color: #ffffff; /* Белый текст для количества монет */
 }
 
-/* Стили для изображения кликера */
 .clicker-container {
     display: flex;
     justify-content: center; /* Центрируем контейнер */
@@ -62,7 +60,6 @@ body {
     transition: transform 0.2s ease; /* Плавная анимация зума */
 }
 
-/* Зум при нажатии */
 .clicker-image.clicked {
     transform: scale(1.1); /* Зум при нажатии */
 }
@@ -74,7 +71,7 @@ body {
     padding: 10px 0;
     background-color: #000000; /* Черный фон для футера */
     box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
-    position: relative; /* Убедитесь, что футер относительно позиционируется */
+    position: fixed; /* Фиксируем позицию блока */
     bottom: 0;
     width: 100%;
     z-index: 10; /* Убедитесь, что футер находится поверх других элементов */
@@ -100,6 +97,26 @@ body {
     font-size: 12px;
 }
 
+/* Стили для энергии */
+.energy-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.energy-icon {
+    width: 16px; /* Уменьшили размер иконки энергии */
+    height: 16px; /* Уменьшили размер иконки энергии */
+    margin-right: 8px;
+}
+
+.energy-display {
+    font-size: 16px; /* Уменьшили размер шрифта */
+    color: #ffffff;
+}
+
+/* Дополнительные стили для страницы майнинга */
 .mining-container {
     display: flex;
     justify-content: center;
@@ -141,7 +158,7 @@ body {
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(to right, #004d00, #00cc00); /* Градиент от темного до светлого зеленого */
+    background: linear-gradient(to right, #004a00, #009700); /* Градиент от темного до светлого зеленого */
     width: 0;
     position: relative;
 }
@@ -179,20 +196,50 @@ body {
     color: #ffffff;
 }
 
-.energy-container {
+/* Стили для блока с NFT-картами */
+.nft-cards-container {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap; /* Разрешаем перенос строк для размещения двух карт в ряду */
+    justify-content: space-between; /* Добавляем пробел между карточками */
+    padding: 20px;
+    background-color: #111111; /* Темный фон для контейнера */
+    border-radius: 10px; /* Закругленные углы */
+    margin-top: 20px; /* Отступ сверху */
+    width: 100%; /* Ширина контейнера совпадает с шириной кнопки */
+    max-width: 400px; /* Ограничиваем максимальную ширину контейнера до ширины кнопки */
+    margin-left: auto; /* Центрируем контейнер горизонтально */
+    margin-right: auto; /* Центрируем контейнер горизонтально */
+    box-sizing: border-box; /* Включаем padding в ширину */
+    margin-bottom: 100px; /* Добавляем отступ снизу, чтобы блок был виден из-под футера */
+}
+
+.nft-card {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    width: calc(50% - 10px); /* Каждая карта занимает 50% ширины контейнера с небольшим отступом */
+    background-color: #222222; /* Темный фон для карт */
+    border-radius: 10px; /* Закругленные углы карт */
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Легкая тень для карт */
+    margin-bottom: 20px; /* Отступ снизу для каждой карты */
+    box-sizing: border-box; /* Включаем padding в ширину */
 }
 
-.energy-icon {
-    width: 16px; /* Уменьшили размер иконки энергии */
-    height: 16px; /* Уменьшили размер иконки энергии */
-    margin-right: 8px;
+.nft-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Закругленные углы изображения */
+    margin-bottom: 10px;
 }
 
-.energy-display {
-    font-size: 16px; /* Уменьшили размер шрифта */
-    color: #ffffff;
+.nft-title {
+    color: #ffffff; /* Белый текст */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.extra-space {
+    height: 200px; /* Высота дополнительного пространства */
 }
