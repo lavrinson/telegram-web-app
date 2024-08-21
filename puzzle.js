@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.addEventListener('mouseenter', (e) => handleCellHover(e, cell));
             cell.addEventListener('mouseup', (e) => handleCellEnd(e));
             cell.addEventListener('touchstart', (e) => handleTouchStart(e, cell));
-            cell.addEventListener('touchmove', (e) => handleTouchMove(e, cell));
+            cell.addEventListener('touchmove', (e) => handleTouchMove(e));
             cell.addEventListener('touchend', (e) => handleTouchEnd(e));
             puzzleBoard.appendChild(cell);
             cells.push(cell);
@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generateTargetDigits() {
-        // Generate a random 5-digit number
         return Array.from({ length: combinationLength }, () => Math.floor(Math.random() * 10));
     }
 
@@ -112,13 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function handleTouchMove(e, cell) {
+    function handleTouchMove(e) {
         e.preventDefault();
-        if (isSelecting && cell.dataset.combination) {
-            const index = parseInt(cell.dataset.index, 10);
-            if (!selectedCells.includes(index)) {
-                selectedCells.push(index);
-                cell.classList.add('selected');
+        if (isSelecting) {
+            const touch = e.touches[0];
+            const cell = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (cell && cell.classList.contains('puzzle-cell') && cell.dataset.combination) {
+                const index = parseInt(cell.dataset.index, 10);
+                if (!selectedCells.includes(index)) {
+                    selectedCells.push(index);
+                    cell.classList.add('selected');
+                }
             }
         }
     }
@@ -180,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.removeEventListener('mouseenter', (e) => handleCellHover(e, cell));
             cell.removeEventListener('mouseup', (e) => handleCellEnd(e));
             cell.removeEventListener('touchstart', (e) => handleTouchStart(e, cell));
-            cell.removeEventListener('touchmove', (e) => handleTouchMove(e, cell));
+            cell.removeEventListener('touchmove', (e) => handleTouchMove(e));
             cell.removeEventListener('touchend', (e) => handleTouchEnd(e));
         });
     }
