@@ -246,6 +246,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000); // Длительность анимации + небольшой запас времени
     }
 
+    // Отключаем скроллинг и масштабирование
+    function preventDefault(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function disableScrollingAndZooming() {
+        document.addEventListener('touchmove', preventDefault, { passive: false });
+        document.addEventListener('scroll', preventDefault, { passive: false });
+        document.addEventListener('wheel', preventDefault, { passive: false });
+        document.addEventListener('keydown', preventDefault, { passive: false });
+        document.addEventListener('gesturestart', preventDefault, { passive: false });
+    }
+
+    function enableScrollingAndZooming() {
+        document.removeEventListener('touchmove', preventDefault, { passive: false });
+        document.removeEventListener('scroll', preventDefault, { passive: false });
+        document.removeEventListener('wheel', preventDefault, { passive: false });
+        document.removeEventListener('keydown', preventDefault, { passive: false });
+        document.removeEventListener('gesturestart', preventDefault, { passive: false });
+    }
+
+    disableScrollingAndZooming();
+
     createBoard();
     startTimer();
+
+    window.addEventListener('beforeunload', enableScrollingAndZooming);
 });

@@ -1,6 +1,19 @@
-/* Основные стили для игры */
-/* Основные стили контейнера */
+/* Шапка страницы */
+.header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: calc(6 * 50px + 5 * 10px); /* Ширина доски: 6 ячеек по 50px и 5 промежутков по 10px */
+    height: 150px; /* Высота шапки */
+    background: url('assets/images/fon-puzzle.webp') no-repeat center center;
+    background-size: cover;
+    transform: translateX(-50%); /* Центрирование по горизонтали */
+    z-index: 1000; /* Убедимся, что шапка выше всех остальных элементов */
+}
+
+/* Основное содержание с учетом высоты шапки */
 .puzzle-container {
+    margin-top: 150px; /* Оставляем место для шапки */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,22 +26,22 @@
 /* Стили для доски */
 .puzzle-board {
     display: grid;
-    grid-template-columns: repeat(6, 40px); /* 6x6 доска */
+    grid-template-columns: repeat(6, 50px); /* 6x6 доска */
     gap: 10px; /* Добавлено расстояние между ячейками */
     margin-bottom: 20px;
 }
 
 /* Стили для ячеек */
 .puzzle-cell {
-    width: 40px;
-    height: 40px;
+    width: 50px; /* Обновлено на 50px для новой ширины ячеек */
+    height: 50px; /* Обновлено на 50px для новой высоты ячеек */
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid transparent; /* Изначально прозрачная рамка */
     background-color: #000000; /* Черный фон */
     color: transparent; /* Цвет текста будет задаваться в зависимости от цифры */
-    font-size: 18px;
+    font-size: 20px; /* Увеличен размер шрифта для лучшей видимости */
     cursor: pointer;
     user-select: none;
     transition: border-color 0.3s; /* Плавное изменение цвета обводки */
@@ -93,10 +106,7 @@
     height: 100vh;
     pointer-events: none;
     overflow: hidden;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 9999;
 }
 
 .confetti-item {
@@ -105,26 +115,16 @@
     height: 10px;
     border-radius: 50%;
     opacity: 0.8;
-    animation: confetti-explode 3s forwards;
-    background-color: #fff;
-    /* Добавим разные цвета конфетти */
+    animation: confetti-fall 3s ease-in-out forwards;
 }
 
-.confetti-item:nth-child(odd) {
-    background-color: #ff6f61;
-}
-
-.confetti-item:nth-child(even) {
-    background-color: #6b5b95;
-}
-
-@keyframes confetti-explode {
+@keyframes confetti-fall {
     0% {
-        transform: translate(-50%, -50%) scale(0); /* Начало из центра */
+        transform: translateY(-100vh) rotate(0);
         opacity: 1;
     }
     100% {
-        transform: translate(calc(100vw * var(--x)), calc(100vh * var(--y))) scale(1);
+        transform: translateY(100vh) rotate(360deg);
         opacity: 0;
     }
 }
