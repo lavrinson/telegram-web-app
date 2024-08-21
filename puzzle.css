@@ -1,4 +1,5 @@
 /* Основные стили для игры */
+/* Основные стили контейнера */
 .puzzle-container {
     display: flex;
     flex-direction: column;
@@ -9,40 +10,64 @@
     box-sizing: border-box;
 }
 
+/* Стили для доски */
 .puzzle-board {
     display: grid;
     grid-template-columns: repeat(6, 40px); /* 6x6 доска */
-    grid-gap: 5px;
+    gap: 10px; /* Добавлено расстояние между ячейками */
     margin-bottom: 20px;
 }
 
+/* Стили для ячеек */
 .puzzle-cell {
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
+    border: 2px solid transparent; /* Изначально прозрачная рамка */
+    background-color: #000000; /* Черный фон */
+    color: transparent; /* Цвет текста будет задаваться в зависимости от цифры */
     font-size: 18px;
     cursor: pointer;
     user-select: none;
+    transition: border-color 0.3s; /* Плавное изменение цвета обводки */
+    border-radius: 5px; /* Закругленные углы */
 }
 
+/* Общие стили для цифр */
+.puzzle-cell[data-value] {
+    color: #000000; /* Значение будет переопределено для каждой цифры */
+}
+
+/* Стили для цифр 0-9 */
+.puzzle-cell[data-value="0"] { color: #000080; border-color: #000080; }
+.puzzle-cell[data-value="1"] { color: #8b4513; border-color: #8b4513; }
+.puzzle-cell[data-value="2"] { color: #4b0082; border-color: #4b0082; }
+.puzzle-cell[data-value="3"] { color: #800080; border-color: #800080; }
+.puzzle-cell[data-value="4"] { color: #ff4500; border-color: #ff4500; }
+.puzzle-cell[data-value="5"] { color: #2e8b57; border-color: #2e8b57; }
+.puzzle-cell[data-value="6"] { color: #ff6347; border-color: #ff6347; }
+.puzzle-cell[data-value="7"] { color: #4682b4; border-color: #4682b4; }
+.puzzle-cell[data-value="8"] { color: #d2691e; border-color: #d2691e; }
+.puzzle-cell[data-value="9"] { color: #ff1493; border-color: #ff1493; }
+
+/* Стили для выбранных ячеек */
 .puzzle-cell.selected {
-    background-color: #00ff00; /* Зеленый цвет для выбранных ячеек */
+    border-color: #00ff00; /* Зеленая рамка для выбранных ячеек */
 }
 
 /* Стили для таймера и сообщений */
-#timer {
+#timer, #message {
     font-size: 18px;
     margin-bottom: 20px;
 }
 
 #message {
     margin-top: 10px;
-    font-size: 18px;
 }
 
+/* Стили для кнопки "назад" */
 .back-button {
     margin-top: 20px;
     text-decoration: none;
@@ -69,6 +94,9 @@
     pointer-events: none;
     overflow: hidden;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .confetti-item {
@@ -77,12 +105,26 @@
     height: 10px;
     border-radius: 50%;
     opacity: 0.8;
-    animation: confetti-fall 2s forwards;
+    animation: confetti-explode 3s forwards;
+    background-color: #fff;
+    /* Добавим разные цвета конфетти */
 }
 
-@keyframes confetti-fall {
-    to {
-        transform: translateY(100vh) rotate(360deg);
+.confetti-item:nth-child(odd) {
+    background-color: #ff6f61;
+}
+
+.confetti-item:nth-child(even) {
+    background-color: #6b5b95;
+}
+
+@keyframes confetti-explode {
+    0% {
+        transform: translate(-50%, -50%) scale(0); /* Начало из центра */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(100vw * var(--x)), calc(100vh * var(--y))) scale(1);
         opacity: 0;
     }
 }

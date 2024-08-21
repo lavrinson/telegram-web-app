@@ -29,10 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             comb.push(currRow * boardSize + currCol);
 
-            if (direction === 0) currCol++; // Horizontal
-            else if (direction === 1) currRow++; // Vertical
-            else if (direction === 2) { currRow++; currCol++; } // Diagonal down-right
-            else if (direction === 3) { currRow++; currCol--; } // Diagonal down-left
+            switch (direction) {
+                case 0: currCol++; break; // Horizontal
+                case 1: currRow++; break; // Vertical
+                case 2: currRow++; currCol++; break; // Diagonal down-right
+                case 3: currRow++; currCol--; break; // Diagonal down-left
+            }
         }
         return comb;
     }
@@ -43,17 +45,40 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.classList.add('puzzle-cell');
             cell.textContent = Math.floor(Math.random() * 10); // Random digit
             cell.dataset.index = i;
+            cell.dataset.value = cell.textContent; // Store the digit value
+            applyCellStyle(cell); // Apply styles based on the digit
+
             cell.addEventListener('mousedown', (e) => handleCellStart(e, cell));
             cell.addEventListener('mouseenter', (e) => handleCellHover(e, cell));
             cell.addEventListener('mouseup', (e) => handleCellEnd(e));
             cell.addEventListener('touchstart', (e) => handleTouchStart(e, cell));
             cell.addEventListener('touchmove', (e) => handleTouchMove(e));
             cell.addEventListener('touchend', (e) => handleTouchEnd(e));
+
             puzzleBoard.appendChild(cell);
             cells.push(cell);
         }
-
         placeCombination();
+    }
+
+    function applyCellStyle(cell) {
+        const value = cell.dataset.value;
+        const colorMapping = {
+            '0': { bg: '#000000', color: '#000080' },
+            '1': { bg: '#000000', color: '#8b4513' },
+            '2': { bg: '#000000', color: '#4b0082' },
+            '3': { bg: '#000000', color: '#800080' },
+            '4': { bg: '#000000', color: '#ff4500' },
+            '5': { bg: '#000000', color: '#2e8b57' },
+            '6': { bg: '#000000', color: '#ff6347' },
+            '7': { bg: '#000000', color: '#4682b4' },
+            '8': { bg: '#000000', color: '#d2691e' },
+            '9': { bg: '#000000', color: '#ff1493' }
+        };
+
+        const style = colorMapping[value] || { bg: '#000000', color: '#ffffff' };
+        cell.style.backgroundColor = style.bg;
+        cell.style.color = style.color;
     }
 
     function placeCombination() {
@@ -64,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const index = combination[i];
             const cell = cells[index];
             cell.textContent = digits[i]; // Set the correct digit in the cell
-            cell.dataset.combination = true; // Mark cell as part of the combination
+            cell.dataset.combination = 'true'; // Mark cell as part of the combination
         }
     }
 
@@ -73,18 +98,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleCellStart(e, cell) {
-        e.preventDefault(); // Prevent default behavior
-        if (cell.dataset.combination) {
+        e.preventDefault();
+        if (cell.dataset.combination === 'true') {
             isSelecting = true;
-            startIndex = parseInt(cell.dataset.index);
+            startIndex = parseInt(cell.dataset.index, 10);
             selectedCells = [startIndex];
             cell.classList.add('selected');
         }
     }
 
     function handleCellHover(e, cell) {
-        e.preventDefault(); // Prevent default behavior
-        if (isSelecting && cell.dataset.combination) {
+        e.preventDefault();
+        if (isSelecting && cell.dataset.combination === 'true') {
             const index = parseInt(cell.dataset.index, 10);
             if (!selectedCells.includes(index)) {
                 selectedCells.push(index);
@@ -103,9 +128,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleTouchStart(e, cell) {
         e.preventDefault();
-        if (cell.dataset.combination) {
+        if (cell.dataset.combination === 'true') {
             isSelecting = true;
-            startIndex = parseInt(cell.dataset.index);
+            startIndex = parseInt(cell.dataset.index, 10);
             selectedCells = [startIndex];
             cell.classList.add('selected');
         }
@@ -115,11 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         if (isSelecting) {
             const touch = e.touches[0];
-            const x = touch.clientX;
-            const y = touch.clientY;
-
-            const cell = document.elementFromPoint(x, y);
-            if (cell && cell.classList.contains('puzzle-cell') && cell.dataset.combination) {
+            const cell = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (cell && cell.classList.contains('puzzle-cell') && cell.dataset.combination === 'true') {
                 const index = parseInt(cell.dataset.index, 10);
                 if (!selectedCells.includes(index)) {
                     selectedCells.push(index);
@@ -138,11 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checkCombination() {
-        const selectedIndices = selectedCells.map(index => parseInt(index));
-        const correctIndices = combination.map(index => parseInt(index));
+        const selectedIndices = new Set(selectedCells.map(index => parseInt(index, 10)));
+        const correctIndices = new Set(combination.map(index => parseInt(index, 10)));
 
-        if (selectedIndices.length === combinationLength &&
-            JSON.stringify(selectedIndices) === JSON.stringify(correctIndices)) {
+        if (selectedIndices.size === combinationLength &&
+            [...selectedIndices].sort().join(',') === [...correctIndices].sort().join(',')) {
             triggerConfetti();
             setTimeout(() => {
                 localStorage.setItem('energy', 100);
@@ -178,16 +200,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
         timerElement.textContent = `Time Left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Обновляем градиент в зависимости от времени
+        const percent = timeLeft / 60;
+        timerElement.style.background = `linear-gradient(to right, #00ff00 ${percent * 100}%, #ff0000 ${percent * 100}%)`;
+        timerElement.style.webkitBackgroundClip = 'text'; // Для вебкита
+        timerElement.style.webkitTextFillColor = 'transparent'; // Для вебкита
+        timerElement.style.fontWeight = 'bold';
     }
 
     function disableBoard() {
         cells.forEach(cell => {
-            cell.removeEventListener('mousedown', (e) => handleCellStart(e, cell));
-            cell.removeEventListener('mouseenter', (e) => handleCellHover(e, cell));
-            cell.removeEventListener('mouseup', (e) => handleCellEnd(e));
-            cell.removeEventListener('touchstart', (e) => handleTouchStart(e, cell));
-            cell.removeEventListener('touchmove', (e) => handleTouchMove(e));
-            cell.removeEventListener('touchend', (e) => handleTouchEnd(e));
+            cell.removeEventListener('mousedown', handleCellStart);
+            cell.removeEventListener('mouseenter', handleCellHover);
+            cell.removeEventListener('mouseup', handleCellEnd);
+            cell.removeEventListener('touchstart', handleTouchStart);
+            cell.removeEventListener('touchmove', handleTouchMove);
+            cell.removeEventListener('touchend', handleTouchEnd);
         });
     }
 
@@ -196,22 +225,25 @@ document.addEventListener('DOMContentLoaded', function() {
         confettiContainer.classList.add('confetti');
         document.body.appendChild(confettiContainer);
 
+        const emojis = ['🎉', '🎊', '🎈', '🎆', '✨'];
         for (let i = 0; i < 100; i++) {
             const confettiItem = document.createElement('div');
             confettiItem.classList.add('confetti-item');
-            confettiItem.style.backgroundColor = getRandomColor();
+            confettiItem.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            confettiItem.style.setProperty('--x', Math.random() * 2 - 1); // Random horizontal direction
+            confettiItem.style.setProperty('--y', Math.random() * 2 - 1); // Random vertical direction
+            confettiItem.style.fontSize = `${Math.random() * 20 + 10}px`;
             confettiItem.style.left = `${Math.random() * 100}vw`;
             confettiItem.style.top = `${Math.random() * 100}vh`;
-            confettiItem.style.width = `${Math.random() * 10 + 5}px`;
-            confettiItem.style.height = confettiItem.style.width;
             confettiItem.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            confettiItem.style.opacity = Math.random();
             confettiContainer.appendChild(confettiItem);
         }
-    }
 
-    function getRandomColor() {
-        const colors = ['#ff0', '#0f0', '#f00', '#00f', '#f0f', '#0ff'];
-        return colors[Math.floor(Math.random() * colors.length)];
+        // Удаляем контейнер с конфетти после завершения анимации
+        setTimeout(() => {
+            document.body.removeChild(confettiContainer);
+        }, 5000); // Длительность анимации + небольшой запас времени
     }
 
     createBoard();
