@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.addEventListener('mousedown', (e) => handleCellStart(e, cell));
             cell.addEventListener('mouseenter', (e) => handleCellHover(e, cell));
             cell.addEventListener('mouseup', (e) => handleCellEnd(e));
-            cell.addEventListener('touchstart', (e) => handleCellStart(e, cell));
-            cell.addEventListener('touchmove', (e) => handleCellHover(e, cell));
-            cell.addEventListener('touchend', (e) => handleCellEnd(e));
+            cell.addEventListener('touchstart', (e) => handleTouchStart(e, cell));
+            cell.addEventListener('touchmove', (e) => handleTouchMove(e, cell));
+            cell.addEventListener('touchend', (e) => handleTouchEnd(e));
             puzzleBoard.appendChild(cell);
             cells.push(cell);
         }
@@ -95,6 +95,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleCellEnd(e) {
+        e.preventDefault();
+        if (isSelecting) {
+            checkCombination();
+            resetSelection();
+        }
+    }
+
+    function handleTouchStart(e, cell) {
+        e.preventDefault();
+        if (cell.dataset.combination) {
+            isSelecting = true;
+            startIndex = parseInt(cell.dataset.index);
+            selectedCells = [startIndex];
+            cell.classList.add('selected');
+        }
+    }
+
+    function handleTouchMove(e, cell) {
+        e.preventDefault();
+        if (isSelecting && cell.dataset.combination) {
+            const index = parseInt(cell.dataset.index, 10);
+            if (!selectedCells.includes(index)) {
+                selectedCells.push(index);
+                cell.classList.add('selected');
+            }
+        }
+    }
+
+    function handleTouchEnd(e) {
         e.preventDefault();
         if (isSelecting) {
             checkCombination();
@@ -150,9 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.removeEventListener('mousedown', (e) => handleCellStart(e, cell));
             cell.removeEventListener('mouseenter', (e) => handleCellHover(e, cell));
             cell.removeEventListener('mouseup', (e) => handleCellEnd(e));
-            cell.removeEventListener('touchstart', (e) => handleCellStart(e, cell));
-            cell.removeEventListener('touchmove', (e) => handleCellHover(e, cell));
-            cell.removeEventListener('touchend', (e) => handleCellEnd(e));
+            cell.removeEventListener('touchstart', (e) => handleTouchStart(e, cell));
+            cell.removeEventListener('touchmove', (e) => handleTouchMove(e, cell));
+            cell.removeEventListener('touchend', (e) => handleTouchEnd(e));
         });
     }
 
