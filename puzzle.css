@@ -75,11 +75,7 @@
     margin: 0; /* Убраны отступы */
     font-weight: bold; /* Жирное начертание */
     text-align: center; /* Центрирование текста */
-    color: #ffffff; /* Цвет текста */
-    background: linear-gradient(to right, #00ff00, #ff0000); /* Градиент фона таймера */
-    -webkit-background-clip: text; /* Область градиента только для текста */
-    -webkit-text-fill-color: transparent; /* Цвет текста прозрачный */
-    font-weight: bold;
+    color: #00ff00; /* Цвет текста по умолчанию */
 }
 
 /* Стили для кнопки "назад" */

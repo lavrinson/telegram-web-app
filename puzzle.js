@@ -64,20 +64,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function applyCellStyle(cell) {
         const value = cell.dataset.value;
         const colorMapping = {
-            '0': { bg: '#000000', color: '#000080' },
-            '1': { bg: '#000000', color: '#8b4513' },
-            '2': { bg: '#000000', color: '#4b0082' },
-            '3': { bg: '#000000', color: '#800080' },
-            '4': { bg: '#000000', color: '#ff4500' },
-            '5': { bg: '#000000', color: '#2e8b57' },
-            '6': { bg: '#000000', color: '#ff6347' },
-            '7': { bg: '#000000', color: '#4682b4' },
-            '8': { bg: '#000000', color: '#d2691e' },
-            '9': { bg: '#000000', color: '#ff1493' }
+            '0': { color: '#000080' },
+            '1': { color: '#8b4513' },
+            '2': { color: '#4b0082' },
+            '3': { color: '#800080' },
+            '4': { color: '#ff4500' },
+            '5': { color: '#2e8b57' },
+            '6': { color: '#ff6347' },
+            '7': { color: '#4682b4' },
+            '8': { color: '#d2691e' },
+            '9': { color: '#ff1493' }
         };
 
-        const style = colorMapping[value] || { bg: '#000000', color: '#ffffff' };
-        cell.style.backgroundColor = style.bg;
+        const style = colorMapping[value] || { color: '#ffffff' };
         cell.style.color = style.color;
     }
 
@@ -190,8 +189,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                messageElement.textContent = 'Time is up! Try again.';
+                messageElement.textContent = 'Time is up! Redirecting...';
                 disableBoard();
+
+                // Переход на страницу index.html через 3 секунды после истечения времени
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
             }
         }, 1000);
     }
@@ -201,12 +205,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const seconds = timeLeft % 60;
         timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-        // Обновляем градиент в зависимости от времени
-        const percent = timeLeft / 60;
-        timerElement.style.background = `linear-gradient(to right, #00ff00 ${percent * 100}%, #ff0000 ${percent * 100}%)`;
-        timerElement.style.webkitBackgroundClip = 'text'; // Для вебкита
-        timerElement.style.webkitTextFillColor = 'transparent'; // Для вебкита
-        timerElement.style.fontWeight = 'bold';
+        // Изменяем цвет текста таймера в зависимости от времени
+        if (timeLeft > 20) {
+            timerElement.style.color = '#00ff00'; // Зеленый
+        } else if (timeLeft > 10) {
+            timerElement.style.color = '#ff6347'; // Оранжевый
+        } else {
+            timerElement.style.color = '#ff0000'; // Красный
+        }
     }
 
     function disableBoard() {
@@ -235,43 +241,17 @@ document.addEventListener('DOMContentLoaded', function() {
             confettiItem.style.fontSize = `${Math.random() * 20 + 10}px`;
             confettiItem.style.left = `${Math.random() * 100}vw`;
             confettiItem.style.top = `${Math.random() * 100}vh`;
-            confettiItem.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            confettiItem.style.animationDuration = `${Math.random() * 3 + 2}s`;
             confettiItem.style.opacity = Math.random();
             confettiContainer.appendChild(confettiItem);
         }
 
-        // Удаляем контейнер с конфетти после завершения анимации
+        // Удаляем контейнер с конфетти через 5 секунд
         setTimeout(() => {
             document.body.removeChild(confettiContainer);
-        }, 5000); // Длительность анимации + небольшой запас времени
+        }, 5000);
     }
-
-    // Отключаем скроллинг и масштабирование
-    function preventDefault(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
-    function disableScrollingAndZooming() {
-        document.addEventListener('touchmove', preventDefault, { passive: false });
-        document.addEventListener('scroll', preventDefault, { passive: false });
-        document.addEventListener('wheel', preventDefault, { passive: false });
-        document.addEventListener('keydown', preventDefault, { passive: false });
-        document.addEventListener('gesturestart', preventDefault, { passive: false });
-    }
-
-    function enableScrollingAndZooming() {
-        document.removeEventListener('touchmove', preventDefault, { passive: false });
-        document.removeEventListener('scroll', preventDefault, { passive: false });
-        document.removeEventListener('wheel', preventDefault, { passive: false });
-        document.removeEventListener('keydown', preventDefault, { passive: false });
-        document.removeEventListener('gesturestart', preventDefault, { passive: false });
-    }
-
-    disableScrollingAndZooming();
 
     createBoard();
     startTimer();
-
-    window.addEventListener('beforeunload', enableScrollingAndZooming);
 });
