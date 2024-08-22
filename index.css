@@ -40,12 +40,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #333;
     margin-top: 10px;
     border-radius: 8px;
     width: 100%; /* Ширина блока контролов на всю ширину экрана */
     max-width: 1000px; /* Максимальная ширина блока */
     box-sizing: border-box;
+    /* background-color: #333; Убираем серый фон */
 }
 
 /* Кнопка FAQ */
@@ -99,23 +99,32 @@
     transform: scale(1.1);
 }
 
-/* Стили для статусной иконки */
-.status-icon {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: red;
-    color: #ffffff;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.status-icon.hidden {
+    display: none; /* Скрываем значок, когда класс hidden добавлен */
 }
 
-/* Адаптивные стили */
+/* Адаптивные стили для крупных экранов */
+@media (min-width: 1200px) {
+    .clicker-image {
+        max-width: 100%; /* Размер изображения для больших экранов */
+    }
+
+    .faq-icon, .boost-button {
+        width: 50px; /* Увеличенные размеры кнопок на крупных экранах */
+        height: 50px;
+    }
+
+    .energy-icon {
+        width: 24px; /* Увеличенный размер иконки энергии */
+        height: 24px;
+    }
+
+    .energy-display {
+        font-size: 20px; /* Увеличенный шрифт энергии */
+    }
+}
+
+/* Адаптивные стили для планшетов */
 @media (max-width: 768px) {
     .clicker-image {
         max-width: 130%; /* Увеличиваем ширину изображения на мобильных устройствах */
@@ -140,14 +149,15 @@
     }
 }
 
+/* Адаптивные стили для смартфонов */
 @media (max-width: 480px) {
     .clicker-image {
         max-width: 140%; /* Увеличиваем ширину изображения на очень маленьких экранах */
     }
 
     .energy-icon {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
 
     .energy-display {
@@ -161,6 +171,13 @@
 
     .top-controls {
         padding: 6px;
+        max-width: 100%;
+        flex-direction: row; /* Размещаем элементы в ряд */
+        align-items: center; /* Центрирование элементов */
+    }
+
+    .energy-display-container {
+        margin-top: 0; /* Убираем отступ сверху */
     }
 }
 
