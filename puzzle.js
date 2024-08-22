@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function placeCombination() {
         let digits = generateTargetDigits();
-        targetNumberElement.textContent = `Find the combination: ${digits.join('')}`;
+        targetNumberElement.textContent = ` ${digits.join('')}`;
 
         for (let i = 0; i < combination.length; i++) {
             const index = combination[i];

@@ -6,145 +6,17 @@
     <title>Puzzle</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="puzzle.css">
-    <style>
-        /* Шапка страницы */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            width: calc(6 * 50px + 5 * 10px); /* Ширина доски: 6 ячеек по 50px и 5 промежутков по 10px */
-            height: 150px; /* Высота шапки */
-            background: url('assets/images/fon-puzzle.webp') no-repeat center center;
-            background-size: cover;
-            transform: translateX(-50%); /* Центрирование по горизонтали */
-            z-index: 1000; /* Убедимся, что шапка выше всех остальных элементов */
-        }
-
-        /* Основное содержание с учетом высоты шапки */
-        .puzzle-container {
-            margin-top: 50px; /* Оставляем место для шапки */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 60px); /* Оставляем место для футера */
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        /* Стили для доски */
-        .puzzle-board {
-            display: grid;
-            grid-template-columns: repeat(6, 50px); /* 6x6 доска */
-            gap: 10px; /* Добавлено расстояние между ячейками */
-            margin-bottom: 20px;
-        }
-
-        /* Стили для ячеек */
-        .puzzle-cell {
-            width: 50px; /* Обновлено на 50px для новой ширины ячеек */
-            height: 50px; /* Обновлено на 50px для новой высоты ячеек */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid transparent; /* Изначально прозрачная рамка */
-            background-color: #000000; /* Черный фон */
-            color: transparent; /* Цвет текста будет задаваться в зависимости от цифры */
-            font-size: 20px; /* Увеличен размер шрифта для лучшей видимости */
-            cursor: pointer;
-            user-select: none;
-            transition: border-color 0.3s; /* Плавное изменение цвета обводки */
-            border-radius: 5px; /* Закругленные углы */
-        }
-
-        /* Общие стили для цифр */
-        .puzzle-cell[data-value] {
-            color: #000000; /* Значение будет переопределено для каждой цифры */
-        }
-
-        /* Стили для цифр 0-9 */
-        .puzzle-cell[data-value="0"] { color: #000080; border-color: #000080; }
-        .puzzle-cell[data-value="1"] { color: #8b4513; border-color: #8b4513; }
-        .puzzle-cell[data-value="2"] { color: #4b0082; border-color: #4b0082; }
-        .puzzle-cell[data-value="3"] { color: #800080; border-color: #800080; }
-        .puzzle-cell[data-value="4"] { color: #ff4500; border-color: #ff4500; }
-        .puzzle-cell[data-value="5"] { color: #2e8b57; border-color: #2e8b57; }
-        .puzzle-cell[data-value="6"] { color: #ff6347; border-color: #ff6347; }
-        .puzzle-cell[data-value="7"] { color: #4682b4; border-color: #4682b4; }
-        .puzzle-cell[data-value="8"] { color: #d2691e; border-color: #d2691e; }
-        .puzzle-cell[data-value="9"] { color: #ff1493; border-color: #ff1493; }
-
-        /* Стили для выбранных ячеек */
-        .puzzle-cell.selected {
-            border-color: #00ff00; /* Зеленая рамка для выбранных ячеек */
-        }
-
-        /* Стили для таймера и сообщений */
-        #timer, #message {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        #message {
-            margin-top: 10px;
-        }
-
-        /* Стили для кнопки "назад" */
-        .back-button {
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-            font-size: 16px;
-            border: 1px solid #007bff;
-            border-radius: 5px;
-            padding: 5px 10px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        /* Стили для конфетти */
-        .confetti {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 9999;
-        }
-
-        .confetti-item {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: confetti-fall 3s ease-in-out forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(-100vh) rotate(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="header"></div> <!-- Шапка страницы -->
 
     <div class="puzzle-container">
         <h1>Find the Combination</h1>
-        <p id="target-number">Find the combination: 00000</p>
+        <div id="target-container">
+            <p id="target-number">
+                <span>00000</span>
+            </p>
+        </div>
         <div class="puzzle-board" id="puzzle-board">
             <!-- Доска 6x6 будет создаваться с помощью JavaScript -->
         </div>
