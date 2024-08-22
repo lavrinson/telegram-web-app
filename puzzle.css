@@ -3,7 +3,7 @@
     position: fixed;
     top: 0;
     left: 50%;
-    width: calc(6 * 50px + 5 * 10px); /* Ширина шапки с учетом увеличенного промежутка */
+    width: calc(6 * 50px + 5 * 12px); /* Ширина шапки с учетом промежутков между ячейками */
     height: 250px; /* Высота шапки */
     background: url('assets/images/fon-puzzle.webp') no-repeat center center;
     background-size: cover;
@@ -23,28 +23,93 @@
     box-sizing: border-box;
 }
 
-/* Стили для контейнера комбинации */
-#target-container {
-    margin-bottom: 12px; /* Увеличен отступ снизу, чтобы приподнять блок комбинации */
-    padding: 5px; /* Увеличены внутренние отступы для лучшего визуального восприятия */
-    border: 3px solid #333; /* Увеличена толщина границы */
-    border-radius: 6px; /* Закругленные углы */
-    background-color: #000000; /* Цвет фона прямоугольника */
+/* Контейнер для управления элементами (кнопка, блок комбинации и таймер) */
+.controls {
+    display: flex;
+    align-items: center; /* Выравнивание по центру по вертикали */
+    gap: 10px; /* Расстояние между блоками */
+    margin-bottom: 20px; /* Отступ снизу для пространства между блоками */
+    max-width: calc(6 * 50px + 5 * 12px); /* Ширина не превышает ширину доски */
+    justify-content: center; /* Центрирование элементов по горизонтали */
 }
 
-/* Стили для блока комбинации */
+/* Стили для контейнера комбинации */
+#target-container {
+    border: 2px solid #ffffff; /* Белая толщина границы */
+    border-radius: 4px; /* Закругленные углы */
+    background-color: #000000; /* Цвет фона прямоугольника */
+    padding: 8px 12px; /* Внутренние отступы */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* Высота блока */
+    min-width: 120px; /* Минимальная ширина блока с кодом */
+}
+
+/* Стили для блока с кодом */
 #target-number {
-    font-size: 40px; /* Размер шрифта увеличен */
+    font-size: 24px; /* Размер шрифта уменьшен */
     margin: 0; /* Убраны отступы */
     font-weight: bold; /* Жирное начертание */
     text-align: center; /* Центрирование текста */
+    color: #ffffff; /* Цвет текста */
+}
+
+/* Стили для контейнера таймера */
+#timer-container {
+    border: 2px solid #ffffff; /* Белая толщина границы */
+    border-radius: 4px; /* Закругленные углы */
+    background-color: #000000; /* Цвет фона прямоугольника */
+    padding: 4px 8px; /* Уменьшенные внутренние отступы */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px; /* Высота блока уменьшена */
+    min-width: 60px; /* Минимальная ширина блока с таймером */
+    position: relative;
+}
+
+/* Стили для таймера */
+#timer {
+    font-size: 18px; /* Размер шрифта уменьшен */
+    margin: 0; /* Убраны отступы */
+    font-weight: bold; /* Жирное начертание */
+    text-align: center; /* Центрирование текста */
+    color: #ffffff; /* Цвет текста */
+    background: linear-gradient(to right, #00ff00, #ff0000); /* Градиент фона таймера */
+    -webkit-background-clip: text; /* Область градиента только для текста */
+    -webkit-text-fill-color: transparent; /* Цвет текста прозрачный */
+    font-weight: bold;
+}
+
+/* Стили для кнопки "назад" */
+.back-button {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 12px; /* Размер шрифта уменьшен */
+    border: 2px solid #ffffff; /* Толщина границы уменьшена */
+    border-radius: 4px; /* Закругленные углы */
+    padding: 4px 8px; /* Уменьшенные отступы */
+    background-color: #000000; /* Цвет фона кнопки */
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center; /* Выравнивание по центру по вертикали */
+    justify-content: center; /* Выравнивание по центру по горизонтали */
+    height: 30px; /* Высота кнопки уменьшена */
+    min-width: 60px; /* Минимальная ширина кнопки */
+    text-align: center;
+}
+
+.back-button:hover {
+    background-color: #007bff;
+    color: #ffffff;
 }
 
 /* Стили для доски */
 .puzzle-board {
     display: grid;
     grid-template-columns: repeat(6, 50px); /* Размер ячеек */
-    gap: 10px; /* Расстояние между ячейками одинаковое по горизонтали и вертикали */
+    gap: 12px; /* Расстояние между ячейками одинаковое по горизонтали и вертикали */
     margin-bottom: 10px; /* Увеличен отступ снизу */
 }
 
@@ -82,76 +147,38 @@
 .puzzle-cell[data-value="8"] { color: #d2691e; border-color: #d2691e; }
 .puzzle-cell[data-value="9"] { color: #ff1493; border-color: #ff1493; }
 
-/* Стили для выбранных ячеек */
+/* Выделенные ячейки */
 .puzzle-cell.selected {
-    border-color: #00ff00;
+    border-color: #ffffff;
+    background-color: #555555;
 }
 
-/* Стили для таймера и сообщений */
-#timer, #message {
-    font-size: 14px; /* Размер шрифта увеличен */
-    margin-bottom: 3px; /* Уменьшен отступ снизу */
-}
-
-#message {
-    margin-top: 2px; /* Уменьшен отступ сверху */
-}
-
-/* Стили для кнопки "назад" */
-.back-button {
-    margin-top: 5px; /* Уменьшен отступ сверху */
-    text-decoration: none;
-    color: #007bff;
-    font-size: 14px; /* Размер шрифта увеличен */
-    border: 1px solid #007bff;
-    border-radius: 4px; /* Закругленные углы */
-    padding: 4px 8px; /* Увеличены отступы */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.back-button:hover {
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-/* Стили для конфетти */
+/* Анимация конфетти */
 .confetti {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;
     overflow: hidden;
-    z-index: 9999;
+    pointer-events: none;
+    z-index: 2000;
 }
 
 .confetti-item {
     position: absolute;
-    width: 6px; /* Размер конфетти увеличен */
-    height: 6px;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: confetti-fall 3s ease-in-out forwards;
+    font-size: 20px;
+    animation: confetti-fall 1s forwards;
+    opacity: 0;
 }
 
 @keyframes confetti-fall {
     0% {
-        transform: translateY(-100vh) rotate(0);
+        transform: translateY(0) rotate(0);
         opacity: 1;
     }
     100% {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
     }
-}
-
-/* Запретить скролл на странице */
-body.no-scroll {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
 }

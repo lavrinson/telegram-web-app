@@ -12,17 +12,21 @@
 
     <div class="puzzle-container">
         <h1>Find the Combination</h1>
-        <div id="target-container">
-            <p id="target-number">
-                <span>00000</span>
-            </p>
+        <div class="controls">
+            <a href="index.html" class="back-button">Back to Home</a>
+            <div id="target-container">
+                <p id="target-number">
+                    <span>00000</span>
+                </p>
+            </div>
+            <div id="timer-container">
+                <p id="timer">01:00</p>
+            </div>
         </div>
         <div class="puzzle-board" id="puzzle-board">
             <!-- Доска 6x6 будет создаваться с помощью JavaScript -->
         </div>
-        <p id="timer">Time Left: 01:00</p>
         <p id="message"></p>
-        <a href="index.html" class="back-button">Back to Home</a>
     </div>
 
     <script src="puzzle.js"></script>
