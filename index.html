@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -7,61 +6,34 @@
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="user-info.css">
     <link rel="stylesheet" href="index.css">
-    <style>
-        .status-icon {
-            width: 12px; /* Уменьшенный размер иконки */
-            height: 12px; /* Уменьшенный размер иконки */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 10px; /* Уменьшенный размер шрифта */
-            color: #fff;
-            font-weight: bold;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-        }
-        .status-icon.green {
-            background-color: #0f0;
-        }
-        .status-icon.red {
-            background-color: #f00;
-        }
-        .boost-container {
-            position: relative;
-            display: inline-block;
-        }
-        .boost-timer {
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Контейнер для страницы -->
-    <div class="container">
-        <!-- Кнопка Boost -->
-        <div class="boost-container">
-            <img id="boost-button" src="assets/icons/boost.png" alt="Boost" class="boost-button">
-            <!-- Статусная иконка для Boost -->
-            <div id="boost-status" class="status-icon"></div>
-            <!-- Таймер под кнопкой Boost -->
-            <div id="boost-timer" class="boost-timer"></div>
-        </div>
+<!-- Блок пользователя -->
+<div class="user-info-container">
+    <!-- Ваш существующий код для отображения информации о пользователе -->
+</div>
 
-        <!-- Картинка как кнопка -->
-        <div class="clicker-container">
-            <img id="clicker-image" src="assets/images/clicker.webp" alt="Clicker" class="clicker-image">
-        </div>
+<!-- Новый блок с кнопкой FAQ, энергией и кнопкой Boost -->
+<div class="top-controls">
+    <a href="faq.html" class="faq-button">
+        <img src="assets/icons/faq.webp" alt="FAQ" class="faq-icon"> <!-- Картинка FAQ -->
+    </a>
+    <div class="energy-display-container">
+        <img src="assets/icons/energy.png" alt="Energy Icon" class="energy-icon">
+        <span id="energy-count" class="energy-display">100/100</span>
+    </div>
+    <div class="boost-container">
+        <img id="boost-button" src="assets/icons/boost.png" alt="Boost" class="boost-button">
+        <div id="boost-status" class="status-icon"></div>
+    </div>
+</div>
 
-        <!-- Отображение энергии -->
-        <div class="energy-container">
-            <img src="assets/icons/energy.png" alt="Energy Icon" class="energy-icon">
-            <span id="energy-count" class="energy-display">100/100</span>
-        </div>
+<!-- Контейнер для страницы -->
+<div class="container">
+    <!-- Кликер и энергия -->
+    <div class="clicker-container">
+        <img id="clicker-image" src="assets/images/clicker.webp" alt="Clicker" class="clicker-image">
     </div>
 
     <!-- Нижний бар -->
@@ -83,59 +55,8 @@
             <span>Missions</span>
         </a>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const boostButton = document.getElementById('boost-button');
-            const boostStatus = document.getElementById('boost-status');
-            const boostTimer = document.getElementById('boost-timer');
-
-            const cooldownPeriod = 180000; // 3 minutes in milliseconds
-
-            function updateBoostButtonStatus() {
-                const lastPlayed = localStorage.getItem('lastPlayed');
-                const now = Date.now();
-
-                if (lastPlayed) {
-                    const timeSinceLastPlay = now - lastPlayed;
-                    const isCooldownActive = timeSinceLastPlay < cooldownPeriod;
-
-                    if (isCooldownActive) {
-                        boostStatus.classList.add('red');
-                        boostStatus.classList.remove('green');
-                        boostStatus.textContent = '!';
-                        updateTimerDisplay(cooldownPeriod - timeSinceLastPlay);
-                    } else {
-                        boostStatus.classList.add('green');
-                        boostStatus.classList.remove('red');
-                        boostStatus.textContent = '✓';
-                        boostTimer.textContent = '';
-                    }
-                } else {
-                    boostStatus.classList.add('green');
-                    boostStatus.classList.remove('red');
-                    boostStatus.textContent = '✓';
-                    boostTimer.textContent = '';
-                }
-            }
-
-            function updateTimerDisplay(remainingTime) {
-                const minutes = Math.floor(remainingTime / 60000);
-                const seconds = Math.floor((remainingTime % 60000) / 1000);
-                boostTimer.textContent = `Retry in ${minutes}:${seconds.toString().padStart(2, '0')}`;
-                if (remainingTime > 0) {
-                    setTimeout(() => {
-                        updateBoostButtonStatus();
-                    }, 1000); // Update every second
-                }
-            }
-
-            // Initial call to set the correct status
-            updateBoostButtonStatus();
-        });
-    </script>
-
-    <script src="user-info.js"></script>
+</div>
     <script src="clicker.js"></script>
+    <script src="user-info.js"></script>
 </body>
 </html>

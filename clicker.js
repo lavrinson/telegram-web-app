@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const clickerImage = document.getElementById('clicker-image');
     const energyCountElement = document.getElementById('energy-count');
-    const boostButton = document.querySelector('.boost-button'); // Кнопка Boost
+    const boostButton = document.getElementById('boost-button'); // Кнопка Boost
 
     let coinCount = parseInt(localStorage.getItem('coins')) || 0;
     let energyCount = parseInt(localStorage.getItem('energy')) || 100;
@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обработчик для кнопки Boost
     if (boostButton) {
         boostButton.addEventListener('click', (event) => {
-            // Проверяем, есть ли достаточно энергии для перехода
             if (energyCount > 0) {
                 window.location.href = 'puzzle.html'; // Перенаправляем на страницу с игрой
             } else {

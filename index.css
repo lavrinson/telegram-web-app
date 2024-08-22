@@ -3,101 +3,170 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Центрируем по вертикали */
+    justify-content: center;
     min-height: calc(100vh - 60px); /* Оставляем место для футера */
     padding: 20px;
     box-sizing: border-box;
+    position: relative;
 }
 
 /* Стили для блока кликера */
 .clicker-container {
+    position: fixed; /* Закрепляем блок на экране */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрирование по вертикали и горизонтали */
+    z-index: 1000; /* Задаем высокий z-index, чтобы блок был поверх остальных элементов */
     display: flex;
-    justify-content: center; /* Центрируем контейнер по горизонтали */
-    align-items: center; /* Центрируем по вертикали внутри контейнера */
-    margin-bottom: 20px; /* Отступ снизу перед блоком энергии */
+    justify-content: center;
+    align-items: center;
 }
 
 .clicker-image {
-    max-width: 80%; /* Ширина изображения 80% от ширины контейнера */
+    max-width: 120%; /* Увеличиваем ширину изображения до 120% от ширины контейнера */
     height: auto; /* Высота автоматически изменяется в зависимости от ширины */
-    border-radius: 10px; /* Закругленные края изображения */
-    border: none; /* Убираем обводку вокруг изображения */
-    transition: transform 0.2s ease; /* Плавная анимация зума */
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.2s ease;
 }
 
 .clicker-image.clicked {
     transform: scale(1.1); /* Зум при нажатии */
 }
 
-/* Стили для отображения энергии */
-.energy-container {
+/* Стили для верхнего блока с контролами */
+.top-controls {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    margin-top: 10px;
+    border-radius: 8px;
+    width: 100%; /* Ширина блока контролов на всю ширину экрана */
+    max-width: 1000px; /* Максимальная ширина блока */
+    box-sizing: border-box;
+}
+
+/* Кнопка FAQ */
+.faq-button {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.faq-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.faq-icon:hover {
+    transform: scale(1.1); /* Увеличение при наведении */
+}
+
+/* Контейнер для отображения энергии в верхнем блоке */
+.energy-display-container {
+    display: flex;
     align-items: center;
 }
 
 .energy-icon {
-    width: 20px; /* Размер иконки */
-    height: 20px; /* Размер иконки */
-    margin-right: 8px; /* Отступ справа от иконки */
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
 }
 
 .energy-display {
-    font-size: 16px; /* Размер шрифта для отображения энергии */
-    color: #ffffff; /* Цвет текста */
+    font-size: 18px;
+    color: #ffffff;
+}
+
+/* Стили для кнопки Boost */
+.boost-container {
+    display: flex;
+    align-items: center;
+}
+
+.boost-button {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.boost-button.clicked {
+    transform: scale(1.1);
+}
+
+/* Стили для статусной иконки */
+.status-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: #ffffff;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Адаптивные стили */
 @media (max-width: 768px) {
     .clicker-image {
-        max-width: 90%; /* Увеличиваем ширину изображения на мобильных устройствах */
+        max-width: 130%; /* Увеличиваем ширину изображения на мобильных устройствах */
     }
 
     .energy-icon {
-        width: 16px; /* Уменьшаем размер иконки на мобильных устройствах */
-        height: 16px; /* Уменьшаем размер иконки на мобильных устройствах */
+        width: 16px;
+        height: 16px;
     }
 
     .energy-display {
-        font-size: 14px; /* Уменьшаем размер шрифта на мобильных устройствах */
+        font-size: 14px;
+    }
+
+    .top-controls {
+        padding: 8px;
+    }
+
+    .faq-icon, .boost-button {
+        width: 35px;
+        height: 35px;
     }
 }
 
 @media (max-width: 480px) {
     .clicker-image {
-        max-width: 95%; /* Увеличиваем ширину изображения на очень маленьких экранах */
+        max-width: 140%; /* Увеличиваем ширину изображения на очень маленьких экранах */
     }
 
     .energy-icon {
-        width: 14px; /* Уменьшаем размер иконки на очень маленьких экранах */
-        height: 14px; /* Уменьшаем размер иконки на очень маленьких экранах */
+        width: 16px;
+        height: 16px;
     }
 
     .energy-display {
-        font-size: 12px; /* Уменьшаем размер шрифта на очень маленьких экранах */
+        font-size: 12px;
+    }
+
+    .faq-icon, .boost-button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .top-controls {
+        padding: 6px;
     }
 }
+
 /* Запрещаем прокрутку страницы */
 html, body {
-    overflow: hidden; /* Отключаем прокрутку */
-    height: 100%; /* Устанавливаем высоту в 100% для обеспечения полной видимости */
-    margin: 0; /* Убираем стандартные отступы у body */
-}
-/* Стили для кнопки Boost */
-.boost-container {
-    display: flex;
-    justify-content: center; /* Центрируем кнопку по горизонтали */
-    margin-bottom: 20px; /* Отступ снизу перед блоком кликера */
-}
-
-.boost-button {
-    width: 50px; /* Ширина кнопки */
-    height: 50px; /* Высота кнопки */
-    cursor: pointer; /* Курсор указывает на кликабельность */
-    border-radius: 10px; /* Закругленные края кнопки */
-    transition: transform 0.2s ease; /* Плавная анимация зума */
-}
-
-.boost-button.clicked {
-    transform: scale(1.1); /* Зум при нажатии */
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
 }
