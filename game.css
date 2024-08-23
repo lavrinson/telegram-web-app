@@ -71,17 +71,13 @@ body, html {
     margin: 0 15px;
     width: 120px;
     flex-shrink: 0;
+    position: relative; /* Позволяет использовать псевдоэлементы для рамки */
 }
 
-.card p {
-    margin-top: 10px;
-    font-size: 16px;
-}
-
-/* Обёртка для изображения с белой обводкой */
+/* Удаление рамок и закруглений у обёртки для изображения */
 .card-image-wrapper {
-    border: 3px solid #ffffff; /* Белая обводка вокруг изображения */
-    border-radius: 20px; /* Сильное закругление углов */
+    border: none; /* Удаление рамки */
+    border-radius: 0; /* Убираем закругления */
     overflow: hidden;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
@@ -89,7 +85,7 @@ body, html {
 .card img {
     width: 100%;
     display: block;
-    border-radius: 20px; /* Сильное закругление углов изображения */
+    border-radius: 0; /* Убираем закругления у изображения */
 }
 
 /* Активная карточка */
@@ -123,17 +119,21 @@ body, html {
 /* Кнопка награды */
 .reward-button {
     background-color: transparent;
-    border: none;
+    border: none; /* Удаление рамки */
     margin: 0 10px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
+    padding: 5px; /* Пространство для видимой рамки */
 }
 
 .reward-button img {
     width: 60px;
     height: auto;
+    display: block;
+    border-radius: 0; /* Убираем закругления у изображения */
 }
 
+/* Увеличение выбранного сундука */
 .reward-button.selected {
     transform: scale(1.2); /* Увеличение выбранного сундука */
 }
@@ -175,8 +175,7 @@ body, html {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Запретить скроллинг */
-    height: 100vh; /* Высота экрана */
+    overflow-x: hidden; /* Запретить горизонтальный скроллинг */
 }
 
 /* Медиазапросы для мобильных устройств и планшетов */
@@ -216,6 +215,10 @@ body, html {
         padding: 8px 16px;
         width: 150px;
     }
+
+    .spacer {
+        height: 150px; /* Уменьшить высоту черного контейнера на мобильных устройствах */
+    }
 }
 
 /* Для планшетов (ширина экрана от 601px до 1024px) */
@@ -252,5 +255,9 @@ body, html {
         font-size: 15px;
         padding: 9px 18px;
         width: 180px;
+    }
+
+    .spacer {
+        height: 200px; /* Высота черного контейнера для планшетов */
     }
 }
