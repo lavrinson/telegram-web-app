@@ -34,16 +34,19 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    width: 100%; /* Обеспечиваем, что контейнер занимает всю ширину */
+    box-sizing: border-box;
 }
 
 .mining-image-container {
+    width: 100%; /* Обеспечиваем, что контейнер занимает всю ширину */
     position: relative;
     text-align: center;
 }
 
 .mining-image {
-    max-width: 100%;
-    height: auto;
+    width: 100%; /* Растягиваем изображение до ширины контейнера */
+    height: auto; /* Сохраняем пропорции изображения */
     border-radius: 10px 10px 0 0;
     position: relative;
     z-index: 1;

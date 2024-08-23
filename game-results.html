@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Итоги голосования</title>
+    <link rel="stylesheet" href="game-results.css">
+</head>
+<body>
+    <div class="results-container">
+        <h1 id="result-title">Победа!</h1>
+        <p id="result-date">20 авг, 2024</p>
+        <!-- Удален блок winner-card -->
+        <div class="results-details">
+            <h2>Итоги голосования</h2>
+            <p id="result-info">Найдите средний путь</p>
+            <div id="places-container">
+                <div class="place" id="first-place">
+                    <span class="place-rank">1</span>
+                    <img src="assets/images/card2.webp" alt="First Place Card" class="place-image">
+                    <p id="first-place-card" class="place-name">Астральные встречи</p>
+                    <p id="first-place-votes" class="place-votes">24,39% голосов</p>
+                </div>
+                <div class="place" id="second-place">
+                    <span class="place-rank">2</span>
+                    <img src="assets/images/card1.webp" alt="Second Place Card" class="place-image">
+                    <p id="second-place-card" class="place-name">Тайная линия связи</p>
+                    <p id="second-place-votes" class="place-votes">37,45% голосов · Победил · Твой выбор</p>
+                </div>
+                <div class="place" id="third-place">
+                    <span class="place-rank">3</span>
+                    <img src="assets/images/card3.webp" alt="Third Place Card" class="place-image">
+                    <p id="third-place-card" class="place-name">Тайные сборища</p>
+                    <p id="third-place-votes" class="place-votes">38,15% голосов</p>
+                </div>
+            </div>
+        </div>
+        <!-- Кнопка "Получить награду 🏆" -->
+        <button class="reward-button-final" id="reward-button">Получить награду 🏆</button>
+    </div>
+
+    <script src="game-results.js"></script>
+</body>
+</html>

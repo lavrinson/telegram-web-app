@@ -1,69 +1,178 @@
-/* Стили для текста и таймера */
+/* Основные стили для страницы */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Пустой черный контейнер */
+.spacer {
+    height: 180px; /* Высота черного контейнера */
+    background-color: #000; /* Черный фон */
+    width: 100%; /* Ширина на весь экран */
+}
+
+/* Заголовок и таймер */
 .header-info {
-    display: flex; /* Используем flexbox для размещения элементов в строку */
-    justify-content: space-between; /* Равномерное распределение элементов по горизонтали */
-    align-items: center; /* Центрируем элементы по вертикали */
-    padding: 20px; /* Отступы для создания пространства вокруг текста и таймера */
-    background-color: #000000; /* Фон для блока с текстом и таймером */
-    color: #ffffff; /* Цвет текста */
-    position: relative; /* Относительное позиционирование для дополнительного контроля */
-    margin-top: 100px; /* Отступ сверху, чтобы разместить блок ниже */
-    margin-bottom: 1px; /* Отступ снизу, чтобы разделить с карточками */
-    width: 100%; /* Ширина контейнера на весь экран */
+    text-align: center;
+    color: #ffffff;
+    padding: 20px;
 }
 
-/* Таймер */
-#timer {
-    font-size: 12px; /* Размер шрифта для таймера */
-    font-weight: bold; /* Жирный шрифт для таймера */
+.header-info h1 {
+    font-size: 24px;
+    margin: 0;
 }
 
-/* Текст */
-.header-text {
-    font-size: 12px; /* Размер шрифта для текста */
-    font-weight: bold; /* Жирный шрифт для текста */
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.divider {
+    width: 2px;
+    height: 20px;
+    background-color: #ffffff;
+    margin: 0 10px;
+}
+
+.timer-text {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.subtext {
+    color: #ffffff;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 /* Контейнер для карточек */
-.cards-container {
+.carousel {
     display: flex;
-    justify-content: center; /* Центрируем карточки по горизонтали */
-    align-items: center; /* Центрируем карточки по вертикали */
-    overflow: hidden; /* Прячем лишнее содержимое */
-    width: 100vw; /* Ширина контейнера на весь экран */
-    height: 200px; /* Высота контейнера, чтобы соответствовать высоте карточек и отступам */
-    margin: 0 auto; /* Автоматические отступы для центрирования */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
 }
 
 /* Карточка */
 .card {
-    background-color: transparent; /* Убираем фон у карточек */
-    border: 2px solid #ffffff; /* Белая обводка */
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
-    flex: 0 0 120px; /* Фиксированная ширина карточки */
-    max-width: 120px; /* Максимальная ширина карточки */
-    margin: 0 10px; /* Промежутки между карточками */
+    background-color: transparent;
+    text-align: center;
+    color: #ffffff;
+    margin: 0 15px;
+    width: 120px;
+    flex-shrink: 0;
 }
 
-/* Изображение карточки */
-.card-image {
+.card p {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* Обёртка для изображения с белой обводкой */
+.card-image-wrapper {
+    border: 3px solid #ffffff; /* Белая обводка вокруг изображения */
+    border-radius: 20px; /* Сильное закругление углов */
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.card img {
     width: 100%;
-    height: auto;
     display: block;
+    border-radius: 20px; /* Сильное закругление углов изображения */
 }
 
-/* Эффект зума для активной карточки */
-.card.active {
-    transform: scale(1.1);
-    z-index: 1;
+/* Активная карточка */
+.card.active .card-image-wrapper {
+    transform: scale(1.2);
+    opacity: 1;
 }
 
-/* Запрещаем прокрутку страницы */
-html, body {
-    overflow: hidden;
-    height: 100%;
+/* Соседние карточки */
+.card:not(.active) .card-image-wrapper {
+    opacity: 0.5;
+}
+
+/* Текст "Выбери награду" */
+.reward-text {
+    text-align: center;
+    color: #ffffff;
+    margin: 30px 0;
+    font-size: 18px;
+}
+
+/* Контейнер для кнопок с наградами */
+.reward-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Кнопка награды */
+.reward-button {
+    background-color: transparent;
+    border: none;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.reward-button img {
+    width: 60px;
+    height: auto;
+}
+
+.reward-button.selected {
+    transform: scale(1.2); /* Увеличение выбранного сундука */
+}
+
+/* Кнопка голосования */
+.vote-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.vote-button button {
+    background-color: #1e90ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px #104e8b; /* Тень для создания эффекта объема */
+    transition: transform 0.2s ease;
+    width: 200px; /* Фиксированная ширина кнопки */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+.vote-button button:active {
+    transform: translateY(2px); /* Эффект нажатия */
+    box-shadow: 0 2px #104e8b; /* Тень становится меньше при нажатии */
+}
+
+.vote-button button:disabled {
+    box-shadow: 0 4px #1e7e34; /* Тень для заблокированной зеленой кнопки */
+    cursor: not-allowed;
+}
+
+/* Фон */
+body, html {
+    background-color: #000; /* Черный фон */
+    color: #fff; /* Белый текст */
+    font-family: Arial, sans-serif;
     margin: 0;
+    padding: 0;
+    overflow: hidden; /* Запретить скроллинг */
+    height: 100vh; /* Высота экрана */
 }

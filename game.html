@@ -2,36 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="user-info.css">
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
+    <!-- Пустой черный контейнер для отступа сверху -->
+    <div class="spacer"></div>
 
-    <!-- Текст и таймер -->
+    <!-- Заголовок и таймер -->
     <div class="header-info">
-        <h1>Выберите вашу карту</h1>
-        <div id="timer">00:00:00</div>
+        <h1>Найди средний путь</h1>
+        <div class="timer-container">
+            <p class="timer-text">Прием голосов заканчивается через: <span id="timer">01:00</span></p>
+        </div>
+        <p class="subtext">Выбери карточку</p>
     </div>
 
     <!-- Контейнер для карточек -->
-    <div class="cards-container">
-        <div class="card" id="card1">
-            <img src="assets/images/card1.webp" alt="Card 1" class="card-image">
+    <div class="carousel">
+        <div class="card active" id="card1">
+            <div class="card-image-wrapper">
+                <img src="assets/images/card1.webp" alt="Card 1" class="card-image">
+            </div>
+            <p></p>
         </div>
         <div class="card" id="card2">
-            <img src="assets/images/card2.webp" alt="Card 2" class="card-image">
+            <div class="card-image-wrapper">
+                <img src="assets/images/card2.webp" alt="Card 2" class="card-image">
+            </div>
+            <p></p>
         </div>
         <div class="card" id="card3">
-            <img src="assets/images/card3.webp" alt="Card 3" class="card-image">
+            <div class="card-image-wrapper">
+                <img src="assets/images/card3.webp" alt="Card 3" class="card-image">
+            </div>
+            <p></p>
         </div>
     </div>
 
-    <script src="game.js"></script> <!-- Подключение вашего JS-файла -->
-<!-- Футер будет добавлен через JavaScript -->
-<script src="footer.js"></script>
-<script src="user-info.js"></script>
+    <!-- Текст "Выбери награду" -->
+    <div class="reward-text">
+        <p>Выбери награду</p>
+    </div>
+
+    <!-- Кнопки с изображениями сундуков -->
+    <div class="reward-buttons">
+        <button class="reward-button" id="bronze-button">
+            <img src="assets/icons/chest-bronze.webp" alt="Bronze Chest">
+        </button>
+        <button class="reward-button" id="silver-button">
+            <img src="assets/icons/chest-silver.webp" alt="Silver Chest">
+        </button>
+        <button class="reward-button" id="gold-button">
+            <img src="assets/icons/chest-gold.webp" alt="Gold Chest">
+        </button>
+    </div>
+
+    <!-- Кнопка голосования -->
+    <div class="vote-button">
+        <button>Проголосовать 100 PANDAS</button>
+    </div>
+
+    <!-- Футер будет добавлен через JavaScript -->
+    <script src="footer.js"></script>
+    <script src="user-info.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
