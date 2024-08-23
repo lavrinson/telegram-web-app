@@ -92,17 +92,14 @@ footer {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    background-color: #000000;
+    background-color: #1e90ff; /* Синий фон */
     color: #ffffff;
-    border: 2px solid #ffffff;
-    border-radius: 0 0 10px 10px;
+    border: none; /* Удаление обводки */
+    border-radius: 5px; /* Закругление углов */
     cursor: pointer;
     z-index: 2;
-    transition: background-color 0.3s ease;
-}
-
-.mining-button:hover {
-    background-color: #333333;
+    box-shadow: 0 4px #104e8b; /* Тень для создания эффекта объема */
+    transition: transform 0.2s ease; /* Плавный переход для нажатия */
 }
 
 .nft-cards-container {

@@ -5,10 +5,11 @@
     left: 0;
     right: 0;
     z-index: 1000; /* Убедимся, что фон выше других элементов */
-    background: linear-gradient(to top, #000000 30%, #2fb45d 70%); /* Градиент от черного к зеленому */
+    background-image: url('assets/images/fon-user.webp'); /* Фоновое изображение */
+    background-size: cover; /* Покрытие всего контейнера */
+    background-position: center; /* Центрирование изображения */
     padding: 20px; /* Отступы вокруг блока пользователя */
     margin: 0; /* Убираем отступы по бокам */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень под фоном */
     width: 100%; /* Растягиваем фон на всю ширину страницы */
     box-sizing: border-box; /* Учитываем отступы и границы в ширине */
     height: auto; /* Позволяем высоте адаптироваться */
