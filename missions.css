@@ -10,7 +10,7 @@
 }
 
 .mission-card {
-    background-color: #222222;
+    background-color: #222222; /* Убираем градиент, оставляем сплошной цвет */
     color: #ffffff;
     padding: 20px;
     margin-bottom: 20px;
@@ -24,7 +24,7 @@
 .mission-icon {
     width: 40px;
     height: 40px;
-    background-color: #333;
+    background-color: #333; /* Убираем градиент, оставляем сплошной цвет */
     border-radius: 50%;
     margin-right: 10px;
 }

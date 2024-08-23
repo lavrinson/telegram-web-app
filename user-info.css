@@ -1,25 +1,51 @@
-.user-info-container {
-    padding: 20px;
-    background-color: #000000; /* Черный фон для контейнера */
-    color: #ffffff; /* Белый текст */
+/* Контейнер для фона под блоком пользователя */
+.user-info-background {
+    position: fixed; /* Фиксируем фон на экране */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Убедимся, что фон выше других элементов */
+    background: linear-gradient(to top, #000000 30%, #2fb45d 70%); /* Градиент от черного к зеленому */
+    padding: 20px; /* Отступы вокруг блока пользователя */
+    margin: 0; /* Убираем отступы по бокам */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень под фоном */
+    width: 100%; /* Растягиваем фон на всю ширину страницы */
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    height: auto; /* Позволяем высоте адаптироваться */
 }
 
+/* Контейнер блока пользователя */
+.user-info-container {
+    padding: 20px;
+    background-color: #000000; /* Черный фон внутри обводки */
+    color: #ffffff; /* Белый текст */
+    border: 2px solid #ffffff; /* Белая обводка */
+    border-radius: 10px; /* Закругление углов контейнера пользователя */
+    box-sizing: border-box; /* Учитываем внутренние отступы в общем размере */
+    margin: 0 auto; /* Центрируем блок в родительском контейнере */
+    max-width: 1000px; /* Максимальная ширина блока для больших экранов */
+}
+
+/* Стили для блока с информацией о пользователе */
 .user-info {
     display: flex;
     justify-content: space-between; /* Имя слева, монеты справа */
     align-items: center;
 }
 
+/* Имя пользователя */
 .user-info-left {
     font-size: 18px;
     font-weight: bold;
 }
 
+/* Информация о монетах */
 .coin-info {
     display: flex;
     align-items: center;
 }
 
+/* Иконка монет */
 .coin-icon {
     width: 24px; /* Ширина иконки */
     height: 24px; /* Высота иконки */
@@ -27,11 +53,13 @@
     margin-right: 8px; /* Отступ справа от иконки */
 }
 
+/* Количество монет */
 #coin-count {
     font-size: 16px;
     color: #ffffff; /* Белый текст для количества монет */
 }
 
+/* Адаптивность для экранов шириной до 768px */
 @media (max-width: 768px) {
     .user-info-left {
         font-size: 16px;
@@ -40,14 +68,33 @@
     .coin-info {
         font-size: 14px;
     }
+
+    .coin-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    #coin-count {
+        font-size: 14px;
+    }
 }
 
+/* Адаптивность для экранов шириной до 480px */
 @media (max-width: 480px) {
     .user-info-left {
         font-size: 14px;
     }
 
     .coin-info {
+        font-size: 12px;
+    }
+
+    .coin-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    #coin-count {
         font-size: 12px;
     }
 }

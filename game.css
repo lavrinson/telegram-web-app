@@ -1,118 +1,69 @@
-/* Фраза и таймер голосования */
-.vote-info {
-    text-align: center;
-    padding: 20px;
-    background-color: #111111;
-    color: #ffffff;
+/* Стили для текста и таймера */
+.header-info {
+    display: flex; /* Используем flexbox для размещения элементов в строку */
+    justify-content: space-between; /* Равномерное распределение элементов по горизонтали */
+    align-items: center; /* Центрируем элементы по вертикали */
+    padding: 20px; /* Отступы для создания пространства вокруг текста и таймера */
+    background-color: #000000; /* Фон для блока с текстом и таймером */
+    color: #ffffff; /* Цвет текста */
+    position: relative; /* Относительное позиционирование для дополнительного контроля */
+    margin-top: 100px; /* Отступ сверху, чтобы разместить блок ниже */
+    margin-bottom: 1px; /* Отступ снизу, чтобы разделить с карточками */
+    width: 100%; /* Ширина контейнера на весь экран */
 }
 
+/* Таймер */
 #timer {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 12px; /* Размер шрифта для таймера */
+    font-weight: bold; /* Жирный шрифт для таймера */
+}
+
+/* Текст */
+.header-text {
+    font-size: 12px; /* Размер шрифта для текста */
+    font-weight: bold; /* Жирный шрифт для текста */
 }
 
 /* Контейнер для карточек */
 .cards-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 20px 0;
-    padding: 0 10px;
+    justify-content: center; /* Центрируем карточки по горизонтали */
+    align-items: center; /* Центрируем карточки по вертикали */
+    overflow: hidden; /* Прячем лишнее содержимое */
+    width: 100vw; /* Ширина контейнера на весь экран */
+    height: 200px; /* Высота контейнера, чтобы соответствовать высоте карточек и отступам */
+    margin: 0 auto; /* Автоматические отступы для центрирования */
 }
 
+/* Карточка */
 .card {
-    background-color: #222222;
+    background-color: transparent; /* Убираем фон у карточек */
+    border: 2px solid #ffffff; /* Белая обводка */
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
-    flex: 1 1 30%;
-    max-width: 30%;
-    margin: 10px;
-    box-sizing: border-box;
+    flex: 0 0 120px; /* Фиксированная ширина карточки */
+    max-width: 120px; /* Максимальная ширина карточки */
+    margin: 0 10px; /* Промежутки между карточками */
 }
 
+/* Изображение карточки */
 .card-image {
     width: 100%;
     height: auto;
     display: block;
 }
 
-.card:hover, .card.active {
+/* Эффект зума для активной карточки */
+.card.active {
     transform: scale(1.1);
     z-index: 1;
-    box-shadow: 0px 0px 15px rgba(0, 149, 255, 0.5);
 }
 
-/* Кнопки голосования */
-.vote-buttons-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 20px 10px;
-}
-
-.vote-button {
-    background-color: #0095ff;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    flex: 1 1 30%;
-    max-width: 30%;
-    margin: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.vote-button:hover {
-    background-color: #007acc;
-}
-
-@media (max-width: 768px) {
-    .cards-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .card {
-        max-width: 90%;
-        flex: 1 1 90%;
-        margin-bottom: 20px;
-    }
-
-    .vote-buttons-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .vote-button {
-        max-width: 90%;
-        flex: 1 1 90%;
-        margin-bottom: 10px;
-    }
-
-    #timer {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        max-width: 95%;
-        flex: 1 1 95%;
-    }
-
-    .vote-button {
-        max-width: 95%;
-        flex: 1 1 95%;
-    }
-
-    #timer {
-        font-size: 18px;
-    }
+/* Запрещаем прокрутку страницы */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
 }

@@ -9,18 +9,30 @@ body, html {
 
 /* Контейнер для всего содержимого */
 .container {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding-bottom: 60px; /* Отступ снизу для учета фиксированного футера */
+    flex: 1;
+    min-height: 100vh; /* Устанавливаем минимальную высоту для контейнера, чтобы он занимал весь экран */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Страница майнинга */
+/* Футер */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Дополнительные стили для других элементов */
 .mining-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     padding: 20px;
 }
 
@@ -90,13 +102,12 @@ body, html {
     background-color: #333333;
 }
 
-/* Блок с NFT-картами */
 .nft-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Две карточки в ряд, адаптация к размеру экрана */
+    grid-template-columns: repeat(2, 1fr); /* Две карточки в каждом ряду */
     gap: 20px;
     padding: 20px;
-    background-color: #000000; /* Черный фон для контейнера с NFT карточками */
+    background-color: #000000;
     border-radius: 10px;
     margin-top: 20px;
     width: 100%;
@@ -107,8 +118,8 @@ body, html {
 }
 
 .nft-card {
-    position: relative; /* Для позиционирования кнопки ? */
-    background: linear-gradient(to top, #000000, #555555); /* Градиентный фон: черный снизу, серый сверху */
+    position: relative;
+    background: linear-gradient(to top, #000000, #555555);
     border: 2px solid #ffffff;
     border-radius: 10px;
     padding: 10px;
@@ -129,46 +140,43 @@ body, html {
     text-align: center;
 }
 
-/* Стили для кнопки ? */
 .info-button {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    width: 28px; /* Уменьшили размер кнопки */
+    width: 28px;
     height: 28px;
     border-radius: 50%;
-    background-color: #000000; /* Черный фон кнопки */
-    color: #ffffff; /* Белый цвет для ? */
-    border: 2px solid #ffffff; /* Белая обводка */
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px; /* Уменьшили размер текста ? */
+    font-size: 16px;
     z-index: 5;
-    animation: zoom 2s infinite; /* Изменили продолжительность анимации */
+    animation: zoom 2s infinite;
 }
 
 .info-button:hover {
     background-color: #333333;
 }
 
-/* Анимация зума */
 @keyframes zoom {
     0% {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.1); /* Увеличиваем до 110% */
+        transform: scale(1.1);
     }
     100% {
         transform: scale(1);
     }
 }
 
-/* Стили для модальных окон */
 .modal {
-    display: none; /* Скрываем модальное окно по умолчанию */
+    display: none; /* Устанавливаем по умолчанию скрытыми */
     position: fixed;
     z-index: 10;
     left: 0;
@@ -176,18 +184,20 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 300px;
+    max-width: 500px;
     border-radius: 10px;
     text-align: center;
+    margin: 0;
 }
 
 .close {
@@ -206,37 +216,23 @@ body, html {
     cursor: pointer;
 }
 
-/* Нижний бар */
-#footer-section {
-    background-color: #1f1f1f;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    position: fixed; /* Закрепляем футер внизу страницы */
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-}
-
-.footer-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Кнопка с обводкой */
+.outline-button {
+    display: block;
+    width: 250px; /* Увеличение ширины кнопки */
+    padding: 15px; /* Увеличение высоты кнопки */
+    margin: 20px auto; /* Центрирование кнопки */
+    font-size: 18px; /* Увеличение размера шрифта */
     text-align: center;
-    text-decoration: none;
-    color: #ffffff;
+    background-color: transparent;
+    color: #000000;
+    border: 3px solid #000000; /* Увеличение толщины обводки */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.footer-button img {
-    filter: invert(1);
-    width: 24px;
-    height: 24px;
-    margin-bottom: 5px;
-}
-
-.footer-button span {
-    font-size: 12px;
+.outline-button:hover {
+    background-color: #000000;
+    color: #000000;
 }

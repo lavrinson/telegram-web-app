@@ -12,18 +12,15 @@
 
 /* Стили для блока кликера */
 .clicker-container {
-    position: fixed; /* Закрепляем блок на экране */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Центрирование по вертикали и горизонтали */
-    z-index: 1000; /* Задаем высокий z-index, чтобы блок был поверх остальных элементов */
+    position: relative; /* Позволяет позиционировать элементы относительно блока */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Стили для изображения кликера */
 .clicker-image {
-    max-width: 120%; /* Увеличиваем ширину изображения до 120% от ширины контейнера */
+    max-width: 70%; /* Уменьшаем ширину изображения до 70% от ширины контейнера */
     height: auto; /* Высота автоматически изменяется в зависимости от ширины */
     border-radius: 10px;
     border: none;
@@ -34,151 +31,114 @@
     transform: scale(1.1); /* Зум при нажатии */
 }
 
-/* Стили для верхнего блока с контролами */
-.top-controls {
+/* Новый блок для энергии */
+.energy-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-    width: 100%; /* Ширина блока контролов на всю ширину экрана */
-    max-width: 1000px; /* Максимальная ширина блока */
-    box-sizing: border-box;
-    /* background-color: #333; Убираем серый фон */
+    flex-direction: column; /* Вертикальное размещение элементов */
+    align-items: center; /* Центрируем элементы по горизонтали */
+    position: absolute; /* Закрепляем блок относительно контейнера */
+    bottom: 100px; /* Располагаем блок выше от нижнего края контейнера */
+    left: 50%;
+    transform: translateX(-50%); /* Центрируем блок по горизонтали */
+    gap: 8px; /* Отступ между элементами */
+}
+
+/* Иконка энергии */
+.energy-icon {
+    width: 36px; /* Размер иконки энергии */
+    height: 36px; /* Устанавливаем высоту иконки */
+}
+
+/* Шрифт отображения энергии */
+.energy-display {
+    font-size: 28px; /* Увеличиваем шрифт отображения энергии */
+    color: #ffffff;
 }
 
 /* Кнопка FAQ */
 .faq-button {
+    position: absolute; /* Абсолютное позиционирование */
+    left: 20px; /* Отступ слева от края страницы */
+    top: calc(50% - 300px); /* Поднимаем кнопку выше на 300 пикселей от центра */
     text-decoration: none;
     display: inline-block;
+    border: none; /* Убираем обводку */
+    border-radius: 16px; /* Скругление углов */
+    padding: 10px; /* Внутренние отступы */
+    background: transparent; /* Фон кнопки прозрачный */
 }
 
+/* Иконка FAQ */
 .faq-icon {
-    width: 40px;
-    height: 40px;
+    width: 60px; /* Размер иконки FAQ */
+    height: 60px;
     cursor: pointer;
-    transition: transform 0.2s ease;
 }
 
-.faq-icon:hover {
-    transform: scale(1.1); /* Увеличение при наведении */
-}
-
-/* Контейнер для отображения энергии в верхнем блоке */
-.energy-display-container {
+/* Контейнер для кнопки Boost и таймера */
+.boost-container {
+    position: absolute; /* Абсолютное позиционирование */
+    right: 20px; /* Отступ справа от края страницы */
+    top: calc(50% - 300px); /* Поднимаем кнопку выше на 300 пикселей от центра */
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Вертикальное размещение элементов */
+    align-items: center; /* Центрируем элементы по горизонтали */
+    gap: 5px; /* Отступ между кнопкой и таймером */
 }
 
-.energy-icon {
+/* Кнопка Boost */
+.boost-button {
+    width: 60px; /* Размер кнопки Boost */
+    height: 60px;
+    cursor: pointer;
+}
+
+/* Таймер под кнопкой Boost */
+.boost-timer {
+    text-align: center;
+    font-size: 14px;
+    color: white;
+}
+
+/* Обновление таймера и индикатора на кнопке Boost */
+.boost-timer {
+    font-size: 14px; /* Размер шрифта для таймера */
+    color: white;
+}
+
+/* Стили для обозначений на кнопке Boost */
+.boost-indicator {
+    position: absolute;
+    top: 10px; /* Правый верхний угол */
+    right: 10px;
     width: 20px;
     height: 20px;
-    margin-right: 8px;
-}
-
-.energy-display {
-    font-size: 18px;
-    color: #ffffff;
-}
-
-/* Стили для кнопки Boost */
-.boost-container {
+    border-radius: 50%;
     display: flex;
+    justify-content: center;
     align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: transparent; /* По умолчанию прозрачный фон */
 }
 
-.boost-button {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+.boost-indicator.green-check {
+    background-color: green; /* Зеленый фон для галочки */
 }
 
-.boost-button.clicked {
-    transform: scale(1.1);
+.boost-indicator.clock {
+    background-color: orange; /* Оранжевый фон для символа часов */
 }
 
-.status-icon.hidden {
-    display: none; /* Скрываем значок, когда класс hidden добавлен */
+.boost-indicator.exclamation {
+    background-color: red; /* Красный фон для восклицательного знака */
+    animation: blink 1s infinite; /* Мигающий эффект */
 }
 
-/* Адаптивные стили для крупных экранов */
-@media (min-width: 1200px) {
-    .clicker-image {
-        max-width: 100%; /* Размер изображения для больших экранов */
-    }
-
-    .faq-icon, .boost-button {
-        width: 50px; /* Увеличенные размеры кнопок на крупных экранах */
-        height: 50px;
-    }
-
-    .energy-icon {
-        width: 24px; /* Увеличенный размер иконки энергии */
-        height: 24px;
-    }
-
-    .energy-display {
-        font-size: 20px; /* Увеличенный шрифт энергии */
-    }
-}
-
-/* Адаптивные стили для планшетов */
-@media (max-width: 768px) {
-    .clicker-image {
-        max-width: 130%; /* Увеличиваем ширину изображения на мобильных устройствах */
-    }
-
-    .energy-icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .energy-display {
-        font-size: 14px;
-    }
-
-    .top-controls {
-        padding: 8px;
-    }
-
-    .faq-icon, .boost-button {
-        width: 35px;
-        height: 35px;
-    }
-}
-
-/* Адаптивные стили для смартфонов */
-@media (max-width: 480px) {
-    .clicker-image {
-        max-width: 140%; /* Увеличиваем ширину изображения на очень маленьких экранах */
-    }
-
-    .energy-icon {
-        width: 14px;
-        height: 14px;
-    }
-
-    .energy-display {
-        font-size: 12px;
-    }
-
-    .faq-icon, .boost-button {
-        width: 30px;
-        height: 30px;
-    }
-
-    .top-controls {
-        padding: 6px;
-        max-width: 100%;
-        flex-direction: row; /* Размещаем элементы в ряд */
-        align-items: center; /* Центрирование элементов */
-    }
-
-    .energy-display-container {
-        margin-top: 0; /* Убираем отступ сверху */
-    }
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* Запрещаем прокрутку страницы */

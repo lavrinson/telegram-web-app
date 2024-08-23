@@ -7,25 +7,37 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #000000; /* Черный фон */
     color: #ffffff; /* Белый текст */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+    touch-action: manipulation; /* Отключаем жесты масштабирования на сенсорных экранах */
 }
 
-/* Футер */
+/* Основные стили футера */
 #footer-section {
+    position: fixed;
+    bottom: 20px; /* Отступ от нижней границы страницы */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px; /* Максимальная ширина футера */
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    border: 2px solid #dddddd; /* Цвет и толщину рамки */
+    border-radius: 15px; /* Закругленные углы футера */
+    box-shadow: none; /* Удаляем тень */
+    backdrop-filter: blur(5px); /* Уменьшенный блюр фона */
+    z-index: 10; /* Убедитесь, что футер находится поверх других элементов */
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 0;
-    background-color: #1f1f1f;
-    position: fixed; /* Фиксируем позицию блока */
-    bottom: 0;
-    width: 100%;
-    z-index: 10; /* Убедитесь, что футер находится поверх других элементов */
-    box-shadow: 0px -2px 8px rgba(255, 255, 255, 0.1); /* Легкая белая тень */
 }
 
+/* Стили для кнопок футера */
 .footer-button {
     display: flex;
     flex-direction: column;
@@ -33,6 +45,7 @@ body {
     text-align: center;
     text-decoration: none;
     color: #ffffff; /* Белый цвет текста в футере */
+    transition: color 0.3s ease; /* Плавный переход для цвета текста */
 }
 
 .footer-button img {
@@ -63,20 +76,4 @@ body {
         width: 30px;
         height: 30px;
     }
-}
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 100vh;
-    background-color: #000000; /* Черный фон */
-    color: #ffffff; /* Белый текст */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* Internet Explorer/Edge */
-    user-select: none;         /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
-    touch-action: manipulation; /* Отключаем жесты масштабирования на сенсорных экранах */
 }

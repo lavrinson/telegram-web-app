@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -9,107 +9,83 @@
     <link rel="stylesheet" href="mining.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Блок пользователя будет вставлен сюда -->
 
-        <!-- Майнинг-система -->
-        <div class="mining-container">
-            <div class="mining-image-container">
-                <img src="assets/images/mining.png" alt="Mining" class="mining-image">
-                <div class="progress-bar-and-button">
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">
-                            <span id="mined-coins-display" class="mined-coins-display">0/100</span>
-                        </div>
+<!-- Контейнер для страницы -->
+<div class="container">
+    <!-- Майнинг-система -->
+    <div class="mining-container">
+        <div class="mining-image-container">
+            <img src="assets/images/mining.png" alt="Mining" class="mining-image">
+            <div class="progress-bar-and-button">
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar">
+                        <span id="mined-coins-display" class="mined-coins-display">0/100</span>
                     </div>
-                    <button id="mining-button" class="mining-button">Start Mining</button>
+                </div>
+                <button id="mining-button" class="mining-button">Start Mining</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Блок для NFT карточек -->
+    <div class="nft-cards-container">
+        <div class="nft-card">
+            <img src="assets/images/nft1.png" alt="NFT 1" class="nft-image">
+            <span class="nft-title">ENERGY X2</span>
+            <button class="info-button" onclick="openModal('nft1-info')">?</button>
+            <div id="nft1-info" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('nft1-info')">&times;</span>
+                    <p>Информация о карточке ENERGY X2</p>
                 </div>
             </div>
         </div>
 
-        <!-- Блок для NFT карточек -->
-        <div class="nft-cards-container">
-            <div class="nft-card">
-                <img src="assets/images/nft1.png" alt="NFT 1" class="nft-image">
-                <span class="nft-title">ENERGY X2</span>
-                <button class="info-button" onclick="openModal('nft1-info')">?</button>
-                <!-- Всплывающее окно -->
-                <div id="nft1-info" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal('nft1-info')">&times;</span>
-                        <p>Информация о карточке ENERGY X2</p>
-                    </div>
+        <div class="nft-card">
+            <img src="assets/images/nft2.png" alt="NFT 2" class="nft-image">
+            <span class="nft-title">ENERGY X3</span>
+            <button class="info-button" onclick="openModal('nft2-info')">?</button>
+            <div id="nft2-info" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('nft2-info')">&times;</span>
+                    <p>Информация о карточке ENERGY X3</p>
                 </div>
             </div>
-            <div class="nft-card">
-                <img src="assets/images/nft2.png" alt="NFT 2" class="nft-image">
-                <span class="nft-title">MINING X2</span>
-                <button class="info-button" onclick="openModal('nft2-info')">?</button>
-                <!-- Всплывающее окно -->
-                <div id="nft2-info" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal('nft2-info')">&times;</span>
-                        <p>Информация о карточке MINING X2</p>
-                    </div>
+        </div>
+
+        <div class="nft-card">
+            <img src="assets/images/nft3.webp" alt="NFT 3" class="nft-image">
+            <span class="nft-title">ENERGY X4</span>
+            <button class="info-button" onclick="openModal('nft3-info')">?</button>
+            <div id="nft3-info" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('nft3-info')">&times;</span>
+                    <p>Информация о карточке ENERGY X4</p>
                 </div>
             </div>
-            <div class="nft-card">
-                <img src="assets/images/nft3.webp" alt="NFT 3" class="nft-image">
-                <span class="nft-title">TAP X2</span>
-                <button class="info-button" onclick="openModal('nft3-info')">?</button>
-                <!-- Всплывающее окно -->
-                <div id="nft3-info" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal('nft3-info')">&times;</span>
-                        <p>Информация о карточке TAP X2</p>
-                    </div>
-                </div>
-            </div>
-            <div class="nft-card">
-                <img src="assets/images/nft4.webp" alt="NFT 4" class="nft-image">
-                <span class="nft-title">FRIEND BOOST X2</span>
-                <button class="info-button" onclick="openModal('nft4-info')">?</button>
-                <!-- Всплывающее окно -->
-                <div id="nft4-info" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal('nft4-info')">&times;</span>
-                        <p>Информация о карточке FRIEND BOOST X2</p>
-                    </div>
+        </div>
+
+        <div class="nft-card">
+            <img src="assets/images/nft4.webp" alt="NFT 4" class="nft-image">
+            <span class="nft-title">ENERGY X5</span>
+            <button class="info-button" onclick="openModal('nft4-info')">?</button>
+            <div id="nft4-info" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('nft4-info')">&times;</span>
+                    <p>Информация о карточке ENERGY X5</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Нижний бар -->
-    <div id="footer-section">
-        <a href="index.html" class="footer-button">
-            <img src="assets/icons/home.png" alt="Home Icon">
-            <span>Home</span>
-        </a>
-        <a href="mining.html" class="footer-button">
-            <img src="assets/icons/mining.png" alt="Mining Icon">
-            <span>Mining</span>
-        </a>
-        <a href="game.html" class="footer-button">
-            <img src="assets/icons/game.png" alt="Game Icon">
-            <span>Game</span>
-        </a>
-        <a href="missions.html" class="footer-button">
-            <img src="assets/icons/missions.png" alt="Missions Icon">
-            <span>Missions</span>
-        </a>
-    </div>
+    <!-- Кнопка с обводкой после блока с NFT карточками -->
+    <button class="outline-button">Click Me</button>
+</div>
 
-    <script src="user-info.js"></script>
-    <script src="mining.js"></script>
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = "block";
-        }
+<!-- Скрипты -->
+<script src="footer.js"></script>
+<script src="user-info.js"></script>
+<script src="mining.js"></script>
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
-    </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -9,25 +10,7 @@
 </head>
 <body>
 
-<!-- Блок пользователя -->
-<div class="user-info-container">
-    <!-- Ваш существующий код для отображения информации о пользователе -->
-</div>
-
-<!-- Новый блок с кнопкой FAQ, энергией и кнопкой Boost -->
-<div class="top-controls">
-    <a href="faq.html" class="faq-button">
-        <img src="assets/icons/faq.webp" alt="FAQ" class="faq-icon"> <!-- Картинка FAQ -->
-    </a>
-    <div class="energy-display-container">
-        <img src="assets/icons/energy.png" alt="Energy Icon" class="energy-icon">
-        <span id="energy-count" class="energy-display">100/100</span>
-    </div>
-    <div class="boost-container">
-        <img id="boost-button" src="assets/icons/boost.png" alt="Boost" class="boost-button">
-        <div id="boost-status" class="status-icon"></div>
-    </div>
-</div>
+<!-- Блок пользователя будет вставлен сюда -->
 
 <!-- Контейнер для страницы -->
 <div class="container">
@@ -36,27 +19,27 @@
         <img id="clicker-image" src="assets/images/clicker.webp" alt="Clicker" class="clicker-image">
     </div>
 
-    <!-- Нижний бар -->
-    <div id="footer-section">
-        <a href="index.html" class="footer-button">
-            <img src="assets/icons/home.png" alt="Home Icon">
-            <span>Home</span>
-        </a>
-        <a href="mining.html" class="footer-button">
-            <img src="assets/icons/mining.png" alt="Mining Icon">
-            <span>Mining</span>
-        </a>
-        <a href="game.html" class="footer-button">
-            <img src="assets/icons/game.png" alt="Game Icon">
-            <span>Game</span>
-        </a>
-        <a href="missions.html" class="footer-button">
-            <img src="assets/icons/missions.png" alt="Missions Icon">
-            <span>Missions</span>
-        </a>
+    <!-- Новый блок с энергией под кликером -->
+    <div class="energy-container">
+        <span id="energy-count" class="energy-display">100/100</span>
+        <img src="assets/icons/energy.png" alt="Energy Icon" class="energy-icon">
     </div>
 </div>
-    <script src="clicker.js"></script>
-    <script src="user-info.js"></script>
+
+<!-- Кнопка FAQ -->
+<a href="faq.html" class="faq-button">
+    <img src="assets/icons/faq.webp" alt="FAQ" class="faq-icon">
+</a>
+
+<!-- Кнопка Boost и таймер -->
+<div class="boost-container">
+    <img id="boost-button" src="assets/icons/boost.png" alt="Boost" class="boost-button">
+    <div id="boost-timer" class="boost-timer"></div>
+</div>
+
+<!-- Футер будет добавлен через JavaScript -->
+<script src="footer.js"></script>
+<script src="clicker.js"></script>
+<script src="user-info.js"></script>
 </body>
 </html>
