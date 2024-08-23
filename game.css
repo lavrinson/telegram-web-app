@@ -60,6 +60,7 @@ body, html {
     padding: 20px;
     overflow: hidden;
     position: relative;
+    flex-wrap: wrap; /* Позволяет карточкам переноситься на новую строку при необходимости */
 }
 
 /* Карточка */
@@ -116,6 +117,7 @@ body, html {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    flex-wrap: wrap; /* Позволяет кнопкам переноситься на новую строку при необходимости */
 }
 
 /* Кнопка награды */
@@ -175,4 +177,80 @@ body, html {
     padding: 0;
     overflow: hidden; /* Запретить скроллинг */
     height: 100vh; /* Высота экрана */
+}
+
+/* Медиазапросы для мобильных устройств и планшетов */
+
+/* Для мобильных устройств (ширина экрана до 600px) */
+@media (max-width: 600px) {
+    .header-info h1 {
+        font-size: 20px;
+    }
+
+    .timer-text {
+        font-size: 14px;
+    }
+
+    .subtext {
+        font-size: 12px;
+    }
+
+    .card {
+        width: 100px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .reward-text {
+        font-size: 16px;
+    }
+
+    .reward-button img {
+        width: 50px;
+    }
+
+    .vote-button button {
+        font-size: 14px;
+        padding: 8px 16px;
+        width: 150px;
+    }
+}
+
+/* Для планшетов (ширина экрана от 601px до 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .header-info h1 {
+        font-size: 22px;
+    }
+
+    .timer-text {
+        font-size: 15px;
+    }
+
+    .subtext {
+        font-size: 13px;
+    }
+
+    .card {
+        width: 110px;
+    }
+
+    .card p {
+        font-size: 15px;
+    }
+
+    .reward-text {
+        font-size: 17px;
+    }
+
+    .reward-button img {
+        width: 55px;
+    }
+
+    .vote-button button {
+        font-size: 15px;
+        padding: 9px 18px;
+        width: 180px;
+    }
 }
