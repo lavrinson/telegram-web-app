@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Mining</title>
-    <link rel="stylesheet" href="static/css/global.css">
-    <link rel="stylesheet" href="static/css/user-info.css">
-    <link rel="stylesheet" href="mining.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user-info.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mining.css') }}">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     <!-- Майнинг-система -->
     <div class="mining-container">
         <div class="mining-image-container">
-            <img src="assets/images/mining.webp" alt="Mining" class="mining-image">
+            <img src="{{ url_for('static', filename='images/mining.webp') }}" alt="Mining" class="mining-image">
             <div class="progress-bar-and-button">
                 <div class="progress-bar-container">
                     <div id="progress-bar" class="progress-bar">
@@ -30,7 +30,7 @@
     <!-- Блок для NFT карточек -->
     <div class="nft-cards-container">
         <div class="nft-card">
-            <img src="assets/images/nft1.png" alt="NFT 1" class="nft-image">
+            <img src="{{ url_for('static', filename='images/nft1.png') }}" alt="NFT 1" class="nft-image">
             <span class="nft-title">ENERGY X2</span>
             <button class="info-button" onclick="openModal('nft1-info')">?</button>
             <div id="nft1-info" class="modal">
@@ -41,41 +41,8 @@
             </div>
         </div>
 
-        <div class="nft-card">
-            <img src="assets/images/nft2.png" alt="NFT 2" class="nft-image">
-            <span class="nft-title">ENERGY X3</span>
-            <button class="info-button" onclick="openModal('nft2-info')">?</button>
-            <div id="nft2-info" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal('nft2-info')">&times;</span>
-                    <p>Информация о карточке ENERGY X3</p>
-                </div>
-            </div>
-        </div>
+        <!-- Добавьте остальные карточки аналогичным образом -->
 
-        <div class="nft-card">
-            <img src="assets/images/nft3.webp" alt="NFT 3" class="nft-image">
-            <span class="nft-title">ENERGY X4</span>
-            <button class="info-button" onclick="openModal('nft3-info')">?</button>
-            <div id="nft3-info" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal('nft3-info')">&times;</span>
-                    <p>Информация о карточке ENERGY X4</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="nft-card">
-            <img src="assets/images/nft4.webp" alt="NFT 4" class="nft-image">
-            <span class="nft-title">ENERGY X5</span>
-            <button class="info-button" onclick="openModal('nft4-info')">?</button>
-            <div id="nft4-info" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal('nft4-info')">&times;</span>
-                    <p>Информация о карточке ENERGY X5</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Кнопка с обводкой после блока с NFT карточками -->
@@ -83,9 +50,9 @@
 </div>
 
 <!-- Скрипты -->
-<script src="static/js/footer.js"></script>
-<script src="static/js/user-info.js"></script>
-<script src="mining.js"></script>
+<script src="{{ url_for('static', filename='js/footer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user-info.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mining.js') }}"></script>
 
 </body>
 </html>

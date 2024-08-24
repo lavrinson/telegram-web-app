@@ -12,7 +12,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Конфигурация бота
-BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Укажите ваш токен бота
+BOT_TOKEN = 'YOUR_BOT_TOKEN'  # Укажите ваш токен бота
 WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'  # URL вашего веб-приложения
 
 # Инициализация Flask
@@ -24,10 +24,15 @@ bot = Bot(token=BOT_TOKEN, session=AiohttpSession())
 # Инициализация диспетчера
 dp = Dispatcher()
 
-# Flask route для отображения страницы WebApp из корня
+# Flask route для отображения страницы WebApp
 @app.route('/')
 def index():
-    return send_from_directory('.', 'index.html')  # Загружаем index.html из корня проекта
+    return send_from_directory('.', 'index.html')  # Отправляем index.html из корневой папки
+
+# Flask route для обслуживания статических файлов
+@app.route('/<path:path>')
+def serve_static_files(path):
+    return send_from_directory('.', path)
 
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
@@ -37,9 +42,6 @@ def telegram_auth_callback():
 
     username = user_data.get('username', 'No Name')
     avatar_url = user_data.get('photo_url', None)
-
-    # Обработка данных пользователя (замените на вашу логику сохранения и загрузки данных)
-    # Например, сохраните информацию о пользователе в базе данных
 
     return jsonify({
         'coin_count': 1500,
@@ -57,7 +59,6 @@ async def start_command(message: types.Message):
     user_id = user.id
     username = user.username or user.first_name or "No Name"
 
-    # Создание кнопки для открытия Web App
     web_app = WebAppInfo(url=WEB_APP_URL)
     keyboard_markup = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Open Web App", web_app=web_app)]
@@ -68,10 +69,7 @@ async def start_command(message: types.Message):
 # Главная асинхронная функция запуска бота
 async def main():
     try:
-        # Удаление вебхуков, если они установлены
         await bot.delete_webhook(drop_pending_updates=True)
-
-        # Запуск процесса получения обновлений
         logging.info("Starting bot polling...")
         await dp.start_polling(bot)
     finally:
@@ -84,11 +82,8 @@ def run_flask():
 
 if __name__ == '__main__':
     try:
-        # Запуск Flask сервера в отдельном потоке
         flask_thread = Thread(target=run_flask)
         flask_thread.start()
-
-        # Запуск Telegram бота
         asyncio.run(main())
     except KeyboardInterrupt:
         logging.info("Shutting down...")
