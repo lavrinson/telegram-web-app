@@ -12,7 +12,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Конфигурация бота
-BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Ваш токен
+BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Укажите ваш токен бота
 WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'  # URL вашего веб-приложения
 
 # Инициализация Flask
@@ -27,7 +27,7 @@ dp = Dispatcher()
 # Flask route для отображения страницы WebApp
 @app.route('/')
 def index():
-    return render_template('user-info.html')  # Убедитесь, что у вас есть этот HTML-файл
+    return render_template('user-info.html')  # Убедитесь, что у вас есть этот HTML-файл в папке templates
 
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
