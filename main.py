@@ -1,5 +1,5 @@
 import asyncio
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
@@ -24,6 +24,10 @@ bot = Bot(token=BOT_TOKEN, session=AiohttpSession())
 # Инициализация диспетчера
 dp = Dispatcher()
 
+# Flask route для отображения страницы WebApp
+@app.route('/')
+def index():
+    return render_template('user-info.html')  # Убедитесь, что у вас есть этот HTML-файл
 
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
@@ -46,7 +50,6 @@ def telegram_auth_callback():
         'avatar_url': avatar_url
     })
 
-
 # Обработчик команды /start
 @dp.message(Command(commands=['start']))
 async def start_command(message: types.Message):
@@ -62,7 +65,6 @@ async def start_command(message: types.Message):
 
     await message.answer(f"Hello, {username}! Click the button below to open the Web App", reply_markup=keyboard_markup)
 
-
 # Главная асинхронная функция запуска бота
 async def main():
     try:
@@ -75,12 +77,10 @@ async def main():
     finally:
         await bot.session.close()
 
-
 # Запуск сервера Flask
 def run_flask():
     logging.info("Starting Flask server...")
     serve(app, host='0.0.0.0', port=5000)
-
 
 if __name__ == '__main__':
     try:

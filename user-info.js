@@ -1,30 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    function loadUserInfo() {
-        return fetch('user-info.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(html => {
-                document.querySelector('body').insertAdjacentHTML('afterbegin', html);
-                updateUserInfo();  // Обновляем информацию о пользователе, включая username
-                updateCoins();
-            })
-            .catch(error => console.error('Error loading user info:', error));
-    }
-
-    function updateCoins() {
-        const coinCountElement = document.getElementById('coin-count');
-        const savedCoins = parseInt(localStorage.getItem('coins')) || 0;
-        if (coinCountElement) {
-            coinCountElement.textContent = `${savedCoins}`;
-        } else {
-            console.error('Coin count element not found!');
-        }
-    }
-
     function updateUserInfo() {
         if (typeof Telegram !== 'undefined' && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
             let user = Telegram.WebApp.initDataUnsafe.user;
@@ -40,6 +14,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    loadUserInfo();
-    window.updateCoins = updateCoins;
+    updateUserInfo(); // Обновляем информацию о пользователе при загрузке страницы
 });
