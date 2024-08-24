@@ -6,18 +6,11 @@
     <title>Пользовательская информация</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="user-info.css">
-    <script>
-        // Код Telegram WebApp API для изменения цвета верхнего бара
-        window.onload = function() {
-            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-                // Устанавливаем цвет верхнего бара
-                Telegram.WebApp.setHeaderColor("bg_color", "#005a26"); // Синий цвет, замените на нужный
-            }
-        };
-    </script>
+    <script src="user-info.js"></script> <!-- Подключаем ваш JS-файл -->
 </head>
 <body>
 
+<!-- Блок пользователя -->
 <div class="user-info-background">
     <div class="user-info-container">
         <div class="user-info">
@@ -29,14 +22,12 @@
             <div class="user-info-right">
                 <div class="coin-info">
                     <img src="assets/icons/coin-panda.png" alt="Coin Icon" class="coin-icon">
-                    <p id="coin-count">0</p>
+                    <p id="coin-count">0</p> <!-- Убрано слово "Coins" -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="telegram-web-app.js"></script>
 
 </body>
 </html>
