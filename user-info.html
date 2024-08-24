@@ -1,14 +1,23 @@
-<!-- Верхний блок с синим фоном и элементами -->
-<div class="app-header">
-    <button class="back-button">Закрыть</button>
-    <div class="app-title-container">
-        <div class="app-title">Join DOGS</div>
-        <div class="app-subtitle">мини-приложение</div>
-    </div>
-    <button class="menu-button">•••</button>
-</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Пользовательская информация</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="user-info.css">
+    <script>
+        // Код Telegram WebApp API для изменения цвета верхнего бара
+        window.onload = function() {
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                // Устанавливаем цвет верхнего бара
+                Telegram.WebApp.setHeaderColor("bg_color", "#005a26"); // Синий цвет, замените на нужный
+            }
+        };
+    </script>
+</head>
+<body>
 
-<!-- Блок пользователя -->
 <div class="user-info-background">
     <div class="user-info-container">
         <div class="user-info">
@@ -20,9 +29,12 @@
             <div class="user-info-right">
                 <div class="coin-info">
                     <img src="assets/icons/coin-panda.png" alt="Coin Icon" class="coin-icon">
-                    <p id="coin-count">0</p> <!-- Количество монет -->
+                    <p id="coin-count">0</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+</body>
+</html>

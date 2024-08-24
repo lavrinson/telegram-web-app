@@ -1,76 +1,30 @@
-/* Стили верхнего блока с синим фоном */
-.app-header {
-    background-color: #005a26; /* Синий фон */
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 1100; /* Повышаем z-index чтобы быть выше других элементов */
-}
-
-/* Кнопка "назад" */
-.back-button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-/* Название приложения и подзаголовок */
-.app-title-container {
-    text-align: center;
-    flex: 1;
-}
-
-.app-title {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.app-subtitle {
-    font-size: 12px;
-}
-
-/* Иконка меню */
-.menu-button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-}
-
 /* Контейнер для фона под блоком пользователя */
 .user-info-background {
     position: fixed; /* Фиксируем фон на экране */
-    top: 60px; /* Отступ вниз после верхнего синего блока */
+    top: 0;
     left: 0;
     right: 0;
     z-index: 1000; /* Убедимся, что фон выше других элементов */
     background-image: url('assets/images/fon-user.webp'); /* Фоновое изображение */
     background-size: cover; /* Покрытие всего контейнера */
     background-position: center; /* Центрирование изображения */
-    padding: 10px 20px; /* Отступы вокруг блока пользователя */
+    padding: 20px; /* Отступы вокруг блока пользователя */
     margin: 0; /* Убираем отступы по бокам */
     width: 100%; /* Растягиваем фон на всю ширину страницы */
     box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    height: auto; /* Позволяем высоте адаптироваться */
 }
 
 /* Контейнер блока пользователя */
 .user-info-container {
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.8); /* Черный фон с прозрачностью */
+    padding: 20px;
+    background-color: #000000; /* Черный фон внутри обводки */
     color: #ffffff; /* Белый текст */
     border: 2px solid #ffffff; /* Белая обводка */
     border-radius: 10px; /* Закругление углов контейнера пользователя */
     box-sizing: border-box; /* Учитываем внутренние отступы в общем размере */
     margin: 0 auto; /* Центрируем блок в родительском контейнере */
     max-width: 1000px; /* Максимальная ширина блока для больших экранов */
-    width: 100%; /* Ширина на весь экран */
 }
 
 /* Стили для блока с информацией о пользователе */
