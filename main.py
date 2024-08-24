@@ -12,7 +12,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Конфигурация бота
-BOT_TOKEN = 'YOUR_BOT_TOKEN'  # Укажите ваш токен бота
+BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Укажите ваш токен бота
 WEB_APP_URL = 'https://lavrinson.github.io/telegram-web-app/'  # URL вашего веб-приложения
 
 # Инициализация Flask
