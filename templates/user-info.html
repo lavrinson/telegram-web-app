@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user-info.css') }}">
+    <script src="{{ url_for('static', filename='js/user-info.js') }}"></script>
+</head>
+<body>
+
+<div class="user-info-background">
+    <div class="user-info-container">
+        <div class="user-info">
+            <div class="user-info-left">
+                <p class="user-name">Username</p>
+            </div>
+            <div class="user-info-right">
+                <div class="coin-info">
+                    <img src="{{ url_for('static', filename='icons/coin-panda.png') }}" alt="Coin Icon" class="coin-icon">
+                    <p id="coin-count">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

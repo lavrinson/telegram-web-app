@@ -5,7 +5,7 @@
     left: 0;
     right: 0;
     z-index: 1000; /* Убедимся, что фон выше других элементов */
-    background-image: url('assets/images/fon-user.webp'); /* Фоновое изображение */
+    background-image: url('../images/fon-user.webp'); /* Фоновое изображение */
     background-size: cover; /* Покрытие всего контейнера */
     background-position: center; /* Центрирование изображения */
     padding: 20px; /* Отступы вокруг блока пользователя */
