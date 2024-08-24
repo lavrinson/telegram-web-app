@@ -1,5 +1,5 @@
 import asyncio
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, send_from_directory
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
@@ -24,10 +24,10 @@ bot = Bot(token=BOT_TOKEN, session=AiohttpSession())
 # Инициализация диспетчера
 dp = Dispatcher()
 
-# Flask route для отображения страницы WebApp
+# Flask route для отображения страницы WebApp из корня
 @app.route('/')
 def index():
-    return render_template('index.html')  # Убедитесь, что у вас есть этот HTML-файл в папке templates
+    return send_from_directory('.', 'index.html')  # Загружаем index.html из корня проекта
 
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
