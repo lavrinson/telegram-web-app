@@ -10,53 +10,52 @@
 </head>
 <body>
 
-<!-- Блок пользователя -->
-<div class="user-info-background">
-    <div class="user-info-container">
-        <div class="user-info">
-            <!-- Имя пользователя слева -->
-            <div class="user-info-left">
-                <p class="user-name">Username</p>
-            </div>
-            <!-- Количество монет справа -->
-            <div class="user-info-right">
-                <div class="coin-info">
-                    <img src="{{ url_for('static', filename='icons/coin-panda.png') }}" alt="Coin Icon" class="coin-icon">
-                    <p id="coin-count">0</p>
+    <!-- Блок пользователя -->
+    <div class="user-info-background">
+        <div class="user-info-container">
+            <div class="user-info">
+                <!-- Имя пользователя слева -->
+                <div class="user-info-left">
+                    <p class="user-name">Username</p>
+                </div>
+                <!-- Количество монет справа -->
+                <div class="user-info-right">
+                    <div class="coin-info">
+                        <img src="{{ url_for('static', filename='icons/coin-panda.png') }}" alt="Coin Icon" class="coin-icon">
+                        <p id="coin-count">0</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Контейнер для страницы -->
-<div class="container">
-    <!-- Кликер и энергия -->
-    <div class="clicker-container">
-        <img id="clicker-image" src="{{ url_for('static', filename='images/clicker.png') }}" alt="Clicker" class="clicker-image">
+    <!-- Контейнер для страницы -->
+    <div class="container">
+        <!-- Кликер и энергия -->
+        <div class="clicker-container">
+            <img id="clicker-image" src="{{ url_for('static', filename='images/clicker.png') }}" alt="Clicker" class="clicker-image">
+        </div>
+
+        <!-- Новый блок с энергией под кликером -->
+        <div class="energy-container">
+            <span id="energy-count" class="energy-display">100/100</span>
+            <img src="{{ url_for('static', filename='icons/energy.png') }}" alt="Energy Icon" class="energy-icon">
+        </div>
     </div>
 
-    <!-- Новый блок с энергией под кликером -->
-    <div class="energy-container">
-        <span id="energy-count" class="energy-display">100/100</span>
-        <img src="{{ url_for('static', filename='icons/energy.png') }}" alt="Energy Icon" class="energy-icon">
+    <!-- Кнопка FAQ -->
+    <a href="{{ url_for('static', filename='faq.html') }}" class="faq-button">
+        <img src="{{ url_for('static', filename='icons/faq.webp') }}" alt="FAQ" class="faq-icon">
+    </a>
+
+    <!-- Кнопка Boost и таймер -->
+    <div class="boost-container">
+        <img id="boost-button" src="{{ url_for('static', filename='icons/boost.png') }}" alt="Boost" class="boost-button">
+        <div id="boost-timer" class="boost-timer"></div>
     </div>
-</div>
 
-<!-- Кнопка FAQ -->
-<a href="{{ url_for('static', filename='faq.html') }}" class="faq-button">
-    <img src="{{ url_for('static', filename='icons/faq.webp') }}" alt="FAQ" class="faq-icon">
-</a>
-
-<!-- Кнопка Boost и таймер -->
-<div class="boost-container">
-    <img id="boost-button" src="{{ url_for('static', filename='icons/boost.png') }}" alt="Boost" class="boost-button">
-    <div id="boost-timer" class="boost-timer"></div>
-</div>
-
-<!-- Футер будет добавлен через JavaScript -->
-<script src="{{ url_for('static', filename='js/footer.js') }}"></script>
-<script src="{{ url_for('static', filename='js/clicker.js') }}"></script>
-<script src="{{ url_for('static', filename='js/user-info.js') }}"></script>
+    <!-- Подключение скриптов -->
+    <script src="{{ url_for('static', filename='js/user-info.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/clicker.js') }}"></script>
 </body>
 </html>

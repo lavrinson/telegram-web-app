@@ -27,7 +27,7 @@ dp = Dispatcher()
 # Flask route для отображения страницы WebApp
 @app.route('/')
 def index():
-    return render_template('user-info.html')  # Убедитесь, что у вас есть этот HTML-файл в папке templates
+    return render_template('index.html')  # Убедитесь, что у вас есть этот HTML-файл в папке templates
 
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
