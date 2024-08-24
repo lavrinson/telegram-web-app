@@ -6,6 +6,10 @@ from aiogram.types import WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.client.session.aiohttp import AiohttpSession
 from threading import Thread
 from waitress import serve
+import logging
+
+# Настройка логирования
+logging.basicConfig(level=logging.INFO)
 
 # Конфигурация бота
 BOT_TOKEN = '7097297999:AAFDjXRB2e05at2kvvnO6RVp--Zl6f5gLMM'  # Ваш токен
@@ -20,6 +24,7 @@ bot = Bot(token=BOT_TOKEN, session=AiohttpSession())
 # Инициализация диспетчера
 dp = Dispatcher()
 
+
 # Flask route для обработки авторизации через Telegram
 @app.route('/auth/telegram/callback', methods=['POST'])
 def telegram_auth_callback():
@@ -30,6 +35,7 @@ def telegram_auth_callback():
     avatar_url = user_data.get('photo_url', None)
 
     # Обработка данных пользователя (замените на вашу логику сохранения и загрузки данных)
+    # Например, сохраните информацию о пользователе в базе данных
 
     return jsonify({
         'coin_count': 1500,
@@ -39,6 +45,7 @@ def telegram_auth_callback():
         'username': username,
         'avatar_url': avatar_url
     })
+
 
 # Обработчик команды /start
 @dp.message(Command(commands=['start']))
@@ -55,23 +62,35 @@ async def start_command(message: types.Message):
 
     await message.answer(f"Hello, {username}! Click the button below to open the Web App", reply_markup=keyboard_markup)
 
+
 # Главная асинхронная функция запуска бота
 async def main():
-    # Удаление вебхуков, если они установлены
-    await bot.delete_webhook(drop_pending_updates=True)
-    await dp.start_polling(bot)
+    try:
+        # Удаление вебхуков, если они установлены
+        await bot.delete_webhook(drop_pending_updates=True)
+
+        # Запуск процесса получения обновлений
+        logging.info("Starting bot polling...")
+        await dp.start_polling(bot)
+    finally:
+        await bot.session.close()
+
 
 # Запуск сервера Flask
 def run_flask():
+    logging.info("Starting Flask server...")
     serve(app, host='0.0.0.0', port=5000)
+
 
 if __name__ == '__main__':
     try:
+        # Запуск Flask сервера в отдельном потоке
         flask_thread = Thread(target=run_flask)
         flask_thread.start()
 
+        # Запуск Telegram бота
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("Shutting down...")
+        logging.info("Shutting down...")
     finally:
-        print("Cleanup and shutdown complete.")
+        logging.info("Cleanup and shutdown complete.")
