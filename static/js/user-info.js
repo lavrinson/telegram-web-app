@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: 'user_id' // Здесь должен быть динамический ID пользователя
+                id: 'user_id' // Здесь должен быть реальный ID пользователя, полученный из Telegram
             })
         })
         .then(response => {
