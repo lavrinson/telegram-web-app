@@ -147,3 +147,22 @@ html, body {
     height: 100%;
     margin: 0;
 }
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .clicker-image {
+        max-width: 90%; /* Увеличиваем ширину изображения на мобильных */
+    }
+
+    .faq-button, .boost-container {
+        top: 20px; /* Уменьшаем отступ сверху для кнопок на мобильных */
+    }
+
+    .energy-container {
+        bottom: 50px; /* Поднимаем блок энергии на мобильных */
+    }
+}
